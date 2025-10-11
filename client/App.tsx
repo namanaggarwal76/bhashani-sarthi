@@ -7,24 +7,42 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NotFound from "./pages/NotFound";
-import { UserProvider } from "@/context/UserContext";
+import { AuthProvider } from "@/context/AuthContext";
+import { UserProvider, useUser } from "@/context/UserContext";
+import { initializeFirebase } from "@/lib/firebase";
 import Home from "@/pages/Home";
 import Onboarding from "@/pages/Onboarding";
+import Login from "@/pages/Login";
+import SignUp from "@/pages/SignUp";
 import Translate from "@/pages/Translate";
 import Speech from "@/pages/Speech";
 import OCR from "@/pages/OCR";
 import Guide from "@/pages/Guide";
 
+// Initialize Firebase
+initializeFirebase();
+
 const queryClient = new QueryClient();
 
 function RootRoutes() {
-  const hasUser = !!localStorage.getItem("sarthi.user");
+  const { user, loading } = useUser();
+  
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
+  
   return (
     <Routes>
       <Route
         path="/"
-        element={<Navigate to={hasUser ? "/home" : "/onboarding"} replace />}
+        element={<Navigate to={user ? "/home" : "/login"} replace />}
       />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<SignUp />} />
       <Route path="/onboarding" element={<Onboarding />} />
       <Route path="/home" element={<Home />} />
       <Route path="/translate" element={<Translate />} />
@@ -42,11 +60,13 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      <UserProvider>
-        <BrowserRouter>
-          <RootRoutes />
-        </BrowserRouter>
-      </UserProvider>
+      <AuthProvider>
+        <UserProvider>
+          <BrowserRouter>
+            <RootRoutes />
+          </BrowserRouter>
+        </UserProvider>
+      </AuthProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );

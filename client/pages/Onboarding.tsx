@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/context/AuthContext";
 import { useUser, BasicInfo, Preferences } from "@/context/UserContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,14 +20,30 @@ const languages = [
 ];
 
 export default function Onboarding() {
-  const { completeOnboarding } = useUser();
+  const { currentUser } = useAuth();
+  const { completeOnboarding, user } = useUser();
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [language, setLanguage] = useState(languages[0]);
+  const [loading, setLoading] = useState(false);
+
+  // Redirect if user already completed onboarding
+  useEffect(() => {
+    if (user) {
+      navigate("/home");
+    }
+  }, [user, navigate]);
+
+  // Redirect if not authenticated
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/login");
+    }
+  }, [currentUser, navigate]);
 
   const [basic, setBasic] = useState<BasicInfo>({
     name: "",
-    email: "",
+    email: currentUser?.email || "",
     country: "",
     age: 18,
     sex: "",
@@ -48,12 +65,22 @@ export default function Onboarding() {
     "adventure",
   ];
 
-  const submit = () => {
-    completeOnboarding({
-      basic_info: { ...basic, language },
-      preferences: prefs,
-    });
-    navigate("/home");
+  const submit = async () => {
+    if (!currentUser) return;
+    
+    setLoading(true);
+    try {
+      await completeOnboarding({
+        basic_info: { ...basic, language },
+        preferences: prefs,
+      });
+      navigate("/home");
+    } catch (error) {
+      console.error("Onboarding failed:", error);
+      alert("Failed to complete onboarding. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -216,11 +243,11 @@ export default function Onboarding() {
               </div>
             </div>
             <div className="flex gap-3 pt-2">
-              <Button variant="secondary" onClick={() => setStep(2)}>
+              <Button variant="secondary" onClick={() => setStep(2)} disabled={loading}>
                 Back
               </Button>
-              <Button className="flex-1" onClick={submit}>
-                Finish
+              <Button className="flex-1" onClick={submit} disabled={loading}>
+                {loading ? "Saving..." : "Finish"}
               </Button>
             </div>
           </div>

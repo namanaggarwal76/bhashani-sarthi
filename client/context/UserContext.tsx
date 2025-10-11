@@ -5,43 +5,23 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { useAuth } from "./AuthContext";
+import {
+  getUserWithChapters,
+  createUser as createFirestoreUser,
+  createChapter as createFirestoreChapter,
+  togglePlaceStatus,
+  tierFromXp,
+} from "@/lib/firestore-service";
+import type { User, BasicInfo, Preferences, Chapter, Place } from "@/lib/firebase-types";
 
 export type Language = {
   code: string; // e.g., "en-US"
   name: string; // e.g., "English"
 };
 
-export type BasicInfo = {
-  name: string;
-  email: string;
-  country: string;
-  age: number;
-  sex: string;
-  language: Language;
-};
-
-export type Preferences = {
-  interests: string[];
-  travel_style: string;
-  budget: string;
-};
-
-export type Place = {
-  place_id: string;
-  name: string;
-  type: string;
-  rating: number;
-  status: "done" | "pending";
-  visited_on?: number;
-};
-
-export type Chapter = {
-  id: string;
-  city: string;
-  country: string;
-  description?: string;
-  ai_suggested_places: Place[];
-};
+// Re-export types for backward compatibility
+export type { BasicInfo, Preferences, Place, Chapter };
 
 export type Stats = {
   xp: number;
@@ -50,50 +30,30 @@ export type Stats = {
   places_visited: number;
 };
 
-export type User = {
+// Client user type (includes chapters as array)
+export type UserContextUser = {
+  uid: string;
   basic_info: BasicInfo;
   preferences: Preferences;
   stats: Stats;
   chapters: Chapter[];
 };
 
-const STORAGE_KEY = "sarthi.user";
-
-// Simple tier calculator based on XP
-export function tierFromXp(xp: number): string {
-  if (xp >= 10000) return "Sarthi Elite";
-  if (xp >= 6000) return "World Explorer";
-  if (xp >= 3000) return "Pathfinder";
-  if (xp >= 1000) return "Trailblazer";
-  return "Wanderer";
-}
-
-function loadUser(): User | null {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? (JSON.parse(raw) as User) : null;
-  } catch {
-    return null;
-  }
-}
-
-function saveUser(user: User) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(user));
-}
-
 export type UserContextType = {
-  user: User | null;
-  setUser: (u: User | null) => void;
+  user: UserContextUser | null;
+  loading: boolean;
+  setUser: (u: UserContextUser | null) => void;
   completeOnboarding: (data: {
     basic_info: BasicInfo;
     preferences: Preferences;
-  }) => void;
+  }) => Promise<void>;
   addChapter: (input: {
     city: string;
     country: string;
     description?: string;
-  }) => Chapter;
-  togglePlaceDone: (chapterId: string, placeId: string) => void;
+  }) => Promise<Chapter>;
+  togglePlaceDone: (chapterId: string, placeId: string) => Promise<void>;
+  refreshUser: () => Promise<void>;
   t: (key: string) => string;
 };
 
@@ -142,29 +102,69 @@ const dictionary: Record<string, Record<string, string>> = {
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [user, setUser] = useState<User | null>(() => loadUser());
+  const { currentUser } = useAuth();
+  const [user, setUser] = useState<UserContextUser | null>(null);
+  const [loading, setLoading] = useState(true);
 
+  // Load user data from Firestore when auth state changes
   useEffect(() => {
-    if (user) saveUser(user);
-  }, [user]);
+    async function loadUser() {
+      if (!currentUser) {
+        setUser(null);
+        setLoading(false);
+        return;
+      }
 
-  const completeOnboarding = (data: {
+      try {
+        setLoading(true);
+        const userData = await getUserWithChapters(currentUser.uid);
+        if (userData) {
+          setUser(userData);
+        } else {
+          setUser(null);
+        }
+      } catch (error) {
+        console.error("Error loading user:", error);
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadUser();
+  }, [currentUser]);
+
+  const refreshUser = async () => {
+    if (!currentUser) return;
+    
+    try {
+      const userData = await getUserWithChapters(currentUser.uid);
+      if (userData) {
+        setUser(userData);
+      }
+    } catch (error) {
+      console.error("Error refreshing user:", error);
+    }
+  };
+
+  const completeOnboarding = async (data: {
     basic_info: BasicInfo;
     preferences: Preferences;
   }) => {
-    const initial: User = {
-      basic_info: data.basic_info,
-      preferences: data.preferences,
-      stats: {
-        xp: 0,
-        tier: "Wanderer",
-        chapters_created: 0,
-        places_visited: 0,
-      },
-      chapters: [],
-    };
-    initial.stats.tier = tierFromXp(initial.stats.xp);
-    setUser(initial);
+    if (!currentUser) {
+      throw new Error("No authenticated user");
+    }
+
+    try {
+      await createFirestoreUser(currentUser.uid, data);
+      const userData = await getUserWithChapters(currentUser.uid);
+      if (userData) {
+        setUser(userData);
+      }
+    } catch (error) {
+      console.error("Error completing onboarding:", error);
+      throw error;
+    }
   };
 
   const mockPlaces = (city: string): Place[] => {
@@ -194,66 +194,43 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     ];
   };
 
-  const addChapter = (input: {
+  const addChapter = async (input: {
     city: string;
     country: string;
     description?: string;
-  }): Chapter => {
+  }): Promise<Chapter> => {
+    if (!currentUser) throw new Error("User not authenticated");
     if (!user) throw new Error("User not initialized");
-    const id = `${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
-    const newChapter: Chapter = {
-      id,
-      city: input.city,
-      country: input.country,
-      description: input.description,
-      ai_suggested_places: mockPlaces(input.city),
-    };
-    const updated: User = {
-      ...user,
-      chapters: [newChapter, ...user.chapters],
-      stats: {
-        ...user.stats,
-        chapters_created: user.stats.chapters_created + 1,
-      },
-    };
-    setUser(updated);
-    return newChapter;
+
+    try {
+      const newChapter = await createFirestoreChapter(currentUser.uid, {
+        city: input.city,
+        country: input.country,
+        description: input.description,
+        ai_suggested_places: mockPlaces(input.city),
+      });
+
+      // Refresh user data to get updated stats
+      await refreshUser();
+
+      return newChapter;
+    } catch (error) {
+      console.error("Error adding chapter:", error);
+      throw error;
+    }
   };
 
-  const togglePlaceDone = (chapterId: string, placeId: string) => {
-    if (!user) return;
-    const updatedChapters = user.chapters.map((c) => {
-      if (c.id !== chapterId) return c;
-      const places = c.ai_suggested_places.map((p) => {
-        if (p.place_id !== placeId) return p;
-        const nextStatus = p.status === "done" ? "pending" : "done";
-        return {
-          ...p,
-          status: nextStatus,
-          visited_on: nextStatus === "done" ? Date.now() : undefined,
-        };
-      });
-      return { ...c, ai_suggested_places: places };
-    });
+  const togglePlaceDone = async (chapterId: string, placeId: string) => {
+    if (!currentUser) return;
 
-    // compute xp changes: +50 per place completed
-    const completedCount = updatedChapters
-      .flatMap((c) => c.ai_suggested_places)
-      .filter((p) => p.status === "done").length;
-
-    const xp = completedCount * 50;
-
-    const updated: User = {
-      ...user,
-      chapters: updatedChapters,
-      stats: {
-        ...user.stats,
-        xp,
-        places_visited: completedCount,
-        tier: tierFromXp(xp),
-      },
-    };
-    setUser(updated);
+    try {
+      await togglePlaceStatus(currentUser.uid, chapterId, placeId);
+      // Refresh user data to get updated stats and chapters
+      await refreshUser();
+    } catch (error) {
+      console.error("Error toggling place status:", error);
+      throw error;
+    }
   };
 
   const t = (key: string) => {
@@ -265,13 +242,15 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   const value = useMemo(
     () => ({
       user,
+      loading,
       setUser,
       completeOnboarding,
       addChapter,
       togglePlaceDone,
+      refreshUser,
       t,
     }),
-    [user],
+    [user, loading, currentUser],
   );
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
@@ -282,3 +261,6 @@ export function useUser() {
   if (!ctx) throw new Error("useUser must be used within UserProvider");
   return ctx;
 }
+
+// Export tierFromXp for backward compatibility
+export { tierFromXp };
