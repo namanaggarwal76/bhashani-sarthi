@@ -1,6 +1,7 @@
 import { initializeApp, getApps, FirebaseApp } from "firebase/app";
 import { getAuth, Auth } from "firebase/auth";
 import { getFirestore, Firestore } from "firebase/firestore";
+import { checkFirebaseConfig, logFirebaseStatus } from "./firebase-check";
 
 // Firebase configuration from environment variables
 const firebaseConfig = {
@@ -13,15 +14,31 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase (singleton pattern)
-let app: FirebaseApp;
-let auth: Auth;
-let db: Firestore;
+let app: FirebaseApp | undefined;
+let auth: Auth | undefined;
+let db: Firestore | undefined;
 
 export function initializeFirebase() {
+  // Check if Firebase config is valid
+  const configStatus = checkFirebaseConfig();
+  
+  if (!configStatus.isConfigured) {
+    console.error('❌ Firebase Configuration Error:', configStatus.message);
+    console.error('Please check your .env.local file and ensure all Firebase environment variables are set correctly.');
+    throw new Error('Firebase not configured. Check console for details.');
+  }
+  
   if (!getApps().length) {
-    app = initializeApp(firebaseConfig);
-    auth = getAuth(app);
-    db = getFirestore(app);
+    try {
+      app = initializeApp(firebaseConfig);
+      auth = getAuth(app);
+      db = getFirestore(app);
+      logFirebaseStatus();
+      console.log('✓ Firebase initialized successfully');
+    } catch (error) {
+      console.error('❌ Failed to initialize Firebase:', error);
+      throw error;
+    }
   } else {
     app = getApps()[0];
     auth = getAuth(app);
@@ -31,6 +48,21 @@ export function initializeFirebase() {
   return { app, auth, db };
 }
 
-// Export instances
+// Getter functions to ensure Firebase is initialized
+export function getFirebaseAuth(): Auth {
+  if (!auth) {
+    throw new Error("Firebase not initialized. Call initializeFirebase() first.");
+  }
+  return auth;
+}
+
+export function getFirebaseDb(): Firestore {
+  if (!db) {
+    throw new Error("Firebase not initialized. Call initializeFirebase() first.");
+  }
+  return db;
+}
+
+// Export instances (for backward compatibility, but prefer getter functions)
 export { auth, db };
 export default app;

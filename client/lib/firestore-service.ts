@@ -23,8 +23,10 @@ import type {
   Stats,
 } from "./firebase-types";
 
-// Collection references
-const usersCollection = collection(db, "users");
+// Helper: get users collection reference (lazy initialization)
+function getUsersCollection(): CollectionReference {
+  return collection(db, "users");
+}
 
 // Helper: get chapters subcollection reference
 function getChaptersCollection(userId: string): CollectionReference {
@@ -54,14 +56,14 @@ export async function createUser(
     },
   };
 
-  await setDoc(doc(usersCollection, userId), userDoc);
+  await setDoc(doc(getUsersCollection(), userId), userDoc);
 }
 
 /**
  * Get user document from Firestore
  */
 export async function getUser(userId: string): Promise<UserDoc | null> {
-  const userDocRef = doc(usersCollection, userId);
+  const userDocRef = doc(getUsersCollection(), userId);
   const userSnapshot = await getDoc(userDocRef);
 
   if (!userSnapshot.exists()) {
@@ -78,7 +80,7 @@ export async function updateUserBasicInfo(
   userId: string,
   basicInfo: Partial<BasicInfo>
 ): Promise<void> {
-  const userDocRef = doc(usersCollection, userId);
+  const userDocRef = doc(getUsersCollection(), userId);
   await updateDoc(userDocRef, {
     basic_info: basicInfo,
   });
@@ -91,7 +93,7 @@ export async function updateUserPreferences(
   userId: string,
   preferences: Partial<Preferences>
 ): Promise<void> {
-  const userDocRef = doc(usersCollection, userId);
+  const userDocRef = doc(getUsersCollection(), userId);
   await updateDoc(userDocRef, {
     preferences: preferences,
   });
@@ -104,7 +106,7 @@ export async function updateUserStats(
   userId: string,
   stats: Partial<Stats>
 ): Promise<void> {
-  const userDocRef = doc(usersCollection, userId);
+  const userDocRef = doc(getUsersCollection(), userId);
   await updateDoc(userDocRef, {
     stats: stats,
   });
@@ -114,7 +116,7 @@ export async function updateUserStats(
  * Delete user document
  */
 export async function deleteUser(userId: string): Promise<void> {
-  const userDocRef = doc(usersCollection, userId);
+  const userDocRef = doc(getUsersCollection(), userId);
   await deleteDoc(userDocRef);
 }
 
