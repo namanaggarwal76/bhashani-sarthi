@@ -36,6 +36,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!auth) {
+      // If Firebase auth isn't initialized (missing env in dev), skip and mark not loading
+      console.warn("Firebase auth not initialized; AuthProvider will run in unauthenticated mode");
+      setCurrentUser(null);
+      setLoading(false);
+      return () => {};
+    }
+
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
       setLoading(false);

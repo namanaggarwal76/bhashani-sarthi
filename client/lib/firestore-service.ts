@@ -23,11 +23,15 @@ import type {
   Stats,
 } from "./firebase-types";
 
-// Collection references
-const usersCollection = collection(db, "users");
+// Helper to get users collection (guard against missing `db`)
+function getUsersCollection(): CollectionReference {
+  if (!db) throw new Error("Firestore not initialized (db is undefined)");
+  return collection(db, "users");
+}
 
 // Helper: get chapters subcollection reference
 function getChaptersCollection(userId: string): CollectionReference {
+  if (!db) throw new Error("Firestore not initialized (db is undefined)");
   return collection(db, `users/${userId}/chapters`);
 }
 
@@ -54,14 +58,15 @@ export async function createUser(
     },
   };
 
-  await setDoc(doc(usersCollection, userId), userDoc);
+  if (import.meta.env.DEV) console.debug("Firestore:createUser", { userId, userDoc });
+  await setDoc(doc(getUsersCollection(), userId), userDoc);
 }
 
 /**
  * Get user document from Firestore
  */
 export async function getUser(userId: string): Promise<UserDoc | null> {
-  const userDocRef = doc(usersCollection, userId);
+  const userDocRef = doc(getUsersCollection(), userId);
   const userSnapshot = await getDoc(userDocRef);
 
   if (!userSnapshot.exists()) {
@@ -78,7 +83,11 @@ export async function updateUserBasicInfo(
   userId: string,
   basicInfo: Partial<BasicInfo>
 ): Promise<void> {
-  const userDocRef = doc(usersCollection, userId);
+  const userDocRef = doc(getUsersCollection(), userId);
+  if (import.meta.env.DEV) console.debug("Firestore:updateUserBasicInfo", {
+    userId,
+    basicInfo,
+  });
   await updateDoc(userDocRef, {
     basic_info: basicInfo,
   });
@@ -91,7 +100,11 @@ export async function updateUserPreferences(
   userId: string,
   preferences: Partial<Preferences>
 ): Promise<void> {
-  const userDocRef = doc(usersCollection, userId);
+  const userDocRef = doc(getUsersCollection(), userId);
+  if (import.meta.env.DEV) console.debug("Firestore:updateUserPreferences", {
+    userId,
+    preferences,
+  });
   await updateDoc(userDocRef, {
     preferences: preferences,
   });
@@ -104,7 +117,8 @@ export async function updateUserStats(
   userId: string,
   stats: Partial<Stats>
 ): Promise<void> {
-  const userDocRef = doc(usersCollection, userId);
+  const userDocRef = doc(getUsersCollection(), userId);
+  if (import.meta.env.DEV) console.debug("Firestore:updateUserStats", { userId, stats });
   await updateDoc(userDocRef, {
     stats: stats,
   });
@@ -114,7 +128,8 @@ export async function updateUserStats(
  * Delete user document
  */
 export async function deleteUser(userId: string): Promise<void> {
-  const userDocRef = doc(usersCollection, userId);
+  const userDocRef = doc(getUsersCollection(), userId);
+  if (import.meta.env.DEV) console.debug("Firestore:deleteUser", { userId });
   await deleteDoc(userDocRef);
 }
 
@@ -142,6 +157,7 @@ export async function createChapter(
     ai_suggested_places: chapterData.ai_suggested_places || [],
   };
 
+  if (import.meta.env.DEV) console.debug("Firestore:createChapter", { userId, chapterId: newChapterRef.id, chapterDoc });
   await setDoc(newChapterRef, chapterDoc);
 
   // Update user stats
@@ -200,6 +216,7 @@ export async function updateChapter(
   updates: Partial<ChapterDoc>
 ): Promise<void> {
   const chapterDocRef = doc(getChaptersCollection(userId), chapterId);
+  if (import.meta.env.DEV) console.debug("Firestore:updateChapter", { userId, chapterId, updates });
   await updateDoc(chapterDocRef, updates);
 }
 
@@ -211,6 +228,7 @@ export async function deleteChapter(
   chapterId: string
 ): Promise<void> {
   const chapterDocRef = doc(getChaptersCollection(userId), chapterId);
+  if (import.meta.env.DEV) console.debug("Firestore:deleteChapter", { userId, chapterId });
   await deleteDoc(chapterDocRef);
 
   // Update user stats

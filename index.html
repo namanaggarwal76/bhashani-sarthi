@@ -9,6 +9,30 @@
   <body>
     <div id="root"></div>
 
+    <!-- Fallback: show a helpful message if React doesn't mount (prevents fully blank page) -->
+    <div id="boot-fallback" style="display:none;position:fixed;inset:0;align-items:center;justify-content:center;background:rgba(255,255,255,0.9);z-index:9999;"> 
+      <div style="text-align:center;color:#111;font-family:Inter,system-ui,Arial,sans-serif;">
+        <h2>App failed to load</h2>
+        <p>Open the browser console to see the error and check the dev server output.</p>
+      </div>
+    </div>
+
+    <script>
+      // If React hasn't mounted within 3s, show the fallback UI so it's not a blank page.
+      const fallbackTimer = setTimeout(() => {
+        const root = document.getElementById('root');
+        if (root && root.childElementCount === 0) {
+          const fb = document.getElementById('boot-fallback');
+          if (fb) fb.style.display = 'flex';
+        }
+      }, 3000);
+
+      // When React mounts it can clear this timer by setting window.__reactMounted = true
+      window.addEventListener('load', () => {
+        if ((window).__reactMounted) clearTimeout(fallbackTimer);
+      });
+    </script>
+
     <script type="module" src="/client/App.tsx"></script>
   </body>
 </html>

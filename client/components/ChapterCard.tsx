@@ -10,19 +10,19 @@ export default function ChapterCard({ chapter }: { chapter: Chapter }) {
   const total = chapter.ai_suggested_places.length;
 
   return (
-    <div className="rounded-2xl border bg-card p-4 shadow-sm">
+  <div className="rounded-2xl border bg-card/80 p-4 shadow-sm">
       <div className="flex items-start justify-between">
         <div>
-          <h3 className="text-lg font-semibold">
+          <h3 className="text-lg font-semibold text-gray-900">
             {chapter.city}, {chapter.country}
           </h3>
           {chapter.description && (
-            <p className="text-sm text-muted-foreground mt-1">
+            <p className="text-sm text-gray-900 mt-1">
               {chapter.description}
             </p>
           )}
         </div>
-        <div className="text-sm text-muted-foreground">
+        <div className="text-sm text-gray-900">
           {completed}/{total}
         </div>
       </div>
@@ -30,11 +30,11 @@ export default function ChapterCard({ chapter }: { chapter: Chapter }) {
         {chapter.ai_suggested_places.map((p) => (
           <li
             key={p.place_id}
-            className="flex items-center justify-between rounded-xl bg-secondary px-3 py-2"
+            className="flex items-center justify-between rounded-xl bg-secondary/85 px-3 py-2"
           >
             <div className="flex items-center gap-2">
               {p.status === "done" ? (
-                <CheckCircle2 className="h-5 w-5 text-primary" />
+                <CheckCircle2 className="h-5 w-5 text-gray-900" />
               ) : (
                 <Circle className="h-5 w-5 text-muted-foreground" />
               )}
@@ -47,7 +47,7 @@ export default function ChapterCard({ chapter }: { chapter: Chapter }) {
             </div>
             <button
               onClick={() => togglePlaceDone(chapter.id, p.place_id)}
-              className={`text-xs font-semibold rounded-full px-3 py-1 ${p.status === "done" ? "bg-primary text-primary-foreground" : "bg-white text-foreground border"}`}
+              className={`text-xs font-semibold rounded-full px-3 py-1 ${p.status === "done" ? "text-white bg-gradient-to-r from-purple-500 to-blue-600" : "bg-white text-foreground border"}`}
             >
               {p.status === "done" ? "Done" : "Mark"}
             </button>

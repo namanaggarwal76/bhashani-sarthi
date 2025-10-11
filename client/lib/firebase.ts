@@ -1,8 +1,7 @@
-import { initializeApp, getApps, FirebaseApp } from "firebase/app";
-import { getAuth, Auth } from "firebase/auth";
-import { getFirestore, Firestore } from "firebase/firestore";
+import { initializeApp, getApps } from "firebase/app";
+import { getAuth, connectAuthEmulator } from "firebase/auth";
+import { getFirestore, connectFirestoreEmulator, setLogLevel } from "firebase/firestore";
 
-// Firebase configuration from environment variables
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
@@ -12,25 +11,40 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase (singleton pattern)
-let app: FirebaseApp;
-let auth: Auth;
-let db: Firestore;
+let app, auth, db;
 
 export function initializeFirebase() {
-  if (!getApps().length) {
-    app = initializeApp(firebaseConfig);
-    auth = getAuth(app);
-    db = getFirestore(app);
-  } else {
-    app = getApps()[0];
-    auth = getAuth(app);
-    db = getFirestore(app);
+  if (!firebaseConfig.apiKey) {
+    console.warn("Firebase API key missing — skipping initialization.");
+    return { app: undefined, auth: undefined, db: undefined };
   }
-  
-  return { app, auth, db };
+
+  try {
+    if (!getApps().length) {
+      app = initializeApp(firebaseConfig);
+      auth = getAuth(app);
+      db = getFirestore(app);
+
+      if (import.meta.env.DEV) {
+        setLogLevel("error"); // quieter logs
+      }
+
+      if (import.meta.env.VITE_FIREBASE_USE_EMULATOR === "true") {
+        const host = import.meta.env.VITE_FIREBASE_EMULATOR_HOST || "localhost";
+        connectFirestoreEmulator(db, host, 8080);
+        connectAuthEmulator(auth, `http://${host}:9099`, { disableWarnings: true });
+      }
+    }
+    return { app, auth, db };
+  } catch (err) {
+    console.error("Firebase init failed:", err);
+    return { app: undefined, auth: undefined, db: undefined };
+  }
 }
 
-// Export instances
+export const getFirebase = () => {
+  if (!app) initializeFirebase();
+  return { app, auth, db };
+};
 export { auth, db };
-export default app;
+

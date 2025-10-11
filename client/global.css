@@ -107,3 +107,129 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Background visuals - lightweight and GPU friendly */
+.app-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app-content { z-index: 10; position: relative; }
+
+.app-bg { z-index: 0; }
+
+.bg-layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform, opacity, filter;
+}
+
+.bg-gradient {
+  background-color: hsl(var(--background));
+  /* Use local abstract SVG as a subtle base layer; rotating .bg-image layers appear above this. */
+  background-image: url('/images/bg-abstract-1.svg');
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  mix-blend-mode: normal;
+  opacity: 0.98;
+  filter: saturate(1.02) blur(0px);
+}
+
+.bg-pattern {
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/bg-abstract-2.svg'), radial-gradient(circle at 20% 20%, rgba(255,255,255,0.03) 0px, transparent 30%);
+  background-repeat: no-repeat, no-repeat;
+  background-position: center bottom, 20% 20%;
+  background-size: cover, auto;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.bg-blob {
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 50%;
+  transform: translate3d(-10%, -20%, 0) scale(1);
+  filter: blur(60px) saturate(1.1);
+  opacity: 0.35;
+  mix-blend-mode: screen;
+}
+
+.bg-blob-1 {
+  background: radial-gradient(circle at 30% 30%, rgba(99,102,241,0.85), rgba(99,102,241,0.45) 40%, transparent 60%);
+  left: -10%;
+  top: -20%;
+  animation: float-blob-1 12s ease-in-out infinite;
+}
+
+.bg-blob-2 {
+  background: radial-gradient(circle at 70% 70%, rgba(99,102,241,0.6), rgba(99,102,241,0.18) 40%, transparent 60%);
+  right: -20%;
+  bottom: -10%;
+  animation: float-blob-2 18s ease-in-out infinite;
+}
+
+@keyframes float-blob-1 {
+  0% { transform: translate3d(-10%, -20%, 0) scale(1); opacity: 0.36; }
+  50% { transform: translate3d(-14%, -16%, 0) scale(1.06); opacity: 0.42; }
+  100% { transform: translate3d(-10%, -20%, 0) scale(1); opacity: 0.36; }
+}
+
+@keyframes float-blob-2 {
+  0% { transform: translate3d(10%, 20%, 0) scale(1); opacity: 0.32; }
+  50% { transform: translate3d(6%, 16%, 0) scale(1.08); opacity: 0.38; }
+  100% { transform: translate3d(10%, 20%, 0) scale(1); opacity: 0.32; }
+}
+
+/* prefer-reduced-motion: stop animations and reduce visual noise */
+@media (prefers-reduced-motion: reduce) {
+  .bg-blob-1, .bg-blob-2 { animation: none; opacity: 0.28; }
+}
+
+/* Inline SVG artwork styles */
+.bg-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.55;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  will-change: opacity, transform;
+}
+
+.bg-svg-1 { transform: translate3d(-2%, -4%, 0) scale(1.02); }
+.bg-svg-2 { transform: translate3d(2%, 4%, 0) scale(1.04); opacity: 0.32; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-svg { opacity: 0.35; transform: none; }
+}
+
+/* Rotating background image layers */
+.bg-image {
+  position: absolute;
+  inset: 0;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  transition: opacity 1000ms ease-in-out;
+  will-change: opacity;
+  opacity: 0;
+  z-index: 1; /* ensure these image layers show above the gradient */
+}
+
+.bg-image.opacity-100 {
+  opacity: 1;
+}
+
+.bg-gradient { z-index: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-image { transition: none !important; }
+}
+
