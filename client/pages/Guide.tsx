@@ -9,7 +9,9 @@ export default function Guide() {
       <Header />
       <main className="mx-auto max-w-3xl px-4 py-6 space-y-2">
         <h1 className="text-xl font-semibold">{t("guide")}</h1>
-        <p className="text-sm text-muted-foreground">AI tourist guide uses GPS + chapters. API only, not stored.</p>
+        <p className="text-sm text-muted-foreground">
+          AI tourist guide uses GPS + chapters. API only, not stored.
+        </p>
       </main>
       <BottomNav />
     </div>

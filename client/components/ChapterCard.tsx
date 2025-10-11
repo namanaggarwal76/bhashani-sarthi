@@ -4,19 +4,27 @@ import { useUser } from "@/context/UserContext";
 
 export default function ChapterCard({ chapter }: { chapter: Chapter }) {
   const { togglePlaceDone } = useUser();
-  const completed = chapter.ai_suggested_places.filter((p) => p.status === "done").length;
+  const completed = chapter.ai_suggested_places.filter(
+    (p) => p.status === "done",
+  ).length;
   const total = chapter.ai_suggested_places.length;
 
   return (
     <div className="rounded-2xl border bg-card p-4 shadow-sm">
       <div className="flex items-start justify-between">
         <div>
-          <h3 className="text-lg font-semibold">{chapter.city}, {chapter.country}</h3>
+          <h3 className="text-lg font-semibold">
+            {chapter.city}, {chapter.country}
+          </h3>
           {chapter.description && (
-            <p className="text-sm text-muted-foreground mt-1">{chapter.description}</p>
+            <p className="text-sm text-muted-foreground mt-1">
+              {chapter.description}
+            </p>
           )}
         </div>
-        <div className="text-sm text-muted-foreground">{completed}/{total}</div>
+        <div className="text-sm text-muted-foreground">
+          {completed}/{total}
+        </div>
       </div>
       <ul className="mt-3 space-y-2">
         {chapter.ai_suggested_places.map((p) => (
@@ -32,7 +40,9 @@ export default function ChapterCard({ chapter }: { chapter: Chapter }) {
               )}
               <div>
                 <p className="text-sm font-medium leading-tight">{p.name}</p>
-                <p className="text-xs text-muted-foreground">{p.type} • ⭐ {p.rating.toFixed(1)}</p>
+                <p className="text-xs text-muted-foreground">
+                  {p.type} • ⭐ {p.rating.toFixed(1)}
+                </p>
               </div>
             </div>
             <button

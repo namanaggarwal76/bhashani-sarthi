@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 
 export type Language = {
   code: string; // e.g., "en-US"
@@ -78,8 +84,15 @@ function saveUser(user: User) {
 export type UserContextType = {
   user: User | null;
   setUser: (u: User | null) => void;
-  completeOnboarding: (data: { basic_info: BasicInfo; preferences: Preferences }) => void;
-  addChapter: (input: { city: string; country: string; description?: string }) => Chapter;
+  completeOnboarding: (data: {
+    basic_info: BasicInfo;
+    preferences: Preferences;
+  }) => void;
+  addChapter: (input: {
+    city: string;
+    country: string;
+    description?: string;
+  }) => Chapter;
   togglePlaceDone: (chapterId: string, placeId: string) => void;
   t: (key: string) => string;
 };
@@ -126,18 +139,28 @@ const dictionary: Record<string, Record<string, string>> = {
   },
 };
 
-export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [user, setUser] = useState<User | null>(() => loadUser());
 
   useEffect(() => {
     if (user) saveUser(user);
   }, [user]);
 
-  const completeOnboarding = (data: { basic_info: BasicInfo; preferences: Preferences }) => {
+  const completeOnboarding = (data: {
+    basic_info: BasicInfo;
+    preferences: Preferences;
+  }) => {
     const initial: User = {
       basic_info: data.basic_info,
       preferences: data.preferences,
-      stats: { xp: 0, tier: "Wanderer", chapters_created: 0, places_visited: 0 },
+      stats: {
+        xp: 0,
+        tier: "Wanderer",
+        chapters_created: 0,
+        places_visited: 0,
+      },
       chapters: [],
     };
     initial.stats.tier = tierFromXp(initial.stats.xp);
@@ -147,13 +170,35 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const mockPlaces = (city: string): Place[] => {
     // Replace with Google Places in future; mocked now
     return [
-      { place_id: `${city.toLowerCase()}_001`, name: `${city} Central Park`, type: "Attraction", rating: 4.6, status: "pending" },
-      { place_id: `${city.toLowerCase()}_002`, name: `Top Food Street`, type: "Food", rating: 4.4, status: "pending" },
-      { place_id: `${city.toLowerCase()}_003`, name: `Historic Museum`, type: "Museum", rating: 4.5, status: "pending" },
+      {
+        place_id: `${city.toLowerCase()}_001`,
+        name: `${city} Central Park`,
+        type: "Attraction",
+        rating: 4.6,
+        status: "pending",
+      },
+      {
+        place_id: `${city.toLowerCase()}_002`,
+        name: `Top Food Street`,
+        type: "Food",
+        rating: 4.4,
+        status: "pending",
+      },
+      {
+        place_id: `${city.toLowerCase()}_003`,
+        name: `Historic Museum`,
+        type: "Museum",
+        rating: 4.5,
+        status: "pending",
+      },
     ];
   };
 
-  const addChapter = (input: { city: string; country: string; description?: string }): Chapter => {
+  const addChapter = (input: {
+    city: string;
+    country: string;
+    description?: string;
+  }): Chapter => {
     if (!user) throw new Error("User not initialized");
     const id = `${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
     const newChapter: Chapter = {
@@ -182,7 +227,11 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const places = c.ai_suggested_places.map((p) => {
         if (p.place_id !== placeId) return p;
         const nextStatus = p.status === "done" ? "pending" : "done";
-        return { ...p, status: nextStatus, visited_on: nextStatus === "done" ? Date.now() : undefined };
+        return {
+          ...p,
+          status: nextStatus,
+          visited_on: nextStatus === "done" ? Date.now() : undefined,
+        };
       });
       return { ...c, ai_suggested_places: places };
     });
@@ -214,7 +263,14 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const value = useMemo(
-    () => ({ user, setUser, completeOnboarding, addChapter, togglePlaceDone, t }),
+    () => ({
+      user,
+      setUser,
+      completeOnboarding,
+      addChapter,
+      togglePlaceDone,
+      t,
+    }),
     [user],
   );
 

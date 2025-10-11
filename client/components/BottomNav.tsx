@@ -2,7 +2,15 @@ import { NavLink } from "react-router-dom";
 import { Camera, Home, Languages, MessageCircle, Mic } from "lucide-react";
 import { useUser } from "@/context/UserContext";
 
-const Tab = ({ to, icon: Icon, label }: { to: string; icon: any; label: string }) => (
+const Tab = ({
+  to,
+  icon: Icon,
+  label,
+}: {
+  to: string;
+  icon: any;
+  label: string;
+}) => (
   <NavLink
     to={to}
     className={({ isActive }) =>

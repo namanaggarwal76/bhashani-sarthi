@@ -15,7 +15,9 @@ export default function Translate() {
           <Input placeholder="Enter text" />
           <Button>Go</Button>
         </div>
-        <p className="text-sm text-muted-foreground">Real-time translation via API (not stored).</p>
+        <p className="text-sm text-muted-foreground">
+          Real-time translation via API (not stored).
+        </p>
       </main>
       <BottomNav />
     </div>

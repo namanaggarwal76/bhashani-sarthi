@@ -21,7 +21,10 @@ function RootRoutes() {
   const hasUser = !!localStorage.getItem("sarthi.user");
   return (
     <Routes>
-      <Route path="/" element={<Navigate to={hasUser ? "/home" : "/onboarding"} replace />} />
+      <Route
+        path="/"
+        element={<Navigate to={hasUser ? "/home" : "/onboarding"} replace />}
+      />
       <Route path="/onboarding" element={<Onboarding />} />
       <Route path="/home" element={<Home />} />
       <Route path="/translate" element={<Translate />} />

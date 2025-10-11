@@ -8,10 +8,14 @@ export default function Header() {
       <div className="mx-auto max-w-3xl px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <div className="h-9 w-9 rounded-xl bg-primary text-primary-foreground grid place-items-center font-extrabold">S</div>
+            <div className="h-9 w-9 rounded-xl bg-primary text-primary-foreground grid place-items-center font-extrabold">
+              S
+            </div>
             <div>
               <p className="font-extrabold text-lg tracking-tight">Sarthi</p>
-              <p className="text-xs text-muted-foreground">Your AI Travel Companion</p>
+              <p className="text-xs text-muted-foreground">
+                Your AI Travel Companion
+              </p>
             </div>
           </div>
           {user && (

@@ -5,7 +5,13 @@ import XpBar from "@/components/XpBar";
 import ChapterCard from "@/components/ChapterCard";
 import { useUser } from "@/context/UserContext";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Plus } from "lucide-react";
 
@@ -30,8 +36,13 @@ export default function Home() {
       <Header />
       <main className="mx-auto max-w-3xl px-4 py-4 space-y-6">
         <div>
-          <h2 className="text-xl font-semibold">{t("welcome")}, {user?.basic_info.name?.split(" ")[0] || "Traveler"} 👋</h2>
-          <p className="text-sm text-muted-foreground">{t("tier")}: {user?.stats.tier} | {t("xp")}: {user?.stats.xp}</p>
+          <h2 className="text-xl font-semibold">
+            {t("welcome")}, {user?.basic_info.name?.split(" ")[0] || "Traveler"}{" "}
+            👋
+          </h2>
+          <p className="text-sm text-muted-foreground">
+            {t("tier")}: {user?.stats.tier} | {t("xp")}: {user?.stats.xp}
+          </p>
         </div>
         <XpBar />
 
@@ -47,11 +58,25 @@ export default function Home() {
                   <DialogTitle>{t("createChapter")}</DialogTitle>
                 </DialogHeader>
                 <div className="grid gap-3">
-                  <Input placeholder={t("city")} value={city} onChange={(e) => setCity(e.target.value)} />
-                  <Input placeholder={t("country")} value={country} onChange={(e) => setCountry(e.target.value)} />
-                  <Input placeholder={t("description")} value={description} onChange={(e) => setDescription(e.target.value)} />
+                  <Input
+                    placeholder={t("city")}
+                    value={city}
+                    onChange={(e) => setCity(e.target.value)}
+                  />
+                  <Input
+                    placeholder={t("country")}
+                    value={country}
+                    onChange={(e) => setCountry(e.target.value)}
+                  />
+                  <Input
+                    placeholder={t("description")}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                  />
                   <div className="flex justify-end gap-2 pt-2">
-                    <Button variant="secondary" onClick={() => setOpen(false)}>{t("cancel")}</Button>
+                    <Button variant="secondary" onClick={() => setOpen(false)}>
+                      {t("cancel")}
+                    </Button>
                     <Button onClick={submit}>{t("add")}</Button>
                   </div>
                 </div>

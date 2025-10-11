@@ -4,7 +4,13 @@ import { useUser, BasicInfo, Preferences } from "@/context/UserContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const languages = [
   { code: "en-US", name: "English" },
@@ -33,10 +39,20 @@ export default function Onboarding() {
     budget: "moderate",
   });
 
-  const interestOptions = ["food", "monuments", "nature", "culture", "museums", "adventure"];
+  const interestOptions = [
+    "food",
+    "monuments",
+    "nature",
+    "culture",
+    "museums",
+    "adventure",
+  ];
 
   const submit = () => {
-    completeOnboarding({ basic_info: { ...basic, language }, preferences: prefs });
+    completeOnboarding({
+      basic_info: { ...basic, language },
+      preferences: prefs,
+    });
     navigate("/home");
   };
 
@@ -48,19 +64,30 @@ export default function Onboarding() {
 
         {step === 1 && (
           <div className="mt-8 space-y-4">
-            <h2 className="text-xl font-semibold">Choose your preferred language</h2>
-            <Select value={language.code} onValueChange={(v) => setLanguage(languages.find((l) => l.code === v)!)}>
+            <h2 className="text-xl font-semibold">
+              Choose your preferred language
+            </h2>
+            <Select
+              value={language.code}
+              onValueChange={(v) =>
+                setLanguage(languages.find((l) => l.code === v)!)
+              }
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select language" />
               </SelectTrigger>
               <SelectContent>
                 {languages.map((l) => (
-                  <SelectItem key={l.code} value={l.code}>{l.name}</SelectItem>
+                  <SelectItem key={l.code} value={l.code}>
+                    {l.name}
+                  </SelectItem>
                 ))}
               </SelectContent>
             </Select>
             <div className="pt-2">
-              <Button className="w-full" onClick={() => setStep(2)}>Continue</Button>
+              <Button className="w-full" onClick={() => setStep(2)}>
+                Continue
+              </Button>
             </div>
           </div>
         )}
@@ -71,30 +98,56 @@ export default function Onboarding() {
             <div className="grid gap-4">
               <div>
                 <Label>Name</Label>
-                <Input value={basic.name} onChange={(e) => setBasic({ ...basic, name: e.target.value })} />
+                <Input
+                  value={basic.name}
+                  onChange={(e) => setBasic({ ...basic, name: e.target.value })}
+                />
               </div>
               <div>
                 <Label>Email</Label>
-                <Input value={basic.email} onChange={(e) => setBasic({ ...basic, email: e.target.value })} />
+                <Input
+                  value={basic.email}
+                  onChange={(e) =>
+                    setBasic({ ...basic, email: e.target.value })
+                  }
+                />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label>Country</Label>
-                  <Input value={basic.country} onChange={(e) => setBasic({ ...basic, country: e.target.value })} />
+                  <Input
+                    value={basic.country}
+                    onChange={(e) =>
+                      setBasic({ ...basic, country: e.target.value })
+                    }
+                  />
                 </div>
                 <div>
                   <Label>Age</Label>
-                  <Input type="number" value={basic.age} onChange={(e) => setBasic({ ...basic, age: Number(e.target.value) })} />
+                  <Input
+                    type="number"
+                    value={basic.age}
+                    onChange={(e) =>
+                      setBasic({ ...basic, age: Number(e.target.value) })
+                    }
+                  />
                 </div>
               </div>
               <div>
                 <Label>Sex</Label>
-                <Input value={basic.sex} onChange={(e) => setBasic({ ...basic, sex: e.target.value })} />
+                <Input
+                  value={basic.sex}
+                  onChange={(e) => setBasic({ ...basic, sex: e.target.value })}
+                />
               </div>
             </div>
             <div className="flex gap-3 pt-2">
-              <Button variant="secondary" onClick={() => setStep(1)}>Back</Button>
-              <Button className="flex-1" onClick={() => setStep(3)}>Continue</Button>
+              <Button variant="secondary" onClick={() => setStep(1)}>
+                Back
+              </Button>
+              <Button className="flex-1" onClick={() => setStep(3)}>
+                Continue
+              </Button>
             </div>
           </div>
         )}
@@ -114,7 +167,9 @@ export default function Onboarding() {
                       onClick={() =>
                         setPrefs((p) => ({
                           ...p,
-                          interests: active ? p.interests.filter((x) => x !== i) : [...p.interests, i],
+                          interests: active
+                            ? p.interests.filter((x) => x !== i)
+                            : [...p.interests, i],
                         }))
                       }
                     >
@@ -127,20 +182,28 @@ export default function Onboarding() {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <Label>Travel style</Label>
-                <Select value={prefs.travel_style} onValueChange={(v) => setPrefs({ ...prefs, travel_style: v })}>
+                <Select
+                  value={prefs.travel_style}
+                  onValueChange={(v) => setPrefs({ ...prefs, travel_style: v })}
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="relaxed">relaxed</SelectItem>
                     <SelectItem value="adventurous">adventurous</SelectItem>
-                    <SelectItem value="family-friendly">family-friendly</SelectItem>
+                    <SelectItem value="family-friendly">
+                      family-friendly
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div>
                 <Label>Budget</Label>
-                <Select value={prefs.budget} onValueChange={(v) => setPrefs({ ...prefs, budget: v })}>
+                <Select
+                  value={prefs.budget}
+                  onValueChange={(v) => setPrefs({ ...prefs, budget: v })}
+                >
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
@@ -153,8 +216,12 @@ export default function Onboarding() {
               </div>
             </div>
             <div className="flex gap-3 pt-2">
-              <Button variant="secondary" onClick={() => setStep(2)}>Back</Button>
-              <Button className="flex-1" onClick={submit}>Finish</Button>
+              <Button variant="secondary" onClick={() => setStep(2)}>
+                Back
+              </Button>
+              <Button className="flex-1" onClick={submit}>
+                Finish
+              </Button>
             </div>
           </div>
         )}
