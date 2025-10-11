@@ -7,7 +7,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import NotFound from "./pages/NotFound";
-import { AuthProvider } from "@/context/AuthContext";
+import { AuthProvider, useAuth } from "@/context/AuthContext";
 import { UserProvider, useUser } from "@/context/UserContext";
 import { initializeFirebase } from "@/lib/firebase";
 import Home from "@/pages/Home";
@@ -24,8 +24,34 @@ initializeFirebase();
 
 const queryClient = new QueryClient();
 
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const { user, loading } = useUser();
+  const { currentUser } = useAuth();
+  
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading...</div>
+      </div>
+    );
+  }
+  
+  // Not authenticated - redirect to login
+  if (!currentUser) {
+    return <Navigate to="/login" replace />;
+  }
+  
+  // Authenticated but no user profile - redirect to onboarding
+  if (!user) {
+    return <Navigate to="/onboarding" replace />;
+  }
+  
+  return <>{children}</>;
+}
+
 function RootRoutes() {
   const { user, loading } = useUser();
+  const { currentUser } = useAuth();
   
   if (loading) {
     return (
@@ -43,12 +69,52 @@ function RootRoutes() {
       />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/onboarding" element={<Onboarding />} />
-      <Route path="/home" element={<Home />} />
-      <Route path="/translate" element={<Translate />} />
-      <Route path="/speech" element={<Speech />} />
-      <Route path="/ocr" element={<OCR />} />
-      <Route path="/guide" element={<Guide />} />
+      <Route 
+        path="/onboarding" 
+        element={
+          currentUser ? <Onboarding /> : <Navigate to="/login" replace />
+        } 
+      />
+      <Route 
+        path="/home" 
+        element={
+          <ProtectedRoute>
+            <Home />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/translate" 
+        element={
+          <ProtectedRoute>
+            <Translate />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/speech" 
+        element={
+          <ProtectedRoute>
+            <Speech />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/ocr" 
+        element={
+          <ProtectedRoute>
+            <OCR />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/guide" 
+        element={
+          <ProtectedRoute>
+            <Guide />
+          </ProtectedRoute>
+        } 
+      />
       {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
       <Route path="*" element={<NotFound />} />
     </Routes>

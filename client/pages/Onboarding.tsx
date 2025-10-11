@@ -46,7 +46,6 @@ export default function Onboarding() {
     email: currentUser?.email || "",
     country: "",
     age: 18,
-    sex: "",
     language,
   });
 
@@ -159,13 +158,6 @@ export default function Onboarding() {
                     }
                   />
                 </div>
-              </div>
-              <div>
-                <Label>Sex</Label>
-                <Input
-                  value={basic.sex}
-                  onChange={(e) => setBasic({ ...basic, sex: e.target.value })}
-                />
               </div>
             </div>
             <div className="flex gap-3 pt-2">

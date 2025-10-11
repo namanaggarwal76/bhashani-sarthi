@@ -49,7 +49,7 @@ export type UserContextType = {
   }) => Promise<void>;
   addChapter: (input: {
     city: string;
-    country: string;
+    country?: string;
     description?: string;
   }) => Promise<Chapter>;
   togglePlaceDone: (chapterId: string, placeId: string) => Promise<void>;
@@ -167,47 +167,93 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   };
 
-  const mockPlaces = (city: string): Place[] => {
-    // Replace with Google Places in future; mocked now
-    return [
-      {
-        place_id: `${city.toLowerCase()}_001`,
-        name: `${city} Central Park`,
-        type: "Attraction",
-        rating: 4.6,
-        status: "pending",
-      },
-      {
-        place_id: `${city.toLowerCase()}_002`,
-        name: `Top Food Street`,
-        type: "Food",
-        rating: 4.4,
-        status: "pending",
-      },
-      {
-        place_id: `${city.toLowerCase()}_003`,
-        name: `Historic Museum`,
-        type: "Museum",
-        rating: 4.5,
-        status: "pending",
-      },
-    ];
+  const generateAITasks = async (city: string, country?: string): Promise<Place[]> => {
+    try {
+      if (!user) return [];
+
+      const response = await fetch("/api/generate-tasks", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          city,
+          country: country || "",
+          preferences: user.preferences,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to generate tasks");
+      }
+
+      const data = await response.json();
+      
+      // Convert AI tasks to Place format with XP
+      return data.tasks.map((task: any) => ({
+        place_id: task.place_id,
+        name: task.name,
+        type: task.type,
+        rating: task.rating,
+        status: "pending" as const,
+        xp: task.xp, // XP from AI based on popularity
+        description: task.description,
+        estimated_duration: task.estimated_duration,
+      }));
+    } catch (error) {
+      console.error("Failed to generate AI tasks, using fallback:", error);
+      // Fallback to simple mock if API fails
+      return [
+        {
+          place_id: `${city.toLowerCase()}_001`,
+          name: `${city} Central Park`,
+          type: "Nature",
+          rating: 4.6,
+          status: "pending",
+          xp: 80,
+        },
+        {
+          place_id: `${city.toLowerCase()}_002`,
+          name: `${city} Museum`,
+          type: "Museum",
+          rating: 4.5,
+          status: "pending",
+          xp: 100,
+        },
+        {
+          place_id: `${city.toLowerCase()}_003`,
+          name: `${city} Food Market`,
+          type: "Food",
+          rating: 4.7,
+          status: "pending",
+          xp: 60,
+        },
+      ];
+    }
   };
 
   const addChapter = async (input: {
     city: string;
-    country: string;
+    country?: string;
     description?: string;
   }): Promise<Chapter> => {
-    if (!currentUser) throw new Error("User not authenticated");
-    if (!user) throw new Error("User not initialized");
+    if (!currentUser) {
+      throw new Error("User not authenticated. Please log in.");
+    }
+    
+    if (!user) {
+      throw new Error("User profile not loaded. Please complete onboarding first.");
+    }
 
     try {
+      // Generate AI-powered tasks based on user preferences
+      const aiTasks = await generateAITasks(input.city, input.country);
+
       const newChapter = await createFirestoreChapter(currentUser.uid, {
         city: input.city,
-        country: input.country,
+        country: input.country || "",
         description: input.description,
-        ai_suggested_places: mockPlaces(input.city),
+        ai_suggested_places: aiTasks,
       });
 
       // Refresh user data to get updated stats

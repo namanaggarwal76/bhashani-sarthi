@@ -10,3 +10,42 @@
 export interface DemoResponse {
   message: string;
 }
+
+/**
+ * User preferences for personalization
+ */
+export interface Preferences {
+  interests: string[];
+  travel_style: string;
+  budget: string;
+}
+
+/**
+ * AI-generated place/task with XP points
+ */
+export interface AIGeneratedPlace {
+  place_id: string;
+  name: string;
+  type: string;
+  rating: number;
+  xp: number;
+  status: "pending" | "done";
+  description?: string;
+  estimated_duration?: string;
+}
+
+/**
+ * Request to generate tasks for a city
+ */
+export interface GenerateTasksRequest {
+  city: string;
+  country?: string;
+  preferences: Preferences;
+}
+
+/**
+ * Response with generated tasks
+ */
+export interface GenerateTasksResponse {
+  tasks: AIGeneratedPlace[];
+}

@@ -129,7 +129,7 @@ export async function createChapter(
   userId: string,
   chapterData: {
     city: string;
-    country: string;
+    country?: string;
     description?: string;
     ai_suggested_places?: Place[];
   }
@@ -139,7 +139,7 @@ export async function createChapter(
 
   const chapterDoc: ChapterDoc = {
     city: chapterData.city,
-    country: chapterData.country,
+    country: chapterData.country || "",
     description: chapterData.description || "",
     ai_suggested_places: chapterData.ai_suggested_places || [],
   };
@@ -256,15 +256,19 @@ export async function togglePlaceStatus(
   const allChapters = await getUserChapters(userId);
   const completedPlaces = allChapters
     .flatMap((c) => c.ai_suggested_places)
-    .filter((p) => p.status === "done").length;
+    .filter((p) => p.status === "done");
 
-  const xp = completedPlaces * 50;
+  // Calculate XP based on individual place XP values (if available) or default to 50
+  const xp = completedPlaces.reduce((total, place) => {
+    return total + (place.xp || 50);
+  }, 0);
+  
   const tier = tierFromXp(xp);
 
   await updateUserStats(userId, {
     xp,
     tier,
-    places_visited: completedPlaces,
+    places_visited: completedPlaces.length,
   });
 }
 

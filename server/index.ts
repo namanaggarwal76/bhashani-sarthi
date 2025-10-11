@@ -1,7 +1,25 @@
-import "dotenv/config";
+import dotenv from "dotenv";
+import { fileURLToPath } from "url";
+import { dirname, join } from "path";
 import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
+import { handleGenerateTasks } from "./routes/generate-tasks";
+
+// Get the directory name in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Load .env.local explicitly (prioritize it over .env)
+dotenv.config({ path: join(__dirname, "../.env.local") });
+dotenv.config(); // Also load .env as fallback
+
+// Verify API key is loaded
+if (process.env.GEMINI_API_KEY) {
+  console.log("✅ Gemini API key loaded successfully");
+} else {
+  console.warn("⚠️  Gemini API key not found - AI features will use mock data");
+}
 
 export function createServer() {
   const app = express();
@@ -18,6 +36,9 @@ export function createServer() {
   });
 
   app.get("/api/demo", handleDemo);
+  
+  // AI-powered task generation
+  app.post("/api/generate-tasks", handleGenerateTasks);
 
   return app;
 }

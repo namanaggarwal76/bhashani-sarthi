@@ -16,20 +16,42 @@ import { Input } from "@/components/ui/input";
 import { Plus } from "lucide-react";
 
 export default function Home() {
-  const { user, addChapter, t } = useUser();
+  const { user, addChapter, t, loading } = useUser();
   const [open, setOpen] = useState(false);
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [description, setDescription] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  const submit = () => {
-    if (!city || !country) return;
-    addChapter({ city, country, description });
-    setCity("");
-    setCountry("");
-    setDescription("");
-    setOpen(false);
+  const submit = async () => {
+    if (!city || submitting) return;
+    
+    setSubmitting(true);
+    try {
+      await addChapter({ 
+        city, 
+        ...(country && { country }), 
+        ...(description && { description }) 
+      });
+      setCity("");
+      setCountry("");
+      setDescription("");
+      setOpen(false);
+    } catch (error) {
+      console.error("Failed to create chapter:", error);
+      alert("Failed to create chapter. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
+
+  if (loading || !user) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-lg">Loading your journey...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen pb-28">
@@ -37,11 +59,11 @@ export default function Home() {
       <main className="mx-auto max-w-3xl px-4 py-4 space-y-6">
         <div>
           <h2 className="text-xl font-semibold">
-            {t("welcome")}, {user?.basic_info.name?.split(" ")[0] || "Traveler"}{" "}
+            {t("welcome")}, {user.basic_info.name?.split(" ")[0] || "Traveler"}{" "}
             👋
           </h2>
           <p className="text-sm text-muted-foreground">
-            {t("tier")}: {user?.stats.tier} | {t("xp")}: {user?.stats.xp}
+            {t("tier")}: {user.stats.tier} | {t("xp")}: {user.stats.xp}
           </p>
         </div>
         <XpBar />
@@ -51,7 +73,9 @@ export default function Home() {
             <h3 className="text-lg font-semibold">{t("yourChapters")}</h3>
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogTrigger asChild>
-                <Button size="sm">{t("createChapter")}</Button>
+                <Button size="sm" disabled={loading || !user}>
+                  {t("createChapter")}
+                </Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
@@ -59,25 +83,35 @@ export default function Home() {
                 </DialogHeader>
                 <div className="grid gap-3">
                   <Input
-                    placeholder={t("city")}
+                    placeholder={t("city") + " *"}
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
+                    required
                   />
                   <Input
-                    placeholder={t("country")}
+                    placeholder={t("country") + " (optional)"}
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
                   />
                   <Input
-                    placeholder={t("description")}
+                    placeholder={t("description") + " (optional)"}
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                   />
                   <div className="flex justify-end gap-2 pt-2">
-                    <Button variant="secondary" onClick={() => setOpen(false)}>
+                    <Button 
+                      variant="secondary" 
+                      onClick={() => setOpen(false)}
+                      disabled={submitting}
+                    >
                       {t("cancel")}
                     </Button>
-                    <Button onClick={submit}>{t("add")}</Button>
+                    <Button 
+                      onClick={submit}
+                      disabled={submitting || !user || !city}
+                    >
+                      {submitting ? "Generating AI Tasks..." : t("add")}
+                    </Button>
                   </div>
                 </div>
               </DialogContent>
@@ -102,6 +136,7 @@ export default function Home() {
         className="fixed bottom-24 right-6 h-14 w-14 rounded-full shadow-lg"
         size="icon"
         onClick={() => setOpen(true)}
+        disabled={loading || !user}
       >
         <Plus className="h-6 w-6" />
       </Button>

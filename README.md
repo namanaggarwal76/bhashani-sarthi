@@ -74,6 +74,7 @@ shared/
 - **Express.js** - Lightweight API server
 - **Firebase Authentication** - User auth (Email/Password + Google OAuth)
 - **Firestore** - NoSQL database
+- **Google Gemini API** - AI-powered task generation with Gemini 2.5 Flash
 - **Vite Dev Server Integration** - Single-port development
 
 **Development:**
@@ -92,7 +93,6 @@ users/ (collection)
       │   email: string
       │   country: string
       │   age: number
-      │   sex: string
       │   language: { code: string, name: string }
       │ }
       ├─ preferences: {
@@ -118,6 +118,9 @@ users/ (collection)
                   rating: number
                   status: "done" | "pending"
                   visited_on: Timestamp | null
+                  xp: number (AI-calculated based on popularity)
+                  description: string (AI-generated)
+                  estimated_duration: string
                 }]
 ```
 
@@ -134,18 +137,20 @@ users/ (collection)
 - Password reset functionality
 - Persistent sessions
 
-### 2. **Travel Chapters**
+### 2. **AI-Powered Travel Planning**
 - Create chapters for different cities
-- Track places to visit with AI suggestions
-- Mark places as completed
-- Automatic XP calculation
-- Tier progression system
+- **AI generates personalized tasks** based on your preferences
+- Dynamic XP points (20-200) based on place popularity and fame
+- Tasks tailored to your interests, travel style, and budget
+- AI-powered descriptions and time estimates
+- Mark places as completed to earn XP
 
 ### 3. **Gamification**
-- XP points for completing activities
-- Tier system (Explorer → Trailblazer → Globetrotter)
+- Variable XP points for completing activities (based on place popularity)
+- Tier system: Wanderer → Trailblazer → Pathfinder → World Explorer → Sarthi Elite
 - Progress visualization
 - Achievement tracking
+- Higher XP for famous landmarks and attractions
 
 ### 4. **Language Tools**
 - **Translator**: Real-time text translation
@@ -202,20 +207,33 @@ pnpm install
    - Scroll to "Your apps" → Add web app
    - Copy the config object
 
-### Step 4: Environment Variables
+### Step 4: Get Gemini API Key
+
+1. Visit [Google AI Studio](https://aistudio.google.com/app/apikey)
+2. Sign in with your Google account
+3. Click "Get API key" or "Create API key"
+4. Add it to `.env.local`
+
+### Step 5: Environment Variables
 
 Create a `.env.local` file in the root directory:
 
 ```env
+# Firebase Configuration
 VITE_FIREBASE_API_KEY=your-api-key
 VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
 VITE_FIREBASE_PROJECT_ID=your-project-id
 VITE_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
 VITE_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
 VITE_FIREBASE_APP_ID=your-app-id
+
+# Google Gemini API for AI-powered task generation
+GEMINI_API_KEY=your-gemini-api-key-here
 ```
 
-### Step 5: Run Development Server
+**Note:** The AI task generation will fall back to mock data if GEMINI_API_KEY is not configured.
+
+### Step 6: Run Development Server
 ```bash
 pnpm dev
 ```
