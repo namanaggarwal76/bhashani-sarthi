@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { v4 as uuid } from "uuid";
 
 export type Language = {
   code: string; // e.g., "en-US"
