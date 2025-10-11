@@ -155,8 +155,9 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const addChapter = (input: { city: string; country: string; description?: string }): Chapter => {
     if (!user) throw new Error("User not initialized");
+    const id = `${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
     const newChapter: Chapter = {
-      id: uuid(),
+      id,
       city: input.city,
       country: input.country,
       description: input.description,
