@@ -107,7 +107,7 @@
     "title": "Translate",
     "placeholder": "Enter text",
     "button": "Translate",
-    "description": "Real-time translation via API (not stored)."
+    "description": ""
   },
   "speech": {
     "title": "Speech",
