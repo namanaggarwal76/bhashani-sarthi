@@ -11,7 +11,8 @@ interface AITaskResponse {
 export async function generateTasksForCity(
   city: string,
   country: string,
-  preferences: Preferences
+  preferences: Preferences,
+  language: string = "English"
 ): Promise<AIGeneratedPlace[]> {
   const apiKey = process.env.GEMINI_API_KEY;
 
@@ -21,7 +22,7 @@ export async function generateTasksForCity(
   }
 
   try {
-    const prompt = buildPrompt(city, country, preferences);
+    const prompt = buildPrompt(city, country, preferences, language);
 
     // Initialize Gemini client
     const ai = new GoogleGenAI({ apiKey });
@@ -97,7 +98,8 @@ export async function generateTasksForCity(
 function buildPrompt(
   city: string,
   country: string,
-  preferences: Preferences
+  preferences: Preferences,
+  language: string
 ): string {
   const location = country ? `${city}, ${country}` : city;
   const interests = preferences.interests.length > 0 
@@ -110,6 +112,7 @@ User Profile:
 - Interests: ${interests}
 - Travel Style: ${preferences.travel_style}
 - Budget: ${preferences.budget}
+- Language: ${language}
 
 Task Requirements:
 1. Recommend real, popular places and activities in ${city}
@@ -122,23 +125,26 @@ Task Requirements:
    - Local gems: 20-60 XP
 5. Include diverse types: Attraction, Food, Museum, Nature, Culture, Shopping, Entertainment
 6. Provide brief descriptions and estimated visit durations
+7. IMPORTANT: Write ALL text content (place names, descriptions, type labels) in ${language} script
 
 Response Format - Return ONLY valid JSON, no other text:
 {
   "tasks": [
     {
       "place_id": "${city.toLowerCase()}_001",
-      "name": "Place Name",
-      "type": "Attraction",
+      "name": "Place Name in ${language}",
+      "type": "Type in ${language}",
       "rating": 4.5,
       "xp": 120,
-      "description": "Why visit this place",
-      "estimated_duration": "2 hours"
+      "description": "Description in ${language}",
+      "estimated_duration": "Duration text in ${language}"
     }
   ]
 }
 
-IMPORTANT: Output must be ONLY the JSON object above, nothing else.`;
+IMPORTANT: 
+- Output must be ONLY the JSON object above, nothing else
+- ALL text fields (name, type, description, estimated_duration) must be in ${language} script`;
 }
 
 /**

@@ -41,6 +41,7 @@ export interface GenerateTasksRequest {
   city: string;
   country?: string;
   preferences: Preferences;
+  language?: string; // User's selected language for response localization
 }
 
 /**

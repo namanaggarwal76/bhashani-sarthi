@@ -1,9 +1,11 @@
 import { CheckCircle2, Circle } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Chapter } from "@/context/UserContext";
 import { useUser } from "@/context/UserContext";
 
 export default function ChapterCard({ chapter }: { chapter: Chapter }) {
   const { togglePlaceDone } = useUser();
+  const { t } = useTranslation();
   const completed = chapter.ai_suggested_places.filter(
     (p) => p.status === "done",
   ).length;
@@ -14,7 +16,7 @@ export default function ChapterCard({ chapter }: { chapter: Chapter }) {
       <div className="flex items-start justify-between">
         <div>
           <h3 className="text-lg font-semibold">
-            {chapter.city}, {chapter.country}
+            {chapter.country ? `${chapter.city}, ${chapter.country}` : chapter.city}
           </h3>
           {chapter.description && (
             <p className="text-sm text-muted-foreground mt-1">
@@ -54,7 +56,7 @@ export default function ChapterCard({ chapter }: { chapter: Chapter }) {
               onClick={() => togglePlaceDone(chapter.id, p.place_id)}
               className={`text-xs font-semibold rounded-full px-3 py-1 whitespace-nowrap ${p.status === "done" ? "bg-primary text-primary-foreground" : "bg-white text-foreground border"}`}
             >
-              {p.status === "done" ? "Done" : "Mark"}
+              {p.status === "done" ? t('chapter.completed') : t('chapter.pending')}
             </button>
           </li>
         ))}

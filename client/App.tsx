@@ -1,4 +1,5 @@
 import "./global.css";
+import "./lib/i18n"; // Initialize i18n
 
 import { Toaster } from "@/components/ui/toaster";
 import { createRoot } from "react-dom/client";
@@ -10,6 +11,8 @@ import NotFound from "./pages/NotFound";
 import { AuthProvider, useAuth } from "@/context/AuthContext";
 import { UserProvider, useUser } from "@/context/UserContext";
 import { initializeFirebase } from "@/lib/firebase";
+import Landing from "@/pages/Landing";
+import LanguageSelection from "@/pages/LanguageSelection";
 import Home from "@/pages/Home";
 import Onboarding from "@/pages/Onboarding";
 import Login from "@/pages/Login";
@@ -52,6 +55,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 function RootRoutes() {
   const { user, loading } = useUser();
   const { currentUser } = useAuth();
+  const hasSelectedLanguage = localStorage.getItem("selectedLanguage");
   
   if (loading) {
     return (
@@ -65,8 +69,19 @@ function RootRoutes() {
     <Routes>
       <Route
         path="/"
-        element={<Navigate to={user ? "/home" : "/login"} replace />}
+        element={
+          !hasSelectedLanguage ? (
+            <Landing />
+          ) : !currentUser ? (
+            <Navigate to="/signup" replace />
+          ) : !user ? (
+            <Navigate to="/onboarding" replace />
+          ) : (
+            <Navigate to="/home" replace />
+          )
+        }
       />
+      <Route path="/language" element={<LanguageSelection />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<SignUp />} />
       <Route 

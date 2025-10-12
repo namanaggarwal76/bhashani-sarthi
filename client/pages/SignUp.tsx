@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,6 +13,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
  */
 export default function SignUp() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { signUp, signInWithGoogle, loading, error } = useAuthOperations();
   
   const [email, setEmail] = useState("");
@@ -55,8 +57,8 @@ export default function SignUp() {
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Create Account</CardTitle>
-          <CardDescription>Start your journey with Bhashani Sarthi</CardDescription>
+          <CardTitle>{t('auth.signup')}</CardTitle>
+          <CardDescription>{t('landing.subtitle')}</CardDescription>
         </CardHeader>
         
         <CardContent className="space-y-4">
@@ -68,11 +70,11 @@ export default function SignUp() {
           
           <form onSubmit={handleSignUp} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t('auth.email')}</Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="Enter your email"
+                placeholder={t('auth.email')}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -81,11 +83,11 @@ export default function SignUp() {
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t('auth.password')}</Label>
               <Input
                 id="password"
                 type="password"
-                placeholder="Create a password"
+                placeholder={t('auth.password')}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -95,11 +97,11 @@ export default function SignUp() {
             </div>
             
             <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
+              <Label htmlFor="confirmPassword">{t('auth.confirmPassword')}</Label>
               <Input
                 id="confirmPassword"
                 type="password"
-                placeholder="Confirm your password"
+                placeholder={t('auth.confirmPassword')}
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 required
@@ -108,7 +110,7 @@ export default function SignUp() {
             </div>
             
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Creating account..." : "Sign Up"}
+              {loading ? t('common.loading') : t('auth.signup')}
             </Button>
           </form>
           
@@ -118,7 +120,7 @@ export default function SignUp() {
             </div>
             <div className="relative flex justify-center text-xs uppercase">
               <span className="bg-background px-2 text-muted-foreground">
-                Or continue with
+                {t('auth.or')}
               </span>
             </div>
           </div>
@@ -148,7 +150,7 @@ export default function SignUp() {
                 fill="#EA4335"
               />
             </svg>
-            Google
+            {t('auth.loginWithGoogle')}
           </Button>
         </CardContent>
         
@@ -159,7 +161,7 @@ export default function SignUp() {
             className="w-full text-sm"
             onClick={() => navigate("/login")}
           >
-            Already have an account? Sign in
+            {t('auth.alreadyHaveAccount')} {t('auth.login')}
           </Button>
         </CardFooter>
       </Card>

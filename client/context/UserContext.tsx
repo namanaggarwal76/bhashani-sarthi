@@ -171,6 +171,24 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
     try {
       if (!user) return [];
 
+      // Get language name from localStorage language code
+      const languageCode = localStorage.getItem("selectedLanguage") || "en";
+      const languageMap: { [key: string]: string } = {
+        en: "English",
+        hi: "Hindi",
+        te: "Telugu",
+        kn: "Kannada",
+        mr: "Marathi",
+        pa: "Punjabi",
+        gu: "Gujarati",
+        or: "Odia",
+        bn: "Bengali",
+        ml: "Malayalam",
+        ta: "Tamil",
+        ur: "Urdu",
+      };
+      const language = languageMap[languageCode] || "English";
+
       const response = await fetch("/api/generate-tasks", {
         method: "POST",
         headers: {
@@ -180,6 +198,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
           city,
           country: country || "",
           preferences: user.preferences,
+          language,
         }),
       });
 

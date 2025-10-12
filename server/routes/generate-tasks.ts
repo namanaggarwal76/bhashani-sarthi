@@ -4,7 +4,7 @@ import type { GenerateTasksRequest, GenerateTasksResponse } from "@shared/api";
 
 export const handleGenerateTasks: RequestHandler = async (req, res) => {
   try {
-    const { city, country, preferences } = req.body as GenerateTasksRequest;
+    const { city, country, preferences, language } = req.body as GenerateTasksRequest;
 
     // Validate request
     if (!city) {
@@ -19,7 +19,8 @@ export const handleGenerateTasks: RequestHandler = async (req, res) => {
     const tasks = await generateTasksForCity(
       city,
       country || "",
-      preferences
+      preferences,
+      language || "English"
     );
 
     const response: GenerateTasksResponse = { tasks };

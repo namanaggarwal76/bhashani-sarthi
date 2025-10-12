@@ -1,0 +1,129 @@
+{
+  "landing": {
+    "title": "Sarthi",
+    "subtitle": "Your Travel Companion",
+    "scrollDown": "Scroll down to continue"
+  },
+  "languageSelection": {
+    "title": "Choose Your Language",
+    "subtitle": "Select your preferred language",
+    "continue": "Continue"
+  },
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "name": "Name",
+    "alreadyHaveAccount": "Already have an account?",
+    "dontHaveAccount": "Don't have an account?",
+    "loginWithGoogle": "Continue with Google",
+    "or": "or"
+  },
+  "onboarding": {
+    "title": "Tell us about yourself",
+    "name": "Your Name",
+    "age": "Age",
+    "country": "Country",
+    "city": "City",
+    "interests": "Interests",
+    "interestsPlaceholder": "Select your interests",
+    "travelStyle": "Travel Style",
+    "budget": "Budget",
+    "next": "Next",
+    "skip": "Skip",
+    "finish": "Finish",
+    "travelStyles": {
+      "adventurous": "Adventurous",
+      "relaxed": "Relaxed",
+      "cultural": "Cultural",
+      "luxury": "Luxury",
+      "budget": "Budget"
+    },
+    "budgetLevels": {
+      "low": "Budget Friendly",
+      "moderate": "Moderate",
+      "high": "Luxury"
+    },
+    "interestsList": {
+      "culture": "Culture",
+      "food": "Food",
+      "nature": "Nature",
+      "adventure": "Adventure",
+      "history": "History",
+      "art": "Art",
+      "shopping": "Shopping",
+      "nightlife": "Nightlife",
+      "photography": "Photography",
+      "wildlife": "Wildlife",
+      "beach": "Beach",
+      "mountains": "Mountains"
+    }
+  },
+  "home": {
+    "welcome": "Welcome",
+    "yourChapters": "Your Chapters",
+    "addChapter": "Add Chapter",
+    "noChapters": "No chapters yet",
+    "noChaptersDesc": "Start your journey by adding a new chapter",
+    "city": "City",
+    "country": "Country (Optional)",
+    "description": "Description (Optional)",
+    "generatingTasks": "Generating AI Tasks...",
+    "addingChapter": "Adding Chapter..."
+  },
+  "chapter": {
+    "places": "Places",
+    "completed": "Completed",
+    "pending": "Pending",
+    "xp": "XP",
+    "totalXp": "Total XP",
+    "noPlaces": "No places added yet"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "finish": "Finish",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort"
+  },
+  "nav": {
+    "home": "Home",
+    "profile": "Profile",
+    "settings": "Settings",
+    "logout": "Logout"
+  },
+  "translate": {
+    "title": "Translate",
+    "placeholder": "Enter text",
+    "button": "Translate",
+    "description": "Real-time translation via API (not stored)."
+  },
+  "speech": {
+    "title": "Speech",
+    "description": "Real-time speech-to-speech translation via API."
+  },
+  "ocr": {
+    "title": "OCR",
+    "description": "Camera OCR and instant translation via API."
+  },
+  "guide": {
+    "title": "Guide",
+    "description": "AI tourist guide uses GPS + chapters. API only, not stored."
+  },
+  "notFound": {
+    "title": "404",
+    "message": "Oops! Page not found",
+    "returnHome": "Return to Home"
+  }
+}
