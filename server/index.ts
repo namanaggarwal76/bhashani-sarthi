@@ -2,6 +2,8 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
+import multer from "multer";
+import { handleSpeechPipeline } from "./routes/speech_pipeline";
 
 export function createServer() {
   const app = express();
@@ -18,6 +20,9 @@ export function createServer() {
   });
 
   app.get("/api/demo", handleDemo);
+  // Speech pipeline endpoint (accepts single file field `audio`)
+  const upload = multer();
+  app.post('/api/speech/pipeline', upload.single('audio'), handleSpeechPipeline);
 
   return app;
 }

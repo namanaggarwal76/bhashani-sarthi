@@ -31,3 +31,10 @@ dist-ssr
 
 .config/
 !.env
+
+final_s2s/venv/
+final_s2s/__pycache__/
+final_s2s/*.pyc
+final_s2s/*.pyo
+final_s2s/*.pyd
+final_s2s/.Python
