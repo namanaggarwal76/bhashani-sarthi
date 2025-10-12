@@ -212,7 +212,7 @@ users/ (collection)
 
 ## 🧰 Project Setup
 
-Follow these steps to set up the complete project locally.
+Follow these steps to set up the entire project locally.
 
 ---
 
@@ -229,7 +229,7 @@ cd bhashani-sarthi
 
 ```bash
 cd final_s2s
-python3.10 -m venv venv
+python -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
@@ -238,7 +238,46 @@ pip install -r requirements.txt
 
 ---
 
-### 3️⃣ Configure Environment Variables
+### 3️⃣ Chat AI Module
+
+```bash
+cd ..
+uvicorn chat_ai:app --host 0.0.0.0 --port 8002
+```
+
+> Starts the **AI Chat backend**, which enables multilingual conversations using Gemini and Bhashini APIs.
+
+---
+
+### 4️⃣ OCR Module (IndicPhotoOCR)
+
+```bash
+git clone https://github.com/Bhashini-IITJ/IndicPhotoOCR.git
+mv server.py IndicPhotoOCR/
+cd IndicPhotoOCR
+
+# Create and activate environment
+conda create -n indicphotoocr python=3.9 -y
+conda activate indicphotoocr
+
+# Build and install package
+python setup.py sdist bdist_wheel
+pip install dist/indicphotoocr-1.3.1-py3-none-any.whl[cpu]
+
+# Setup environment
+chmod +x setup.sh
+./setup.sh
+pip install -r requirements2.txt
+
+# Run OCR server
+uvicorn server:app --reload --port 8001
+```
+
+> This module handles **image-based text extraction** and supports multiple Indic languages.
+
+---
+
+### 5️⃣ Configure Environment Variables
 
 Create a `.env.local` file in the root directory and add your API keys:
 
@@ -260,102 +299,43 @@ Get your keys from:
 
 ---
 
-### 4️⃣ Chat AI Module
-
-```bash
-cd ..
-make install
-make dev-backend
-```
-
-> Runs the **AI chat backend** that supports multilingual conversations and integrates Gemini for generative responses.
-
----
-
-### 5️⃣ OCR Module (IndicPhotoOCR)
-
-```bash
-git clone https://github.com/Bhashini-IITJ/IndicPhotoOCR.git
-mv server.py IndicPhotoOCR/
-cd IndicPhotoOCR
-
-# Create and activate environment
-conda create -n indicphotoocr python=3.9 -y
-conda activate indicphotoocr
-
-# Build and install package
-python setup.py sdist bdist_wheel
-pip install dist/indicphotoocr-1.3.1-py3-none-any.whl[cpu]
-
-# Setup environment
-chmod +x setup.sh
-./setup.sh
-pip install -r requirements2.txt
-
-# Run OCR server
-uvicorn server:app --reload --port 8002
-```
-
-> This module performs **image-based text recognition** across Indic languages using pre-trained OCR models.
-
----
-
 ### 6️⃣ Frontend Setup
 
 ```bash
 cd ..
-make install-ocr
-make dev-ocr
-
-make dev
+pnpm dev
 ```
 
-> Launches the **frontend** that connects all modules (Speech-to-Speech, OCR, and Chat AI) into one unified multilingual travel assistant experience.
+> Starts the **frontend**, which connects all modules (Speech-to-Speech, OCR, and Chat AI) into one unified multilingual travel assistant interface.
 
 ---
 
 ## ⚙️ Tech Stack
 
-| Layer               | Technologies                        |
-| ------------------- | ----------------------------------- |
-| **Frontend**        | Next.js, Vite, Tailwind CSS         |
-| **Backend**         | Python, FastAPI, Uvicorn            |
-| **AI / ML**         | Bhashini ASR + MT + TTS, Gemini API |
-| **OCR**             | IndicPhotoOCR                       |
-| **Database / Auth** | Firebase                            |
-| **Build Tools**     | Makefile, Virtualenv, Conda         |
+| Layer                      | Technologies                             |
+| -------------------------- | ---------------------------------------- |
+| **Frontend**               | Next.js, Tailwind CSS, Vite, pnpm        |
+| **Backend**                | Python, FastAPI, Uvicorn                 |
+| **AI / ML**                | Bhashini APIs (ASR, MT, TTS), Gemini API |
+| **OCR**                    | IndicPhotoOCR                            |
+| **Database / Auth**        | Firebase                                 |
+| **Environment Management** | Virtualenv, Conda                        |
 
 ---
 
 ## 🚀 Run the Full System
 
-1. Start **Speech-to-Speech** module
-2. Start **Chat AI backend**
-3. Run **OCR server** (port `8002`)
+1. Run **Speech-to-Speech** module
+2. Start **Chat AI** backend
+3. Launch **OCR** server
 4. Start **Frontend**
 
    ```bash
-   make dev
+   pnpm dev
    ```
 
-Access the app at:
-👉 **[http://localhost:3000](http://localhost:2000)**
-
----
-
-## �️ Development
-
-### Available Commands
-
-| Command | Description |
-|---------|-------------|
-| `make dev` | Run all servers (frontend + backends) |
-| `make dev-frontend` | Run frontend only (port 2000) |
-| `make dev-backend` | Run chat backend only (port 8001) |
-| `make dev-ocr` | Run OCR backend only (port 8002) |
-| `make build` | Build for production |
-| `make test` | Run tests |
-| `make clean` | Remove build artifacts |
+Then open the app in your browser at:
+👉 **[http://localhost:2000](http://localhost:2000)**
 
 ---
 
