@@ -6,7 +6,7 @@ import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import { handleGenerateTasks } from "./routes/generate-tasks";
 import multer from "multer";
-import { handleSpeechPipeline } from "./routes/speech_pipeline";
+import { handleSpeechPipeline } from "./routes/speech_pipeline.ts";
 
 // Get the directory name in ES modules
 const __filename = fileURLToPath(import.meta.url);
