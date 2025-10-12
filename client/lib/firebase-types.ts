@@ -12,7 +12,6 @@ export interface BasicInfo {
   email: string;
   country: string;
   age: number;
-  sex: string;
   language: Language;
 }
 
@@ -36,6 +35,9 @@ export interface Place {
   rating: number;
   status: "done" | "pending";
   visited_on?: Timestamp | null; // Firebase Timestamp
+  xp?: number; // XP points earned for completing this place
+  description?: string; // AI-generated description
+  estimated_duration?: string; // Estimated time to complete
 }
 
 export interface ChapterDoc {

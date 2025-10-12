@@ -23,9 +23,14 @@ import type {
   Stats,
 } from "./firebase-types";
 
+<<<<<<< HEAD
 // Helper to get users collection (guard against missing `db`)
 function getUsersCollection(): CollectionReference {
   if (!db) throw new Error("Firestore not initialized (db is undefined)");
+=======
+// Helper: get users collection reference (lazy initialization)
+function getUsersCollection(): CollectionReference {
+>>>>>>> origin/main
   return collection(db, "users");
 }
 
@@ -58,7 +63,10 @@ export async function createUser(
     },
   };
 
+<<<<<<< HEAD
   if (import.meta.env.DEV) console.debug("Firestore:createUser", { userId, userDoc });
+=======
+>>>>>>> origin/main
   await setDoc(doc(getUsersCollection(), userId), userDoc);
 }
 
@@ -84,10 +92,13 @@ export async function updateUserBasicInfo(
   basicInfo: Partial<BasicInfo>
 ): Promise<void> {
   const userDocRef = doc(getUsersCollection(), userId);
+<<<<<<< HEAD
   if (import.meta.env.DEV) console.debug("Firestore:updateUserBasicInfo", {
     userId,
     basicInfo,
   });
+=======
+>>>>>>> origin/main
   await updateDoc(userDocRef, {
     basic_info: basicInfo,
   });
@@ -101,10 +112,13 @@ export async function updateUserPreferences(
   preferences: Partial<Preferences>
 ): Promise<void> {
   const userDocRef = doc(getUsersCollection(), userId);
+<<<<<<< HEAD
   if (import.meta.env.DEV) console.debug("Firestore:updateUserPreferences", {
     userId,
     preferences,
   });
+=======
+>>>>>>> origin/main
   await updateDoc(userDocRef, {
     preferences: preferences,
   });
@@ -118,7 +132,10 @@ export async function updateUserStats(
   stats: Partial<Stats>
 ): Promise<void> {
   const userDocRef = doc(getUsersCollection(), userId);
+<<<<<<< HEAD
   if (import.meta.env.DEV) console.debug("Firestore:updateUserStats", { userId, stats });
+=======
+>>>>>>> origin/main
   await updateDoc(userDocRef, {
     stats: stats,
   });
@@ -129,7 +146,10 @@ export async function updateUserStats(
  */
 export async function deleteUser(userId: string): Promise<void> {
   const userDocRef = doc(getUsersCollection(), userId);
+<<<<<<< HEAD
   if (import.meta.env.DEV) console.debug("Firestore:deleteUser", { userId });
+=======
+>>>>>>> origin/main
   await deleteDoc(userDocRef);
 }
 
@@ -142,7 +162,7 @@ export async function createChapter(
   userId: string,
   chapterData: {
     city: string;
-    country: string;
+    country?: string;
     description?: string;
     ai_suggested_places?: Place[];
   }
@@ -152,7 +172,7 @@ export async function createChapter(
 
   const chapterDoc: ChapterDoc = {
     city: chapterData.city,
-    country: chapterData.country,
+    country: chapterData.country || "",
     description: chapterData.description || "",
     ai_suggested_places: chapterData.ai_suggested_places || [],
   };
@@ -272,15 +292,19 @@ export async function togglePlaceStatus(
   const allChapters = await getUserChapters(userId);
   const completedPlaces = allChapters
     .flatMap((c) => c.ai_suggested_places)
-    .filter((p) => p.status === "done").length;
+    .filter((p) => p.status === "done");
 
-  const xp = completedPlaces * 50;
+  // Calculate XP based on individual place XP values (if available) or default to 50
+  const xp = completedPlaces.reduce((total, place) => {
+    return total + (place.xp || 50);
+  }, 0);
+  
   const tier = tierFromXp(xp);
 
   await updateUserStats(userId, {
     xp,
     tier,
-    places_visited: completedPlaces,
+    places_visited: completedPlaces.length,
   });
 }
 

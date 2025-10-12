@@ -1,0 +1,129 @@
+{
+  "landing": {
+    "title": "సారథి",
+    "subtitle": "మీ ప్రయాణ సహచరుడు",
+    "scrollDown": "కొనసాగించడానికి క్రిందికి స్క్రోల్ చేయండి"
+  },
+  "languageSelection": {
+    "title": "మీ భాషను ఎంచుకోండి",
+    "subtitle": "మీకు ఇష్టమైన భాషను ఎంచుకోండి",
+    "continue": "కొనసాగించు"
+  },
+  "auth": {
+    "login": "లాగిన్",
+    "signup": "సైన్ అప్",
+    "email": "ఇమెయిల్",
+    "password": "పాస్‌వర్డ్",
+    "confirmPassword": "పాస్‌వర్డ్‌ను నిర్ధారించండి",
+    "name": "పేరు",
+    "alreadyHaveAccount": "ఇప్పటికే ఖాతా ఉందా?",
+    "dontHaveAccount": "ఖాతా లేదా?",
+    "loginWithGoogle": "Google తో కొనసాగించండి",
+    "or": "లేదా"
+  },
+  "onboarding": {
+    "title": "మీ గురించి చెప్పండి",
+    "name": "మీ పేరు",
+    "age": "వయస్సు",
+    "country": "దేశం",
+    "city": "నగరం",
+    "interests": "ఆసక్తులు",
+    "interestsPlaceholder": "మీ ఆసక్తులను ఎంచుకోండి",
+    "travelStyle": "ప్రయాణ శైలి",
+    "budget": "బడ్జెట్",
+    "next": "తదుపరి",
+    "skip": "దాటవేయి",
+    "finish": "ముగించు",
+    "travelStyles": {
+      "adventurous": "సాహసోపేతమైన",
+      "relaxed": "విశ్రాంతి",
+      "cultural": "సాంస్కృతిక",
+      "luxury": "లగ్జరీ",
+      "budget": "బడ్జెట్"
+    },
+    "budgetLevels": {
+      "low": "తక్కువ ఖర్చు",
+      "moderate": "మితమైన",
+      "high": "లగ్జరీ"
+    },
+    "interestsList": {
+      "culture": "సంస్కృతి",
+      "food": "ఆహారం",
+      "nature": "ప్రకృతి",
+      "adventure": "సాహసం",
+      "history": "చరిత్ర",
+      "art": "కళ",
+      "shopping": "షాపింగ్",
+      "nightlife": "రాత్రి జీవితం",
+      "photography": "ఫోటోగ్రఫీ",
+      "wildlife": "వన్యప్రాణులు",
+      "beach": "బీచ్",
+      "mountains": "పర్వతాలు"
+    }
+  },
+  "home": {
+    "welcome": "స్వాగతం",
+    "yourChapters": "మీ అధ్యాయాలు",
+    "addChapter": "అధ్యాయం జోడించండి",
+    "noChapters": "ఇంకా అధ్యాయాలు లేవు",
+    "noChaptersDesc": "కొత్త అధ్యాయం జోడించడం ద్వారా మీ ప్రయాణం ప్రారంభించండి",
+    "city": "నగరం",
+    "country": "దేశం (ఐచ్ఛికం)",
+    "description": "వివరణ (ఐచ్ఛికం)",
+    "generatingTasks": "AI టాస్క్‌లను రూపొందిస్తోంది...",
+    "addingChapter": "అధ్యాయం జోడిస్తోంది..."
+  },
+  "chapter": {
+    "places": "ప్రదేశాలు",
+    "completed": "పూర్తయింది",
+    "pending": "పెండింగ్",
+    "xp": "XP",
+    "totalXp": "మొత్తం XP",
+    "noPlaces": "ఇంకా ప్రదేశాలు జోడించబడలేదు"
+  },
+  "common": {
+    "loading": "లోడ్ అవుతోంది...",
+    "error": "లోపం",
+    "success": "విజయం",
+    "cancel": "రద్దు చేయి",
+    "save": "సేవ్ చేయి",
+    "delete": "తొలగించు",
+    "edit": "సవరించు",
+    "close": "మూసివేయి",
+    "back": "వెనుకకు",
+    "next": "తదుపరి",
+    "finish": "ముగించు",
+    "search": "వెతకండి",
+    "filter": "ఫిల్టర్",
+    "sort": "క్రమబద్ధీకరించు"
+  },
+  "nav": {
+    "home": "హోమ్",
+    "profile": "ప్రొఫైల్",
+    "settings": "సెట్టింగ్స్",
+    "logout": "లాగ్అవుట్"
+  },
+  "translate": {
+    "title": "అనువదించు",
+    "placeholder": "టెక్స్ట్ నమోదు చేయండి",
+    "button": "అనువదించు",
+    "description": "API ద్వారా రియల్-టైమ్ అనువాదం (నిల్వ చేయబడదు)।"
+  },
+  "speech": {
+    "title": "స్పీచ్",
+    "description": "API ద్వారా రియల్-టైమ్ స్పీచ్-టు-స్పీచ్ అనువాదం।"
+  },
+  "ocr": {
+    "title": "OCR",
+    "description": "API ద్వారా కెమెరా OCR మరియు తక్షణ అనువాదం।"
+  },
+  "guide": {
+    "title": "గైడ్",
+    "description": "AI టూరిస్ట్ గైడ్ GPS + అధ్యాయాలను ఉపయోగిస్తుంది। API మాత్రమే, నిల్వ చేయబడదు।"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "క్షమించండి! పేజీ కనుగొనబడలేదు",
+    "returnHome": "హోమ్‌కు తిరిగి వెళ్లండి"
+  }
+}

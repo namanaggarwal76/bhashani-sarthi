@@ -1,0 +1,129 @@
+{
+  "landing": {
+    "title": "सारथी",
+    "subtitle": "आपका यात्रा साथी",
+    "scrollDown": "जारी रखने के लिए नीचे स्क्रॉल करें"
+  },
+  "languageSelection": {
+    "title": "अपनी भाषा चुनें",
+    "subtitle": "अपनी पसंदीदा भाषा चुनें",
+    "continue": "जारी रखें"
+  },
+  "auth": {
+    "login": "लॉगिन",
+    "signup": "साइन अप",
+    "email": "ईमेल",
+    "password": "पासवर्ड",
+    "confirmPassword": "पासवर्ड की पुष्टि करें",
+    "name": "नाम",
+    "alreadyHaveAccount": "क्या आपके पास पहले से खाता है?",
+    "dontHaveAccount": "क्या आपके पास खाता नहीं है?",
+    "loginWithGoogle": "Google के साथ जारी रखें",
+    "or": "या"
+  },
+  "onboarding": {
+    "title": "अपने बारे में बताएं",
+    "name": "आपका नाम",
+    "age": "आयु",
+    "country": "देश",
+    "city": "शहर",
+    "interests": "रुचियां",
+    "interestsPlaceholder": "अपनी रुचियां चुनें",
+    "travelStyle": "यात्रा शैली",
+    "budget": "बजट",
+    "next": "अगला",
+    "skip": "छोड़ें",
+    "finish": "समाप्त",
+    "travelStyles": {
+      "adventurous": "साहसिक",
+      "relaxed": "आरामदायक",
+      "cultural": "सांस्कृतिक",
+      "luxury": "लक्जरी",
+      "budget": "बजट"
+    },
+    "budgetLevels": {
+      "low": "किफायती",
+      "moderate": "सामान्य",
+      "high": "लक्जरी"
+    },
+    "interestsList": {
+      "culture": "संस्कृति",
+      "food": "खाना",
+      "nature": "प्रकृति",
+      "adventure": "रोमांच",
+      "history": "इतिहास",
+      "art": "कला",
+      "shopping": "खरीदारी",
+      "nightlife": "रात्रि जीवन",
+      "photography": "फोटोग्राफी",
+      "wildlife": "वन्यजीव",
+      "beach": "समुद्र तट",
+      "mountains": "पहाड़"
+    }
+  },
+  "home": {
+    "welcome": "स्वागत है",
+    "yourChapters": "आपके अध्याय",
+    "addChapter": "अध्याय जोड़ें",
+    "noChapters": "अभी तक कोई अध्याय नहीं",
+    "noChaptersDesc": "एक नया अध्याय जोड़कर अपनी यात्रा शुरू करें",
+    "city": "शहर",
+    "country": "देश (वैकल्पिक)",
+    "description": "विवरण (वैकल्पिक)",
+    "generatingTasks": "AI कार्य बना रहा है...",
+    "addingChapter": "अध्याय जोड़ रहे हैं..."
+  },
+  "chapter": {
+    "places": "स्थान",
+    "completed": "पूर्ण",
+    "pending": "लंबित",
+    "xp": "XP",
+    "totalXp": "कुल XP",
+    "noPlaces": "अभी तक कोई स्थान नहीं जोड़ा गया"
+  },
+  "common": {
+    "loading": "लोड हो रहा है...",
+    "error": "त्रुटि",
+    "success": "सफलता",
+    "cancel": "रद्द करें",
+    "save": "सहेजें",
+    "delete": "हटाएं",
+    "edit": "संपादित करें",
+    "close": "बंद करें",
+    "back": "वापस",
+    "next": "अगला",
+    "finish": "समाप्त",
+    "search": "खोजें",
+    "filter": "फ़िल्टर",
+    "sort": "क्रमबद्ध करें"
+  },
+  "nav": {
+    "home": "होम",
+    "profile": "प्रोफ़ाइल",
+    "settings": "सेटिंग्स",
+    "logout": "लॉगआउट"
+  },
+  "translate": {
+    "title": "अनुवाद",
+    "placeholder": "टेक्स्ट दर्ज करें",
+    "button": "अनुवाद करें",
+    "description": "API के माध्यम से वास्तविक समय अनुवाद (संग्रहीत नहीं)।"
+  },
+  "speech": {
+    "title": "वॉयस",
+    "description": "API के माध्यम से वास्तविक समय वाक्-से-वाक अनुवाद।"
+  },
+  "ocr": {
+    "title": "ओसीआर",
+    "description": "कैमरा OCR और तत्काल अनुवाद API के माध्यम से।"
+  },
+  "guide": {
+    "title": "गाइड",
+    "description": "AI पर्यटक गाइड GPS + अध्याय का उपयोग करता है। केवल API, संग्रहीत नहीं।"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "क्षमा करें! पृष्ठ नहीं मिला",
+    "returnHome": "होम पर वापस जाएं"
+  }
+}

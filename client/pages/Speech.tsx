@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import BottomNav from "@/components/BottomNav";
+<<<<<<< HEAD
 import { useUser } from "@/context/UserContext";
 import { useEffect, useRef, useState } from "react";
 
@@ -205,9 +206,16 @@ export default function Speech() {
     }
   }
 
+=======
+import { useTranslation } from "react-i18next";
+
+export default function Speech() {
+  const { t } = useTranslation();
+>>>>>>> origin/main
   return (
     <div className="min-h-screen pb-28 bg-transparent">
       <Header />
+<<<<<<< HEAD
       <main className="mx-auto max-w-3xl px-4 py-6 space-y-4">
         <h1 className="text-2xl font-semibold">{t('speech')}</h1>
         <p className="text-sm text-gray-900">Real-time speech-to-speech translation via API.</p>
@@ -298,6 +306,13 @@ export default function Speech() {
                 </div>
               )}
         </div>
+=======
+      <main className="mx-auto max-w-3xl px-4 py-6 space-y-2">
+        <h1 className="text-xl font-semibold">{t("speech.title")}</h1>
+        <p className="text-sm text-muted-foreground">
+          {t("speech.description")}
+        </p>
+>>>>>>> origin/main
       </main>
       <BottomNav />
     </div>

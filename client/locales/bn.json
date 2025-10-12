@@ -1,0 +1,129 @@
+{
+  "landing": {
+    "title": "সারথী",
+    "subtitle": "আপনার যাত্রা সঙ্গী",
+    "scrollDown": "চালিয়ে যেতে নিচে স্ক্রোল করুন"
+  },
+  "languageSelection": {
+    "title": "আপনার ভাষা নির্বাচন করুন",
+    "subtitle": "আপনার পছন্দের ভাষা বেছে নিন",
+    "continue": "চালিয়ে যান"
+  },
+  "auth": {
+    "login": "লগইন",
+    "signup": "সাইন আপ",
+    "email": "ইমেইল",
+    "password": "পাসওয়ার্ড",
+    "confirmPassword": "পাসওয়ার্ড নিশ্চিত করুন",
+    "name": "নাম",
+    "alreadyHaveAccount": "ইতিমধ্যে অ্যাকাউন্ট আছে?",
+    "dontHaveAccount": "অ্যাকাউন্ট নেই?",
+    "loginWithGoogle": "Google দিয়ে চালিয়ে যান",
+    "or": "অথবা"
+  },
+  "onboarding": {
+    "title": "নিজের সম্পর্কে বলুন",
+    "name": "আপনার নাম",
+    "age": "বয়স",
+    "country": "দেশ",
+    "city": "শহর",
+    "interests": "আগ্রহ",
+    "interestsPlaceholder": "আপনার আগ্রহ নির্বাচন করুন",
+    "travelStyle": "ভ্রমণ শৈলী",
+    "budget": "বাজেট",
+    "next": "পরবর্তী",
+    "skip": "এড়িয়ে যান",
+    "finish": "শেষ করুন",
+    "travelStyles": {
+      "adventurous": "সাহসিক",
+      "relaxed": "আরামদায়ক",
+      "cultural": "সাংস্কৃতিক",
+      "luxury": "বিলাসবহুল",
+      "budget": "বাজেট"
+    },
+    "budgetLevels": {
+      "low": "কম খরচ",
+      "moderate": "মাঝারি",
+      "high": "বিলাসবহুল"
+    },
+    "interestsList": {
+      "culture": "সংস্কৃতি",
+      "food": "খাবার",
+      "nature": "প্রকৃতি",
+      "adventure": "সাহসিকতা",
+      "history": "ইতিহাস",
+      "art": "শিল্প",
+      "shopping": "কেনাকাটা",
+      "nightlife": "রাত্রি জীবন",
+      "photography": "ফটোগ্রাফি",
+      "wildlife": "বন্যপ্রাণী",
+      "beach": "সমুদ্র সৈকত",
+      "mountains": "পর্বত"
+    }
+  },
+  "home": {
+    "welcome": "স্বাগতম",
+    "yourChapters": "আপনার অধ্যায়",
+    "addChapter": "অধ্যায় যোগ করুন",
+    "noChapters": "এখনও কোনো অধ্যায় নেই",
+    "noChaptersDesc": "একটি নতুন অধ্যায় যোগ করে আপনার যাত্রা শুরু করুন",
+    "city": "শহর",
+    "country": "দেশ (ঐচ্ছিক)",
+    "description": "বিবরণ (ঐচ্ছিক)",
+    "generatingTasks": "AI কাজ তৈরি করছে...",
+    "addingChapter": "অধ্যায় যোগ করা হচ্ছে..."
+  },
+  "chapter": {
+    "places": "স্থান",
+    "completed": "সম্পন্ন",
+    "pending": "অপেক্ষমাণ",
+    "xp": "XP",
+    "totalXp": "মোট XP",
+    "noPlaces": "এখনও কোনো স্থান যোগ করা হয়নি"
+  },
+  "common": {
+    "loading": "লোড হচ্ছে...",
+    "error": "ত্রুটি",
+    "success": "সফল",
+    "cancel": "বাতিল",
+    "save": "সংরক্ষণ করুন",
+    "delete": "মুছে ফেলুন",
+    "edit": "সম্পাদনা করুন",
+    "close": "বন্ধ করুন",
+    "back": "পিছনে",
+    "next": "পরবর্তী",
+    "finish": "শেষ করুন",
+    "search": "খুঁজুন",
+    "filter": "ফিল্টার",
+    "sort": "সাজান"
+  },
+  "nav": {
+    "home": "হোম",
+    "profile": "প্রোফাইল",
+    "settings": "সেটিংস",
+    "logout": "লগআউট"
+  },
+  "translate": {
+    "title": "অনুবাদ",
+    "placeholder": "টেক্সট লিখুন",
+    "button": "অনুবাদ করুন",
+    "description": "API এর মাধ্যমে রিয়েল-টাইম অনুবাদ (সংরক্ষিত নয়)।"
+  },
+  "speech": {
+    "title": "বক্তৃতা",
+    "description": "API এর মাধ্যমে রিয়েল-টাইম বক্তৃতা-থেকে-বক্তৃতা অনুবাদ।"
+  },
+  "ocr": {
+    "title": "OCR",
+    "description": "API এর মাধ্যমে ক্যামেরা OCR এবং তাৎক্ষণিক অনুবাদ।"
+  },
+  "guide": {
+    "title": "গাইড",
+    "description": "AI পর্যটক গাইড GPS + অধ্যায় ব্যবহার করে। শুধুমাত্র API, সংরক্ষিত নয়।"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "দুঃখিত! পৃষ্ঠা পাওয়া যায়নি",
+    "returnHome": "হোমে ফিরে যান"
+  }
+}

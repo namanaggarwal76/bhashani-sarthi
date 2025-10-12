@@ -1,0 +1,16 @@
+{
+  "landing": {"title": "சாரதி", "subtitle": "உங்கள் பயண தோழன்", "scrollDown": "தொடர கீழே ஸ்க்ரோல் செய்யவும்"},
+  "languageSelection": {"title": "உங்கள் மொழியைத் தேர்ந்தெடுக்கவும்", "subtitle": "உங்களுக்குப் பிடித்த மொழியைத் தேர்ந்தெடுக்கவும்", "continue": "தொடரவும்"},
+  "auth": {"login": "உள்நுழைவு", "signup": "பதிவு செய்க", "email": "மின்னஞ்சல்", "password": "கடவுச்சொல்", "confirmPassword": "கடவுச்சொல்லை உறுதிப்படுத்தவும்", "name": "பெயர்", "alreadyHaveAccount": "ஏற்கனவே கணக்கு உள்ளதா?", "dontHaveAccount": "கணக்கு இல்லையா?", "loginWithGoogle": "Google உடன் தொடரவும்", "or": "அல்லது"},
+  "onboarding": {"title": "உங்களைப் பற்றி கூறுங்கள்", "name": "உங்கள் பெயர்", "age": "வயது", "country": "நாடு", "city": "நகரம்", "interests": "ஆர்வங்கள்", "interestsPlaceholder": "உங்கள் ஆர்வங்களைத் தேர்ந்தெடுக்கவும்", "travelStyle": "பயண பாணி", "budget": "பட்ஜெட்", "next": "அடுத்து", "skip": "தவிர்க்கவும்", "finish": "முடிக்கவும்", "travelStyles": {"adventurous": "சாகசம்", "relaxed": "ஓய்வு", "cultural": "கலாச்சாரம்", "luxury": "ஆடம்பரம்", "budget": "பட்ஜெட்"}, "budgetLevels": {"low": "குறைந்த செலவு", "moderate": "நடுத்தரம்", "high": "ஆடம்பரம்"}, "interestsList": {"culture": "கலாச்சாரம்", "food": "உணவு", "nature": "இயற்கை", "adventure": "சாகசம்", "history": "வரலாறு", "art": "கலை", "shopping": "ஷாப்பிங்", "nightlife": "இரவு வாழ்க்கை", "photography": "புகைப்படம்", "wildlife": "வனவிலங்கு", "beach": "கடற்கரை", "mountains": "மலைகள்"}},
+  "home": {"welcome": "வரவேற்பு", "yourChapters": "உங்கள் அத்தியாயங்கள்", "addChapter": "அத்தியாயம் சேர்க்கவும்", "noChapters": "இன்னும் அத்தியாயங்கள் இல்லை", "noChaptersDesc": "உங்கள் பயணத்தைத் தொடங்க புதிய அத்தியாயம் சேர்க்கவும்", "city": "நகரம்", "country": "நாடு (விருப்பமானது)", "description": "விளக்கம் (விருப்பமானது)", "generatingTasks": "AI பணிகளை உருவாக்குகிறது...", "addingChapter": "அத்தியாயம் சேர்க்கப்படுகிறது..."},
+  "chapter": {"places": "இடங்கள்", "completed": "முடிந்தது", "pending": "நிலுவையில்", "xp": "XP", "totalXp": "மொத்த XP", "noPlaces": "இன்னும் இடங்கள் சேர்க்கப்படவில்லை"},
+  "common": {"loading": "ஏற்றப்படுகிறது...", "error": "பிழை", "success": "வெற்றி", "cancel": "ரத்து செய்", "save": "சேமிக்கவும்", "delete": "நீக்கவும்", "edit": "திருத்தவும்", "close": "மூடவும்", "back": "பின்னால்", "next": "அடுத்து", "finish": "முடிக்கவும்", "search": "தேடவும்", "filter": "வடிகட்டி", "sort": "வரிசைப்படுத்தவும்"},
+  "nav": {"home": "முகப்பு", "profile": "சுயவிவரம்", "settings": "அமைப்புகள்", "logout": "வெளியேறு"}
+,
+  "translate": {"title": "மொழிபெயர்ப்பு", "placeholder": "உரையை உள்ளிடவும்", "button": "மொழிபெயர்க்கவும்", "description": "API மூலம் நேரடி மொழிபெயர்ப்பு (சேமிக்கப்படவில்லை)।"},
+  "speech": {"title": "பேச்சு", "description": "API மூலம் நேரடி பேச்சு-க்கு-பேச்சு மொழிபெயர்ப்பு।"},
+  "ocr": {"title": "OCR", "description": "API மூலம் கேமரா OCR மற்றும் உடனடி மொழிபெயர்ப்பு।"},
+  "guide": {"title": "வழிகாட்டி", "description": "AI சுற்றுலா வழிகாட்டி GPS + அத்தியாயங்களைப் பயன்படுத்துகிறது। API மட்டும், சேமிக்கப்படவில்லை।"},
+  "notFound": {"title": "404", "message": "மன்னிக்கவும்! பக்கம் கிடைக்கவில்லை", "returnHome": "முகப்புக்குத் திரும்பவும்"}
+}
