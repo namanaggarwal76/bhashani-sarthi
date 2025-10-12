@@ -1,16 +1,130 @@
 {
-  "landing": {"title": "ସାରଥୀ", "subtitle": "ଆପଣଙ୍କର ଯାତ୍ରା ସାଥୀ", "scrollDown": "ଜାରି ରଖିବାକୁ ତଳକୁ ସ୍କ୍ରୋଲ କରନ୍ତୁ"},
-  "languageSelection": {"title": "ଆପଣଙ୍କ ଭାଷା ବାଛନ୍ତୁ", "subtitle": "ଆପଣଙ୍କର ପସନ୍ଦର ଭାଷା ବାଛନ୍ତୁ", "continue": "ଜାରି ରଖନ୍ତୁ"},
-  "auth": {"login": "ଲଗଇନ୍", "signup": "ସାଇନ ଅପ", "email": "ଇମେଲ", "password": "ପାସୱାର୍ଡ", "confirmPassword": "ପାସୱାର୍ଡ ନିଶ୍ଚିତ କରନ୍ତୁ", "name": "ନାମ", "alreadyHaveAccount": "ପୂର୍ବରୁ ଖାତା ଅଛି?", "dontHaveAccount": "ଖାତା ନାହିଁ?", "loginWithGoogle": "Google ସହିତ ଜାରି ରଖନ୍ତୁ", "or": "କିମ୍ବା"},
-  "onboarding": {"title": "ନିଜ ବିଷୟରେ କୁହନ୍ତୁ", "name": "ଆପଣଙ୍କର ନାମ", "age": "ବୟସ", "country": "ଦେଶ", "city": "ସହର", "interests": "ଆଗ୍ରହ", "interestsPlaceholder": "ଆପଣଙ୍କର ଆଗ୍ରହ ବାଛନ୍ତୁ", "travelStyle": "ଯାତ୍ରା ଶୈଳୀ", "budget": "ବଜେଟ୍", "next": "ପରବର୍ତ୍ତୀ", "skip": "ଛାଡନ୍ତୁ", "finish": "ସମାପ୍ତ", "travelStyles": {"adventurous": "ସାହସିକ", "relaxed": "ଆରାମଦାୟକ", "cultural": "ସାଂସ୍କୃତିକ", "luxury": "ବିଳାସବହୁଳ", "budget": "ବଜେଟ୍"}, "budgetLevels": {"low": "କମ ଖର୍ଚ୍ଚ", "moderate": "ମଧ୍ୟମ", "high": "ବିଳାସବହୁଳ"}, "interestsList": {"culture": "ସଂସ୍କୃତି", "food": "ଖାଦ୍ୟ", "nature": "ପ୍ରକୃତି", "adventure": "ସାହସ", "history": "ଇତିହାସ", "art": "କଳା", "shopping": "ସପିଂ", "nightlife": "ରାତ୍ରି ଜୀବନ", "photography": "ଫଟୋଗ୍ରାଫି", "wildlife": "ବନ୍ୟଜନ୍ତୁ", "beach": "ସମୁଦ୍ର କୂଳ", "mountains": "ପର୍ବତ"}},
-  "home": {"welcome": "ସ୍ବାଗତ", "yourChapters": "ଆପଣଙ୍କର ଅଧ୍ୟାୟ", "addChapter": "ଅଧ୍ୟାୟ ଯୋଡନ୍ତୁ", "noChapters": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ଅଧ୍ୟାୟ ନାହିଁ", "noChaptersDesc": "ଏକ ନୂତନ ଅଧ୍ୟାୟ ଯୋଡି ଆପଣଙ୍କର ଯାତ୍ରା ଆରମ୍ଭ କରନ୍ତୁ", "city": "ସହର", "country": "ଦେଶ (ଇଚ୍ଛାଧୀନ)", "description": "ବିବରଣୀ (ଇଚ୍ଛାଧୀନ)", "generatingTasks": "AI କାର୍ଯ୍ୟ ସୃଷ୍ଟି କରୁଛି...", "addingChapter": "ଅଧ୍ୟାୟ ଯୋଡାଯାଉଛି..."},
-  "chapter": {"places": "ସ୍ଥାନ", "completed": "ସମ୍ପୂର୍ଣ୍ଣ", "pending": "ଅପେକ୍ଷିତ", "xp": "XP", "totalXp": "ମୋଟ XP", "noPlaces": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ସ୍ଥାନ ଯୋଡାଯାଇ ନାହିଁ"},
-  "common": {"loading": "ଲୋଡ୍ ହେଉଛି...", "error": "ତ୍ରୁଟି", "success": "ସଫଳତା", "cancel": "ବାତିଲ କରନ୍ତୁ", "save": "ସେଭ କରନ୍ତୁ", "delete": "ଡିଲିଟ କରନ୍ତୁ", "edit": "ସଂପାଦନ କରନ୍ତୁ", "close": "ବନ୍ଦ କରନ୍ତୁ", "back": "ପଛକୁ", "next": "ପରବର୍ତ୍ତୀ", "finish": "ସମାପ୍ତ", "search": "ଖୋଜନ୍ତୁ", "filter": "ଫିଲ୍ଟର", "sort": "କ୍ରମବଦ୍ଧ କରନ୍ତୁ"},
-  "nav": {"home": "ହୋମ୍", "profile": "ପ୍ରୋଫାଇଲ୍", "settings": "ସେଟିଂସ୍", "logout": "ଲଗଆଉଟ୍"}
-,
-  "translate": {"title": "ଅନୁବାଦ", "placeholder": "ପାଠ୍ୟ ପ୍ରବିଷ୍ଟ କରନ୍ତୁ", "button": "ଅନୁବାଦ", "description": "API ମାଧ୍ୟମରେ ରିଅଲ-ଟାଇମ ଅନୁବାଦ (ସଂଗ୍ରହିତ ନୁହେଁ)।"},
-  "speech": {"title": "ବକ୍ତବ୍ୟ", "description": "API ମାଧ୍ୟମରେ ରିଅଲ-ଟାଇମ ବକ୍ତବ୍ୟ-ଟୁ-ବକ୍ତବ୍ୟ ଅନୁବାଦ।"},
-  "ocr": {"title": "OCR", "description": "API ମାଧ୍ୟମରେ କ୍ୟାମେରା OCR ଏବଂ ତୁରନ୍ତ ଅନୁବାଦ।"},
-  "guide": {"title": "ଗାଇଡ", "description": "AI ପର୍ଯ୍ୟଟକ ଗାଇଡ GPS + ଅଧ୍ୟାୟ ବ୍ୟବହାର କରେ। କେବଳ API, ସଂଗ୍ରହିତ ନୁହେଁ।"},
-  "notFound": {"title": "404", "message": "କ୍ଷମା କରନ୍ତୁ! ପୃଷ୍ଠା ମିଳିଲା ନାହିଁ", "returnHome": "ହୋମକୁ ଫେରନ୍ତୁ"}
+  "landing": {
+    "title": "ସାରଥୀ",
+    "subtitle": "ଆପଣଙ୍କର ଯାତ୍ରା ସାଥୀ",
+    "scrollDown": "ଜାରି ରଖିବାକୁ ତଳକୁ ସ୍କ୍ରୋଲ କରନ୍ତୁ"
+  },
+  "languageSelection": {
+    "title": "ଆପଣଙ୍କ ଭାଷା ବାଛନ୍ତୁ",
+    "subtitle": "ଆପଣଙ୍କର ପସନ୍ଦର ଭାଷା ବାଛନ୍ତୁ",
+    "continue": "ଜାରି ରଖନ୍ତୁ"
+  },
+  "auth": {
+    "login": "ଲଗଇନ୍",
+    "signup": "ସାଇନ ଅପ",
+    "email": "ଇମେଲ",
+    "password": "ପାସୱାର୍ଡ",
+    "confirmPassword": "ପାସୱାର୍ଡ ନିଶ୍ଚିତ କରନ୍ତୁ",
+    "name": "ନାମ",
+    "alreadyHaveAccount": "ପୂର୍ବରୁ ଖାତା ଅଛି?",
+    "dontHaveAccount": "ଖାତା ନାହିଁ?",
+    "loginWithGoogle": "Google ସହିତ ଜାରି ରଖନ୍ତୁ",
+    "or": "କିମ୍ବା"
+  },
+  "onboarding": {
+    "title": "ନିଜ ବିଷୟରେ କୁହନ୍ତୁ",
+    "name": "ଆପଣଙ୍କର ନାମ",
+    "age": "ବୟସ",
+    "country": "ଦେଶ",
+    "city": "ସହର",
+    "interests": "ଆଗ୍ରହ",
+    "interestsPlaceholder": "ଆପଣଙ୍କର ଆଗ୍ରହ ବାଛନ୍ତୁ",
+    "travelStyle": "ଯାତ୍ରା ଶୈଳୀ",
+    "budget": "ବଜେଟ୍",
+    "next": "ପରବର୍ତ୍ତୀ",
+    "skip": "ଛାଡନ୍ତୁ",
+    "finish": "ସମାପ୍ତ",
+    "travelStyles": {
+      "adventurous": "ସାହସିକ",
+      "relaxed": "ଆରାମଦାୟକ",
+      "cultural": "ସାଂସ୍କୃତିକ",
+      "luxury": "ବିଳାସବହୁଳ",
+      "budget": "ବଜେଟ୍"
+    },
+    "budgetLevels": {
+      "low": "କମ ଖର୍ଚ୍ଚ",
+      "moderate": "ମଧ୍ୟମ",
+      "high": "ବିଳାସବହୁଳ"
+    },
+    "interestsList": {
+      "culture": "ସଂସ୍କୃତି",
+      "food": "ଖାଦ୍ୟ",
+      "nature": "ପ୍ରକୃତି",
+      "adventure": "ସାହସ",
+      "history": "ଇତିହାସ",
+      "art": "କଳା",
+      "shopping": "ସପିଂ",
+      "nightlife": "ରାତ୍ରି ଜୀବନ",
+      "photography": "ଫଟୋଗ୍ରାଫି",
+      "wildlife": "ବନ୍ୟଜନ୍ତୁ",
+      "beach": "ସମୁଦ୍ର କୂଳ",
+      "mountains": "ପର୍ବତ"
+    }
+  },
+  "home": {
+    "welcome": "ନମସ୍କାର",
+    "yourChapters": "ଆପଣଙ୍କର ଅଧ୍ୟାୟ",
+    "addChapter": "ଅଧ୍ୟାୟ ଯୋଡନ୍ତୁ",
+    "noChapters": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ଅଧ୍ୟାୟ ନାହିଁ",
+    "noChaptersDesc": "ଏକ ନୂତନ ଅଧ୍ୟାୟ ଯୋଡି ଆପଣଙ୍କର ଯାତ୍ରା ଆରମ୍ଭ କରନ୍ତୁ",
+    "city": "ସହର",
+    "country": "ଦେଶ (ଇଚ୍ଛାଧୀନ)",
+    "description": "ବିବରଣୀ (ଇଚ୍ଛାଧୀନ)",
+    "generatingTasks": "AI କାର୍ଯ୍ୟ ସୃଷ୍ଟି କରୁଛି...",
+    "addingChapter": "ଅଧ୍ୟାୟ ଯୋଡାଯାଉଛି..."
+  },
+  "chapter": {
+    "places": "ସ୍ଥାନ",
+    "completed": "ସମ୍ପୂର୍ଣ୍ଣ",
+    "pending": "ଅପେକ୍ଷିତ",
+    "xp": "XP",
+    "tier": "ସ୍ତର",
+    "totalXp": "ମୋଟ XP",
+    "noPlaces": "ଏପର୍ଯ୍ୟନ୍ତ କୌଣସି ସ୍ଥାନ ଯୋଡାଯାଇ ନାହିଁ"
+  },
+  "common": {
+    "loading": "ଲୋଡ୍ ହେଉଛି...",
+    "error": "ତ୍ରୁଟି",
+    "success": "ସଫଳତା",
+    "cancel": "ବାତିଲ କରନ୍ତୁ",
+    "save": "ସେଭ କରନ୍ତୁ",
+    "delete": "ଡିଲିଟ କରନ୍ତୁ",
+    "edit": "ସଂପାଦନ କରନ୍ତୁ",
+    "close": "ବନ୍ଦ କରନ୍ତୁ",
+    "back": "ପଛକୁ",
+    "next": "ପରବର୍ତ୍ତୀ",
+    "finish": "ସମାପ୍ତ",
+    "search": "ଖୋଜନ୍ତୁ",
+    "filter": "ଫିଲ୍ଟର",
+    "sort": "କ୍ରମବଦ୍ଧ କରନ୍ତୁ"
+  },
+  "nav": {
+    "home": "ହୋମ୍",
+    "profile": "ପ୍ରୋଫାଇଲ୍",
+    "settings": "ସେଟିଂସ୍",
+    "logout": "ଲଗଆଉଟ୍"
+  },
+  "translate": {
+    "title": "ଅନୁବାଦ",
+    "placeholder": "ପାଠ୍ୟ ପ୍ରବିଷ୍ଟ କରନ୍ତୁ",
+    "button": "ଅନୁବାଦ",
+    "description": "API ମାଧ୍ୟମରେ ରିଅଲ-ଟାଇମ ଅନୁବାଦ (ସଂଗ୍ରହିତ ନୁହେଁ)।"
+  },
+  "speech": {
+    "title": "ବକ୍ତବ୍ୟ",
+    "description": "API ମାଧ୍ୟମରେ ରିଅଲ-ଟାଇମ ବକ୍ତବ୍ୟ-ଟୁ-ବକ୍ତବ୍ୟ ଅନୁବାଦ।"
+  },
+  "ocr": {
+    "title": "OCR",
+    "description": "API ମାଧ୍ୟମରେ କ୍ୟାମେରା OCR ଏବଂ ତୁରନ୍ତ ଅନୁବାଦ।"
+  },
+  "guide": {
+    "title": "ଗାଇଡ",
+    "description": "AI ପର୍ଯ୍ୟଟକ ଗାଇଡ GPS + ଅଧ୍ୟାୟ ବ୍ୟବହାର କରେ। କେବଳ API, ସଂଗ୍ରହିତ ନୁହେଁ।"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "କ୍ଷମା କରନ୍ତୁ! ପୃଷ୍ଠା ମିଳିଲା ନାହିଁ",
+    "returnHome": "ହୋମକୁ ଫେରନ୍ତୁ"
+  }
 }

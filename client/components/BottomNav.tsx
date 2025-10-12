@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { Camera, Home, Languages, MessageCircle, Mic } from "lucide-react";
-import { useUser } from "@/context/UserContext";
+import { useTranslation } from "react-i18next";
 
 const Tab = ({
   to,
@@ -23,15 +23,15 @@ const Tab = ({
 );
 
 export default function BottomNav() {
-  const { t } = useUser();
+  const { t } = useTranslation();
   return (
     <nav className="fixed bottom-3 left-1/2 z-50 w-[94%] -translate-x-1/2 rounded-2xl bg-white/90 shadow-xl ring-1 ring-black/5 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:bg-zinc-900/80">
       <div className="grid grid-cols-5">
-        <Tab to="/home" icon={Home} label={t("home")} />
-        <Tab to="/translate" icon={Languages} label={t("translate")} />
-        <Tab to="/speech" icon={Mic} label={t("speech")} />
-        <Tab to="/ocr" icon={Camera} label={t("ocr")} />
-        <Tab to="/guide" icon={MessageCircle} label={t("guide")} />
+        <Tab to="/home" icon={Home} label={t("nav.home")} />
+        <Tab to="/translate" icon={Languages} label={t("translate.title")} />
+        <Tab to="/speech" icon={Mic} label={t("speech.title")} />
+        <Tab to="/ocr" icon={Camera} label={t("ocr.title")} />
+        <Tab to="/guide" icon={MessageCircle} label={t("guide.title")} />
       </div>
     </nav>
   );

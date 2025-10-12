@@ -1,16 +1,130 @@
 {
-  "landing": {"title": "ਸਾਰਥੀ", "subtitle": "ਤੁਹਾਡਾ ਯਾਤਰਾ ਸਾਥੀ", "scrollDown": "ਜਾਰੀ ਰੱਖਣ ਲਈ ਹੇਠਾਂ ਸਕ੍ਰੋਲ ਕਰੋ"},
-  "languageSelection": {"title": "ਆਪਣੀ ਭਾਸ਼ਾ ਚੁਣੋ", "subtitle": "ਆਪਣੀ ਪਸੰਦੀਦਾ ਭਾਸ਼ਾ ਚੁਣੋ", "continue": "ਜਾਰੀ ਰੱਖੋ"},
-  "auth": {"login": "ਲੌਗਇਨ", "signup": "ਸਾਈਨ ਅੱਪ", "email": "ਈਮੇਲ", "password": "ਪਾਸਵਰਡ", "confirmPassword": "ਪਾਸਵਰਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ", "name": "ਨਾਮ", "alreadyHaveAccount": "ਪਹਿਲਾਂ ਤੋਂ ਖਾਤਾ ਹੈ?", "dontHaveAccount": "ਖਾਤਾ ਨਹੀਂ ਹੈ?", "loginWithGoogle": "Google ਨਾਲ ਜਾਰੀ ਰੱਖੋ", "or": "ਜਾਂ"},
-  "onboarding": {"title": "ਆਪਣੇ ਬਾਰੇ ਦੱਸੋ", "name": "ਤੁਹਾਡਾ ਨਾਮ", "age": "ਉਮਰ", "country": "ਦੇਸ਼", "city": "ਸ਼ਹਿਰ", "interests": "ਰੁਚੀਆਂ", "interestsPlaceholder": "ਆਪਣੀਆਂ ਰੁਚੀਆਂ ਚੁਣੋ", "travelStyle": "ਯਾਤਰਾ ਸ਼ੈਲੀ", "budget": "ਬਜਟ", "next": "ਅਗਲਾ", "skip": "ਛੱਡੋ", "finish": "ਸਮਾਪਤ", "travelStyles": {"adventurous": "ਸਾਹਸਿਕ", "relaxed": "ਆਰਾਮਦਾਇਕ", "cultural": "ਸੱਭਿਆਚਾਰਕ", "luxury": "ਲਗਜ਼ਰੀ", "budget": "ਬਜਟ"}, "budgetLevels": {"low": "ਘੱਟ ਖਰਚ", "moderate": "ਮੱਧਮ", "high": "ਲਗਜ਼ਰੀ"}, "interestsList": {"culture": "ਸੱਭਿਆਚਾਰ", "food": "ਭੋਜਨ", "nature": "ਕੁਦਰਤ", "adventure": "ਸਾਹਸ", "history": "ਇਤਿਹਾਸ", "art": "ਕਲਾ", "shopping": "ਖਰੀਦਦਾਰੀ", "nightlife": "ਰਾਤ ਦੀ ਜ਼ਿੰਦਗੀ", "photography": "ਫੋਟੋਗ੍ਰਾਫੀ", "wildlife": "ਜੰਗਲੀ ਜੀਵਨ", "beach": "ਬੀਚ", "mountains": "ਪਹਾੜ"}},
-  "home": {"welcome": "ਸਵਾਗਤ ਹੈ", "yourChapters": "ਤੁਹਾਡੇ ਅਧਿਆਏ", "addChapter": "ਅਧਿਆਏ ਸ਼ਾਮਲ ਕਰੋ", "noChapters": "ਅਜੇ ਕੋਈ ਅਧਿਆਏ ਨਹੀਂ", "noChaptersDesc": "ਨਵਾਂ ਅਧਿਆਏ ਸ਼ਾਮਲ ਕਰਕੇ ਆਪਣੀ ਯਾਤਰਾ ਸ਼ੁਰੂ ਕਰੋ", "city": "ਸ਼ਹਿਰ", "country": "ਦੇਸ਼ (ਵਿਕਲਪਿਕ)", "description": "ਵਰਣਨ (ਵਿਕਲਪਿਕ)", "generatingTasks": "AI ਕੰਮ ਬਣਾ ਰਿਹਾ ਹੈ...", "addingChapter": "ਅਧਿਆਏ ਸ਼ਾਮਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ..."},
-  "chapter": {"places": "ਸਥਾਨ", "completed": "ਪੂਰਾ ਹੋਇਆ", "pending": "ਬਾਕੀ", "xp": "XP", "totalXp": "ਕੁੱਲ XP", "noPlaces": "ਅਜੇ ਕੋਈ ਸਥਾਨ ਸ਼ਾਮਲ ਨਹੀਂ ਕੀਤਾ ਗਿਆ"},
-  "common": {"loading": "ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...", "error": "ਗਲਤੀ", "success": "ਸਫਲਤਾ", "cancel": "ਰੱਦ ਕਰੋ", "save": "ਸੁਰੱਖਿਅਤ ਕਰੋ", "delete": "ਮਿਟਾਓ", "edit": "ਸੰਪਾਦਿਤ ਕਰੋ", "close": "ਬੰਦ ਕਰੋ", "back": "ਪਿੱਛੇ", "next": "ਅਗਲਾ", "finish": "ਸਮਾਪਤ", "search": "ਖੋਜੋ", "filter": "ਫਿਲਟਰ", "sort": "ਕ੍ਰਮਬੱਧ ਕਰੋ"},
-  "nav": {"home": "ਮੁੱਖ ਪੰਨਾ", "profile": "ਪ੍ਰੋਫਾਈਲ", "settings": "ਸੈਟਿੰਗਾਂ", "logout": "ਲੌਗਆਉਟ"}
-,
-  "translate": {"title": "ਅਨੁਵਾਦ", "placeholder": "ਟੈਕਸਟ ਦਾਖਲ ਕਰੋ", "button": "ਅਨੁਵਾਦ", "description": "API ਦੁਆਰਾ ਰੀਅਲ-ਟਾਈਮ ਅਨੁਵਾਦ (ਸਟੋਰ ਨਹੀਂ ਕੀਤਾ ਗਿਆ)।"},
-  "speech": {"title": "ਸਪੀਚ", "description": "API ਦੁਆਰਾ ਰੀਅਲ-ਟਾਈਮ ਸਪੀਚ-ਟੂ-ਸਪੀਚ ਅਨੁਵਾਦ।"},
-  "ocr": {"title": "OCR", "description": "API ਦੁਆਰਾ ਕੈਮਰਾ OCR ਅਤੇ ਤੁਰੰਤ ਅਨੁਵਾਦ।"},
-  "guide": {"title": "ਗਾਈਡ", "description": "AI ਟੂਰਿਸਟ ਗਾਈਡ GPS + ਚੈਪਟਰ ਵਰਤਦਾ ਹੈ। ਸਿਰਫ਼ API, ਸਟੋਰ ਨਹੀਂ ਕੀਤਾ ਗਿਆ।"},
-  "notFound": {"title": "404", "message": "ਮਾਫ਼ ਕਰਨਾ! ਪੇਜ਼ ਨਹੀਂ ਮਿਲਿਆ", "returnHome": "ਹੋਮ 'ਤੇ ਵਾਪਸ ਜਾਓ"}
+  "landing": {
+    "title": "ਸਾਰਥੀ",
+    "subtitle": "ਤੁਹਾਡਾ ਯਾਤਰਾ ਸਾਥੀ",
+    "scrollDown": "ਜਾਰੀ ਰੱਖਣ ਲਈ ਹੇਠਾਂ ਸਕ੍ਰੋਲ ਕਰੋ"
+  },
+  "languageSelection": {
+    "title": "ਆਪਣੀ ਭਾਸ਼ਾ ਚੁਣੋ",
+    "subtitle": "ਆਪਣੀ ਪਸੰਦੀਦਾ ਭਾਸ਼ਾ ਚੁਣੋ",
+    "continue": "ਜਾਰੀ ਰੱਖੋ"
+  },
+  "auth": {
+    "login": "ਲੌਗਇਨ",
+    "signup": "ਸਾਈਨ ਅੱਪ",
+    "email": "ਈਮੇਲ",
+    "password": "ਪਾਸਵਰਡ",
+    "confirmPassword": "ਪਾਸਵਰਡ ਦੀ ਪੁਸ਼ਟੀ ਕਰੋ",
+    "name": "ਨਾਮ",
+    "alreadyHaveAccount": "ਪਹਿਲਾਂ ਤੋਂ ਖਾਤਾ ਹੈ?",
+    "dontHaveAccount": "ਖਾਤਾ ਨਹੀਂ ਹੈ?",
+    "loginWithGoogle": "Google ਨਾਲ ਜਾਰੀ ਰੱਖੋ",
+    "or": "ਜਾਂ"
+  },
+  "onboarding": {
+    "title": "ਆਪਣੇ ਬਾਰੇ ਦੱਸੋ",
+    "name": "ਤੁਹਾਡਾ ਨਾਮ",
+    "age": "ਉਮਰ",
+    "country": "ਦੇਸ਼",
+    "city": "ਸ਼ਹਿਰ",
+    "interests": "ਰੁਚੀਆਂ",
+    "interestsPlaceholder": "ਆਪਣੀਆਂ ਰੁਚੀਆਂ ਚੁਣੋ",
+    "travelStyle": "ਯਾਤਰਾ ਸ਼ੈਲੀ",
+    "budget": "ਬਜਟ",
+    "next": "ਅਗਲਾ",
+    "skip": "ਛੱਡੋ",
+    "finish": "ਸਮਾਪਤ",
+    "travelStyles": {
+      "adventurous": "ਸਾਹਸਿਕ",
+      "relaxed": "ਆਰਾਮਦਾਇਕ",
+      "cultural": "ਸੱਭਿਆਚਾਰਕ",
+      "luxury": "ਲਗਜ਼ਰੀ",
+      "budget": "ਬਜਟ"
+    },
+    "budgetLevels": {
+      "low": "ਘੱਟ ਖਰਚ",
+      "moderate": "ਮੱਧਮ",
+      "high": "ਲਗਜ਼ਰੀ"
+    },
+    "interestsList": {
+      "culture": "ਸੱਭਿਆਚਾਰ",
+      "food": "ਭੋਜਨ",
+      "nature": "ਕੁਦਰਤ",
+      "adventure": "ਸਾਹਸ",
+      "history": "ਇਤਿਹਾਸ",
+      "art": "ਕਲਾ",
+      "shopping": "ਖਰੀਦਦਾਰੀ",
+      "nightlife": "ਰਾਤ ਦੀ ਜ਼ਿੰਦਗੀ",
+      "photography": "ਫੋਟੋਗ੍ਰਾਫੀ",
+      "wildlife": "ਜੰਗਲੀ ਜੀਵਨ",
+      "beach": "ਬੀਚ",
+      "mountains": "ਪਹਾੜ"
+    }
+  },
+  "home": {
+    "welcome": "ਸਤ ਸ੍ਰੀ ਅਕਾਲ",
+    "yourChapters": "ਤੁਹਾਡੇ ਅਧਿਆਏ",
+    "addChapter": "ਅਧਿਆਏ ਸ਼ਾਮਲ ਕਰੋ",
+    "noChapters": "ਅਜੇ ਕੋਈ ਅਧਿਆਏ ਨਹੀਂ",
+    "noChaptersDesc": "ਨਵਾਂ ਅਧਿਆਏ ਸ਼ਾਮਲ ਕਰਕੇ ਆਪਣੀ ਯਾਤਰਾ ਸ਼ੁਰੂ ਕਰੋ",
+    "city": "ਸ਼ਹਿਰ",
+    "country": "ਦੇਸ਼ (ਵਿਕਲਪਿਕ)",
+    "description": "ਵਰਣਨ (ਵਿਕਲਪਿਕ)",
+    "generatingTasks": "AI ਕੰਮ ਬਣਾ ਰਿਹਾ ਹੈ...",
+    "addingChapter": "ਅਧਿਆਏ ਸ਼ਾਮਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ..."
+  },
+  "chapter": {
+    "places": "ਸਥਾਨ",
+    "completed": "ਪੂਰਾ ਹੋਇਆ",
+    "pending": "ਬਾਕੀ",
+    "xp": "XP",
+    "tier": "ਪੱਧਰ",
+    "totalXp": "ਕੁੱਲ XP",
+    "noPlaces": "ਅਜੇ ਕੋਈ ਸਥਾਨ ਸ਼ਾਮਲ ਨਹੀਂ ਕੀਤਾ ਗਿਆ"
+  },
+  "common": {
+    "loading": "ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ...",
+    "error": "ਗਲਤੀ",
+    "success": "ਸਫਲਤਾ",
+    "cancel": "ਰੱਦ ਕਰੋ",
+    "save": "ਸੁਰੱਖਿਅਤ ਕਰੋ",
+    "delete": "ਮਿਟਾਓ",
+    "edit": "ਸੰਪਾਦਿਤ ਕਰੋ",
+    "close": "ਬੰਦ ਕਰੋ",
+    "back": "ਪਿੱਛੇ",
+    "next": "ਅਗਲਾ",
+    "finish": "ਸਮਾਪਤ",
+    "search": "ਖੋਜੋ",
+    "filter": "ਫਿਲਟਰ",
+    "sort": "ਕ੍ਰਮਬੱਧ ਕਰੋ"
+  },
+  "nav": {
+    "home": "ਮੁੱਖ ਪੰਨਾ",
+    "profile": "ਪ੍ਰੋਫਾਈਲ",
+    "settings": "ਸੈਟਿੰਗਾਂ",
+    "logout": "ਲੌਗਆਉਟ"
+  },
+  "translate": {
+    "title": "ਅਨੁਵਾਦ",
+    "placeholder": "ਟੈਕਸਟ ਦਾਖਲ ਕਰੋ",
+    "button": "ਅਨੁਵਾਦ",
+    "description": "API ਦੁਆਰਾ ਰੀਅਲ-ਟਾਈਮ ਅਨੁਵਾਦ (ਸਟੋਰ ਨਹੀਂ ਕੀਤਾ ਗਿਆ)।"
+  },
+  "speech": {
+    "title": "ਸਪੀਚ",
+    "description": "API ਦੁਆਰਾ ਰੀਅਲ-ਟਾਈਮ ਸਪੀਚ-ਟੂ-ਸਪੀਚ ਅਨੁਵਾਦ।"
+  },
+  "ocr": {
+    "title": "OCR",
+    "description": "API ਦੁਆਰਾ ਕੈਮਰਾ OCR ਅਤੇ ਤੁਰੰਤ ਅਨੁਵਾਦ।"
+  },
+  "guide": {
+    "title": "ਗਾਈਡ",
+    "description": "AI ਟੂਰਿਸਟ ਗਾਈਡ GPS + ਚੈਪਟਰ ਵਰਤਦਾ ਹੈ। ਸਿਰਫ਼ API, ਸਟੋਰ ਨਹੀਂ ਕੀਤਾ ਗਿਆ।"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "ਮਾਫ਼ ਕਰਨਾ! ਪੇਜ਼ ਨਹੀਂ ਮਿਲਿਆ",
+    "returnHome": "ਹੋਮ 'ਤੇ ਵਾਪਸ ਜਾਓ"
+  }
 }

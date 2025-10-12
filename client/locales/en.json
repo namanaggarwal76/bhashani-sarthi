@@ -62,7 +62,7 @@
     }
   },
   "home": {
-    "welcome": "Welcome",
+    "welcome": "Hello",
     "yourChapters": "Your Chapters",
     "addChapter": "Add Chapter",
     "noChapters": "No chapters yet",
@@ -78,6 +78,7 @@
     "completed": "Completed",
     "pending": "Pending",
     "xp": "XP",
+    "tier": "Tier",
     "totalXp": "Total XP",
     "noPlaces": "No places added yet"
   },

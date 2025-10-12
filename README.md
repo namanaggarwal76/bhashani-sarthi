@@ -238,7 +238,7 @@ GEMINI_API_KEY=your-gemini-api-key-here
 pnpm dev
 ```
 
-The app will be available at `http://localhost:8080`
+The app will be available at `http://localhost:2000`
 
 ## 📝 Development Commands
 

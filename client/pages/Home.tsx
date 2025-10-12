@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import Header from "@/components/Header";
 import BottomNav from "@/components/BottomNav";
 import XpBar from "@/components/XpBar";
@@ -13,10 +14,10 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Plus } from "lucide-react";
 
 export default function Home() {
-  const { user, addChapter, t, loading } = useUser();
+  const { user, addChapter, loading } = useUser();
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
@@ -59,42 +60,39 @@ export default function Home() {
       <main className="mx-auto max-w-3xl px-4 py-4 space-y-6">
         <div>
           <h2 className="text-xl font-semibold">
-            {t("welcome")}, {user.basic_info.name?.split(" ")[0] || "Traveler"}{" "}
+            {t("home.welcome")}, {user.basic_info.name?.split(" ")[0] || "Traveler"}{" "}
             👋
           </h2>
-          <p className="text-sm text-muted-foreground">
-            {t("tier")}: {user.stats.tier} | {t("xp")}: {user.stats.xp}
-          </p>
         </div>
         <XpBar />
 
         <section>
           <div className="mb-3 flex items-center justify-between">
-            <h3 className="text-lg font-semibold">{t("yourChapters")}</h3>
+            <h3 className="text-lg font-semibold">{t("home.yourChapters")}</h3>
             <Dialog open={open} onOpenChange={setOpen}>
               <DialogTrigger asChild>
                 <Button size="sm" disabled={loading || !user}>
-                  {t("createChapter")}
+                  {t("home.addChapter")}
                 </Button>
               </DialogTrigger>
               <DialogContent>
                 <DialogHeader>
-                  <DialogTitle>{t("createChapter")}</DialogTitle>
+                  <DialogTitle>{t("home.addChapter")}</DialogTitle>
                 </DialogHeader>
                 <div className="grid gap-3">
                   <Input
-                    placeholder={t("city") + " *"}
+                    placeholder={t("home.city") + " *"}
                     value={city}
                     onChange={(e) => setCity(e.target.value)}
                     required
                   />
                   <Input
-                    placeholder={t("country") + " (optional)"}
+                    placeholder={t("home.country")}
                     value={country}
                     onChange={(e) => setCountry(e.target.value)}
                   />
                   <Input
-                    placeholder={t("description") + " (optional)"}
+                    placeholder={t("home.description")}
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                   />
@@ -104,13 +102,13 @@ export default function Home() {
                       onClick={() => setOpen(false)}
                       disabled={submitting}
                     >
-                      {t("cancel")}
+                      {t("common.cancel")}
                     </Button>
                     <Button 
                       onClick={submit}
                       disabled={submitting || !user || !city}
                     >
-                      {submitting ? "Generating AI Tasks..." : t("add")}
+                      {submitting ? t("home.generatingTasks") : t("home.addChapter")}
                     </Button>
                   </div>
                 </div>
@@ -126,20 +124,11 @@ export default function Home() {
             </div>
           ) : (
             <div className="rounded-2xl border bg-card p-6 text-center text-muted-foreground">
-              {t("startJourney")}
+              {t("home.noChaptersDesc")}
             </div>
           )}
         </section>
       </main>
-
-      <Button
-        className="fixed bottom-24 right-6 h-14 w-14 rounded-full shadow-lg"
-        size="icon"
-        onClick={() => setOpen(true)}
-        disabled={loading || !user}
-      >
-        <Plus className="h-6 w-6" />
-      </Button>
 
       <BottomNav />
     </div>

@@ -1,6 +1,6 @@
-import { BadgeCheck } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { useUser } from "@/context/UserContext";
+import Profile from "./Profile";
 
 export default function Header() {
   const { user } = useUser();
@@ -20,12 +20,7 @@ export default function Header() {
               </p>
             </div>
           </div>
-          {user && (
-            <div className="flex items-center gap-2 rounded-full bg-secondary px-3 py-1 text-sm">
-              <BadgeCheck className="h-4 w-4 text-primary" />
-              <span>{user.stats.tier}</span>
-            </div>
-          )}
+          {user && <Profile />}
         </div>
       </div>
     </header>

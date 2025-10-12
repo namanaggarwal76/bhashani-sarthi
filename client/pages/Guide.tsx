@@ -1,17 +1,15 @@
-import Header from "@/components/Header";
 import BottomNav from "@/components/BottomNav";
+import Header from "@/components/Header";
 import { useTranslation } from "react-i18next";
+import ChatAi from "./Chat_Ai";
 
 export default function Guide() {
   const { t } = useTranslation();
   return (
-    <div className="min-h-screen pb-28">
+    <div className="fixed inset-0 flex flex-col bg-white">
       <Header />
-      <main className="mx-auto max-w-3xl px-4 py-6 space-y-2">
-        <h1 className="text-xl font-semibold">{t("guide.title")}</h1>
-        <p className="text-sm text-muted-foreground">
-          {t("guide.description")}
-        </p>
+      <main className="flex-1 mb-20 flex flex-col overflow-hidden">
+        <ChatAi />
       </main>
       <BottomNav />
     </div>

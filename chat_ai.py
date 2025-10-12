@@ -1,11 +1,10 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import requests
-import os
+import logging
 from google import genai
 from fastapi.middleware.cors import CORSMiddleware
 from google.genai import types
-import logging
 
 logging.basicConfig(level=logging.INFO)
 
@@ -29,20 +28,49 @@ class ChatRequest(BaseModel):
     preferences: dict = None  # {"travel_style": "...", "budget": "..."}
 
 # -------------------------
-# AnuvaadHub MT Translation
+# Bhashini MT Integration
 # -------------------------
-HI_TO_EN_MT_URL = "https://canvas.iiit.ac.in/sandboxbeprod/check_model_status_and_infer/67b86729b5cc0eb92316384a"
-HI_TO_EN_MT_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjhlYTVmYjJiOTNlM2JlYzkwMWZkOGJmIiwicm9sZSI6Im1lZ2F0aG9uX3N0dWRlbnQifQ.f9HiMK1fDz8Bg6o3f6RMcllzPk1DB71lVGXUYmP3QXY"
+AUTH_TOKEN = "DveTyi8IJRxMNJdbUI0EhiE1X0yQYmoIiNLafiNLYbr4K0JCmDxFasFbOQQgkz7w"
+MT_SERVICE_ID = "ai4bharat/indictrans-v2-all-gpu--t4"
+API_URL = "https://dhruva-api.bhashini.gov.in/services/inference/pipeline"
 
-EN_TO_HI_MT_URL = "https://canvas.iiit.ac.in/sandboxbeprod/check_model_status_and_infer/67b86729b5cc0eb92316383c"
-EN_TO_HI_MT_TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjhlYTVmYjJiOTNlM2JlYzkwMWZkOGJmIiwicm9sZSI6Im1lZ2F0aG9uX3N0dWRlbnQifQ.f9HiMK1fDz8Bg6o3f6RMcllzPk1DB71lVGXUYmP3QXY"
+SUPPORTED_LANGUAGES = {
+    "en", "hi", "bn", "ta", "te", "ml", "kn", "gu", "mr", "or", "pa", "as", "ur", "sa",
+    "ne", "sd", "ks", "brx", "doi", "gom", "mai", "mni", "sat"
+}
 
-def translate_text_anuvaadh(text: str, url: str, token: str) -> str:
-    headers = {"access-token": token, "Content-Type": "application/json"}
-    payload = {"input_text": text}
-    response = requests.post(url, json=payload, headers=headers)
+def translate_text_bhashini(text: str, source_lang: str, target_lang: str) -> str:
+    if not text.strip():
+        raise ValueError("Text cannot be empty")
+    if source_lang not in SUPPORTED_LANGUAGES or target_lang not in SUPPORTED_LANGUAGES:
+        raise ValueError(f"Unsupported language. Supported: {sorted(SUPPORTED_LANGUAGES)}")
+    if source_lang == target_lang:
+        return text
+
+    payload = {
+        "pipelineTasks": [
+            {
+                "taskType": "translation",
+                "config": {
+                    "language": {"sourceLanguage": source_lang, "targetLanguage": target_lang},
+                    "serviceId": MT_SERVICE_ID,
+                    "numTranslation": "True"
+                }
+            }
+        ],
+        "inputData": {"input": [{"source": text}], "audio": [{"audioContent": None}]}
+    }
+
+    headers = {"Authorization": AUTH_TOKEN, "Content-Type": "application/json"}
+
+    response = requests.post(API_URL, headers=headers, json=payload, timeout=30)
     response.raise_for_status()
-    return response.json()["data"]["output_text"]
+    result = response.json()
+
+    try:
+        return result["pipelineResponse"][0]["output"][0]["target"]
+    except (KeyError, IndexError, TypeError):
+        raise RuntimeError(f"No translation found in MT response: {result}")
 
 # -------------------------
 # Gemini Client Initialization
@@ -66,7 +94,7 @@ def chat_with_ai(prompt: str) -> str:
             contents=prompt,
             config=types.GenerateContentConfig(
                 temperature=0.7,
-                max_output_tokens=30000
+                max_output_tokens=1800
             )
         )
         return response.text.strip()
@@ -79,7 +107,6 @@ def chat_with_ai(prompt: str) -> str:
 # -------------------------
 def build_travel_prompt(location, interests, preferences):
     return f"""
-    I WANT AN OUTPUT OF ATMOST 6-8 RECOMMENDATIONS AND ATMOST 300-400 WORDS.
 You are a world-class travel expert and personal trip advisor.
 
 Your role:
@@ -104,6 +131,7 @@ Guidelines:
 5. Ensure diversity: Attraction, Food, Museum, Nature, Culture, Shopping, Entertainment.
 6. Include descriptions and estimated visit durations.
 7. Use realistic ratings (3.8–5.0).
+I WANT AN OUTPUT OF ATMOST 6-8 RECOMMENDATIONS AND ATMOST 300-400 WORDS. PLEASE DONT EXCEED THIS WORDS LIMIT!!!
 
 Response Format - Return ONLY valid JSON:
 
@@ -131,32 +159,30 @@ async def chat_endpoint(req: ChatRequest):
     user_text = req.message
 
     # Translate to English if Hindi
+    english_text = user_text
     if user_lang == "hi":
         try:
-            english_text = translate_text_anuvaadh(user_text, HI_TO_EN_MT_URL, HI_TO_EN_MT_TOKEN)
+            english_text = translate_text_bhashini(user_text, "hi", "en")
         except Exception as e:
             return {"error": f"Translation HI→EN failed: {str(e)}"}
-    else:
-        english_text = user_text
 
-    # Check if user is asking for travel recommendations
+    # Check for travel recommendation intent
     travel_keywords = ["recommend", "suggest", "plan", "places", "trip", "travel"]
     if any(word in english_text.lower() for word in travel_keywords) and req.location and req.interests and req.preferences:
         prompt = build_travel_prompt(req.location, req.interests, req.preferences)
     else:
         prompt = english_text
 
-    # Generate AI response
+    # AI response
     ai_response_en = chat_with_ai(prompt)
 
     # Translate back to Hindi if needed
+    ai_response_user_lang = ai_response_en
     if user_lang == "hi":
         try:
-            ai_response_user_lang = translate_text_anuvaadh(ai_response_en, EN_TO_HI_MT_URL, EN_TO_HI_MT_TOKEN)
+            ai_response_user_lang = translate_text_bhashini(ai_response_en, "en", "hi")
         except Exception as e:
             return {"error": f"Translation EN→HI failed: {str(e)}"}
-    else:
-        ai_response_user_lang = ai_response_en
 
     return {
         "user_language": user_lang,

@@ -1,16 +1,130 @@
 {
-  "landing": {"title": "സാരഥി", "subtitle": "നിങ്ങളുടെ യാത്രാ സഖി", "scrollDown": "തുടരാൻ താഴേക്ക് സ്ക്രോൾ ചെയ്യുക"},
-  "languageSelection": {"title": "നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക", "subtitle": "നിങ്ങളുടെ ഇഷ്ട ഭാഷ തിരഞ്ഞെടുക്കുക", "continue": "തുടരുക"},
-  "auth": {"login": "ലോഗിൻ", "signup": "സൈൻ അപ്പ്", "email": "ഇമെയിൽ", "password": "പാസ്‌വേഡ്", "confirmPassword": "പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക", "name": "പേര്", "alreadyHaveAccount": "ഇതിനകം അക്കൗണ്ടുണ്ടോ?", "dontHaveAccount": "അക്കൗണ്ട് ഇല്ലേ?", "loginWithGoogle": "Google ഉപയോഗിച്ച് തുടരുക", "or": "അല്ലെങ്കിൽ"},
-  "onboarding": {"title": "നിങ്ങളെക്കുറിച്ച് പറയുക", "name": "നിങ്ങളുടെ പേര്", "age": "പ്രായം", "country": "രാജ്യം", "city": "നഗരം", "interests": "താൽപ്പര്യങ്ങൾ", "interestsPlaceholder": "നിങ്ങളുടെ താൽപ്പര്യങ്ങൾ തിരഞ്ഞെടുക്കുക", "travelStyle": "യാത്രാ ശൈലി", "budget": "ബഡ്ജറ്റ്", "next": "അടുത്തത്", "skip": "ഒഴിവാക്കുക", "finish": "പൂർത്തിയാക്കുക", "travelStyles": {"adventurous": "സാഹസിക", "relaxed": "വിശ്രമിക്കുന്ന", "cultural": "സാംസ്കാരിക", "luxury": "ആഡംബര", "budget": "ബഡ്ജറ്റ്"}, "budgetLevels": {"low": "കുറഞ്ഞ ചെലവ്", "moderate": "മിതമായ", "high": "ആഡംബര"}, "interestsList": {"culture": "സംസ്കാരം", "food": "ഭക്ഷണം", "nature": "പ്രകൃതി", "adventure": "സാഹസികത", "history": "ചരിത്രം", "art": "കല", "shopping": "ഷോപ്പിംഗ്", "nightlife": "രാത്രി ജീവിതം", "photography": "ഫോട്ടോഗ്രാഫി", "wildlife": "വന്യജീവി", "beach": "കടൽത്തീരം", "mountains": "മലകൾ"}},
-  "home": {"welcome": "സ്വാഗതം", "yourChapters": "നിങ്ങളുടെ അദ്ധ്യായങ്ങൾ", "addChapter": "അദ്ധ്യായം ചേർക്കുക", "noChapters": "ഇതുവരെ അദ്ധ്യായങ്ങളൊന്നുമില്ല", "noChaptersDesc": "നിങ്ങളുടെ യാത്ര ആരംഭിക്കാൻ പുതിയ അദ്ധ്യായം ചേർക്കുക", "city": "നഗരം", "country": "രാജ്യം (ഓപ്ഷണൽ)", "description": "വിവരണം (ഓപ്ഷണൽ)", "generatingTasks": "AI ജോലികൾ സൃഷ്ടിക്കുന്നു...", "addingChapter": "അദ്ധ്യായം ചേർക്കുന്നു..."},
-  "chapter": {"places": "സ്ഥലങ്ങൾ", "completed": "പൂർത്തിയായി", "pending": "കാത്തിരിക്കുന്നു", "xp": "XP", "totalXp": "മൊത്തം XP", "noPlaces": "ഇതുവരെ സ്ഥലങ്ങളൊന്നും ചേർത്തിട്ടില്ല"},
-  "common": {"loading": "ലോഡ് ചെയ്യുന്നു...", "error": "പിശക്", "success": "വിജയം", "cancel": "റദ്ദാക്കുക", "save": "സേവ് ചെയ്യുക", "delete": "ഇല്ലാതാക്കുക", "edit": "എഡിറ്റ് ചെയ്യുക", "close": "അടയ്ക്കുക", "back": "തിരികെ", "next": "അടുത്തത്", "finish": "പൂർത്തിയാക്കുക", "search": "തിരയുക", "filter": "ഫിൽട്ടർ", "sort": "ക്രമീകരിക്കുക"},
-  "nav": {"home": "ഹോം", "profile": "പ്രൊഫൈൽ", "settings": "സെറ്റിംഗുകൾ", "logout": "ലോഗ്ഔട്ട്"}
-,
-  "translate": {"title": "വിവർത്തനം", "placeholder": "ടെക്സ്റ്റ് നൽകുക", "button": "വിവർത്തനം", "description": "API വഴി റിയൽ-ടൈം വിവർത്തനം (സംഭരിച്ചിട്ടില്ല)।"},
-  "speech": {"title": "സ്പീച്ച്", "description": "API വഴി റിയൽ-ടൈം സ്പീച്ച്-ടു-സ്പീച്ച് വിവർത്തനം।"},
-  "ocr": {"title": "OCR", "description": "API വഴി ക്യാമറ OCR ഉം ദ്രുത വിവർത്തനവും।"},
-  "guide": {"title": "ഗൈഡ്", "description": "AI ടൂറിസ്റ്റ് ഗൈഡ് GPS + അദ്ധ്യായങ്ങൾ ഉപയോഗിക്കുന്നു। API മാത്രം, സംഭരിച്ചിട്ടില്ല।"},
-  "notFound": {"title": "404", "message": "ക്ഷമിക്കണം! പേജ് കണ്ടെത്തിയില്ല", "returnHome": "ഹോമിലേക്ക് മടങ്ങുക"}
+  "landing": {
+    "title": "സാരഥി",
+    "subtitle": "നിങ്ങളുടെ യാത്രാ സഖി",
+    "scrollDown": "തുടരാൻ താഴേക്ക് സ്ക്രോൾ ചെയ്യുക"
+  },
+  "languageSelection": {
+    "title": "നിങ്ങളുടെ ഭാഷ തിരഞ്ഞെടുക്കുക",
+    "subtitle": "നിങ്ങളുടെ ഇഷ്ട ഭാഷ തിരഞ്ഞെടുക്കുക",
+    "continue": "തുടരുക"
+  },
+  "auth": {
+    "login": "ലോഗിൻ",
+    "signup": "സൈൻ അപ്പ്",
+    "email": "ഇമെയിൽ",
+    "password": "പാസ്‌വേഡ്",
+    "confirmPassword": "പാസ്‌വേഡ് സ്ഥിരീകരിക്കുക",
+    "name": "പേര്",
+    "alreadyHaveAccount": "ഇതിനകം അക്കൗണ്ടുണ്ടോ?",
+    "dontHaveAccount": "അക്കൗണ്ട് ഇല്ലേ?",
+    "loginWithGoogle": "Google ഉപയോഗിച്ച് തുടരുക",
+    "or": "അല്ലെങ്കിൽ"
+  },
+  "onboarding": {
+    "title": "നിങ്ങളെക്കുറിച്ച് പറയുക",
+    "name": "നിങ്ങളുടെ പേര്",
+    "age": "പ്രായം",
+    "country": "രാജ്യം",
+    "city": "നഗരം",
+    "interests": "താൽപ്പര്യങ്ങൾ",
+    "interestsPlaceholder": "നിങ്ങളുടെ താൽപ്പര്യങ്ങൾ തിരഞ്ഞെടുക്കുക",
+    "travelStyle": "യാത്രാ ശൈലി",
+    "budget": "ബഡ്ജറ്റ്",
+    "next": "അടുത്തത്",
+    "skip": "ഒഴിവാക്കുക",
+    "finish": "പൂർത്തിയാക്കുക",
+    "travelStyles": {
+      "adventurous": "സാഹസിക",
+      "relaxed": "വിശ്രമിക്കുന്ന",
+      "cultural": "സാംസ്കാരിക",
+      "luxury": "ആഡംബര",
+      "budget": "ബഡ്ജറ്റ്"
+    },
+    "budgetLevels": {
+      "low": "കുറഞ്ഞ ചെലവ്",
+      "moderate": "മിതമായ",
+      "high": "ആഡംബര"
+    },
+    "interestsList": {
+      "culture": "സംസ്കാരം",
+      "food": "ഭക്ഷണം",
+      "nature": "പ്രകൃതി",
+      "adventure": "സാഹസികത",
+      "history": "ചരിത്രം",
+      "art": "കല",
+      "shopping": "ഷോപ്പിംഗ്",
+      "nightlife": "രാത്രി ജീവിതം",
+      "photography": "ഫോട്ടോഗ്രാഫി",
+      "wildlife": "വന്യജീവി",
+      "beach": "കടൽത്തീരം",
+      "mountains": "മലകൾ"
+    }
+  },
+  "home": {
+    "welcome": "നമസ്കാരം",
+    "yourChapters": "നിങ്ങളുടെ അദ്ധ്യായങ്ങൾ",
+    "addChapter": "അദ്ധ്യായം ചേർക്കുക",
+    "noChapters": "ഇതുവരെ അദ്ധ്യായങ്ങളൊന്നുമില്ല",
+    "noChaptersDesc": "നിങ്ങളുടെ യാത്ര ആരംഭിക്കാൻ പുതിയ അദ്ധ്യായം ചേർക്കുക",
+    "city": "നഗരം",
+    "country": "രാജ്യം (ഓപ്ഷണൽ)",
+    "description": "വിവരണം (ഓപ്ഷണൽ)",
+    "generatingTasks": "AI ജോലികൾ സൃഷ്ടിക്കുന്നു...",
+    "addingChapter": "അദ്ധ്യായം ചേർക്കുന്നു..."
+  },
+  "chapter": {
+    "places": "സ്ഥലങ്ങൾ",
+    "completed": "പൂർത്തിയായി",
+    "pending": "കാത്തിരിക്കുന്നു",
+    "xp": "XP",
+    "tier": "ടയർ",
+    "totalXp": "മൊത്തം XP",
+    "noPlaces": "ഇതുവരെ സ്ഥലങ്ങളൊന്നും ചേർത്തിട്ടില്ല"
+  },
+  "common": {
+    "loading": "ലോഡ് ചെയ്യുന്നു...",
+    "error": "പിശക്",
+    "success": "വിജയം",
+    "cancel": "റദ്ദാക്കുക",
+    "save": "സേവ് ചെയ്യുക",
+    "delete": "ഇല്ലാതാക്കുക",
+    "edit": "എഡിറ്റ് ചെയ്യുക",
+    "close": "അടയ്ക്കുക",
+    "back": "തിരികെ",
+    "next": "അടുത്തത്",
+    "finish": "പൂർത്തിയാക്കുക",
+    "search": "തിരയുക",
+    "filter": "ഫിൽട്ടർ",
+    "sort": "ക്രമീകരിക്കുക"
+  },
+  "nav": {
+    "home": "ഹോം",
+    "profile": "പ്രൊഫൈൽ",
+    "settings": "സെറ്റിംഗുകൾ",
+    "logout": "ലോഗ്ഔട്ട്"
+  },
+  "translate": {
+    "title": "വിവർത്തനം",
+    "placeholder": "ടെക്സ്റ്റ് നൽകുക",
+    "button": "വിവർത്തനം",
+    "description": "API വഴി റിയൽ-ടൈം വിവർത്തനം (സംഭരിച്ചിട്ടില്ല)।"
+  },
+  "speech": {
+    "title": "സ്പീച്ച്",
+    "description": "API വഴി റിയൽ-ടൈം സ്പീച്ച്-ടു-സ്പീച്ച് വിവർത്തനം।"
+  },
+  "ocr": {
+    "title": "OCR",
+    "description": "API വഴി ക്യാമറ OCR ഉം ദ്രുത വിവർത്തനവും।"
+  },
+  "guide": {
+    "title": "ഗൈഡ്",
+    "description": "AI ടൂറിസ്റ്റ് ഗൈഡ് GPS + അദ്ധ്യായങ്ങൾ ഉപയോഗിക്കുന്നു। API മാത്രം, സംഭരിച്ചിട്ടില്ല।"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "ക്ഷമിക്കണം! പേജ് കണ്ടെത്തിയില്ല",
+    "returnHome": "ഹോമിലേക്ക് മടങ്ങുക"
+  }
 }

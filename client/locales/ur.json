@@ -1,16 +1,130 @@
 {
-  "landing": {"title": "سارتھی", "subtitle": "آپ کا سفری ساتھی", "scrollDown": "جاری رکھنے کے لیے نیچے سکرول کریں"},
-  "languageSelection": {"title": "اپنی زبان منتخب کریں", "subtitle": "اپنی پسندیدہ زبان منتخب کریں", "continue": "جاری رکھیں"},
-  "auth": {"login": "لاگ ان", "signup": "سائن اپ", "email": "ای میل", "password": "پاس ورڈ", "confirmPassword": "پاس ورڈ کی تصدیق کریں", "name": "نام", "alreadyHaveAccount": "پہلے سے اکاؤنٹ ہے؟", "dontHaveAccount": "اکاؤنٹ نہیں ہے؟", "loginWithGoogle": "Google کے ساتھ جاری رکھیں", "or": "یا"},
-  "onboarding": {"title": "اپنے بارے میں بتائیں", "name": "آپ کا نام", "age": "عمر", "country": "ملک", "city": "شہر", "interests": "دلچسپیاں", "interestsPlaceholder": "اپنی دلچسپیاں منتخب کریں", "travelStyle": "سفری انداز", "budget": "بجٹ", "next": "اگلا", "skip": "چھوڑیں", "finish": "مکمل کریں", "travelStyles": {"adventurous": "مہم جو", "relaxed": "آرام دہ", "cultural": "ثقافتی", "luxury": "عیش و عشرت", "budget": "بجٹ"}, "budgetLevels": {"low": "کم خرچ", "moderate": "اعتدال پسند", "high": "عیش و عشرت"}, "interestsList": {"culture": "ثقافت", "food": "کھانا", "nature": "فطرت", "adventure": "مہم جوئی", "history": "تاریخ", "art": "فن", "shopping": "خریداری", "nightlife": "رات کی زندگی", "photography": "فوٹوگرافی", "wildlife": "جنگلی حیات", "beach": "ساحل", "mountains": "پہاڑ"}},
-  "home": {"welcome": "خوش آمدید", "yourChapters": "آپ کے ابواب", "addChapter": "باب شامل کریں", "noChapters": "ابھی تک کوئی باب نہیں", "noChaptersDesc": "اپنا سفر شروع کرنے کے لیے نیا باب شامل کریں", "city": "شہر", "country": "ملک (اختیاری)", "description": "تفصیل (اختیاری)", "generatingTasks": "AI کام بنا رہا ہے...", "addingChapter": "باب شامل کیا جا رہا ہے..."},
-  "chapter": {"places": "مقامات", "completed": "مکمل", "pending": "زیر التوا", "xp": "XP", "totalXp": "کل XP", "noPlaces": "ابھی تک کوئی مقامات شامل نہیں کیے گئے"},
-  "common": {"loading": "لوڈ ہو رہا ہے...", "error": "خرابی", "success": "کامیابی", "cancel": "منسوخ کریں", "save": "محفوظ کریں", "delete": "حذف کریں", "edit": "ترمیم کریں", "close": "بند کریں", "back": "واپس", "next": "اگلا", "finish": "مکمل کریں", "search": "تلاش کریں", "filter": "فلٹر", "sort": "ترتیب دیں"},
-  "nav": {"home": "ہوم", "profile": "پروفائل", "settings": "ترتیبات", "logout": "لاگ آؤٹ"}
-,
-  "translate": {"title": "ترجمہ", "placeholder": "متن داخل کریں", "button": "ترجمہ کریں", "description": "API کے ذریعے ریئل ٹائم ترجمہ (محفوظ نہیں کیا گیا)۔"},
-  "speech": {"title": "تقریر", "description": "API کے ذریعے ریئل ٹائم تقریر سے تقریر ترجمہ۔"},
-  "ocr": {"title": "OCR", "description": "API کے ذریعے کیمرا OCR اور فوری ترجمہ۔"},
-  "guide": {"title": "گائیڈ", "description": "AI سیاحتی گائیڈ GPS + ابواب استعمال کرتا ہے۔ صرف API، محفوظ نہیں کیا گیا۔"},
-  "notFound": {"title": "404", "message": "معذرت! صفحہ نہیں ملا", "returnHome": "ہوم پر واپس جائیں"}
+  "landing": {
+    "title": "سارتھی",
+    "subtitle": "آپ کا سفری ساتھی",
+    "scrollDown": "جاری رکھنے کے لیے نیچے سکرول کریں"
+  },
+  "languageSelection": {
+    "title": "اپنی زبان منتخب کریں",
+    "subtitle": "اپنی پسندیدہ زبان منتخب کریں",
+    "continue": "جاری رکھیں"
+  },
+  "auth": {
+    "login": "لاگ ان",
+    "signup": "سائن اپ",
+    "email": "ای میل",
+    "password": "پاس ورڈ",
+    "confirmPassword": "پاس ورڈ کی تصدیق کریں",
+    "name": "نام",
+    "alreadyHaveAccount": "پہلے سے اکاؤنٹ ہے؟",
+    "dontHaveAccount": "اکاؤنٹ نہیں ہے؟",
+    "loginWithGoogle": "Google کے ساتھ جاری رکھیں",
+    "or": "یا"
+  },
+  "onboarding": {
+    "title": "اپنے بارے میں بتائیں",
+    "name": "آپ کا نام",
+    "age": "عمر",
+    "country": "ملک",
+    "city": "شہر",
+    "interests": "دلچسپیاں",
+    "interestsPlaceholder": "اپنی دلچسپیاں منتخب کریں",
+    "travelStyle": "سفری انداز",
+    "budget": "بجٹ",
+    "next": "اگلا",
+    "skip": "چھوڑیں",
+    "finish": "مکمل کریں",
+    "travelStyles": {
+      "adventurous": "مہم جو",
+      "relaxed": "آرام دہ",
+      "cultural": "ثقافتی",
+      "luxury": "عیش و عشرت",
+      "budget": "بجٹ"
+    },
+    "budgetLevels": {
+      "low": "کم خرچ",
+      "moderate": "اعتدال پسند",
+      "high": "عیش و عشرت"
+    },
+    "interestsList": {
+      "culture": "ثقافت",
+      "food": "کھانا",
+      "nature": "فطرت",
+      "adventure": "مہم جوئی",
+      "history": "تاریخ",
+      "art": "فن",
+      "shopping": "خریداری",
+      "nightlife": "رات کی زندگی",
+      "photography": "فوٹوگرافی",
+      "wildlife": "جنگلی حیات",
+      "beach": "ساحل",
+      "mountains": "پہاڑ"
+    }
+  },
+  "home": {
+    "welcome": "السلام علیکم",
+    "yourChapters": "آپ کے ابواب",
+    "addChapter": "باب شامل کریں",
+    "noChapters": "ابھی تک کوئی باب نہیں",
+    "noChaptersDesc": "اپنا سفر شروع کرنے کے لیے نیا باب شامل کریں",
+    "city": "شہر",
+    "country": "ملک (اختیاری)",
+    "description": "تفصیل (اختیاری)",
+    "generatingTasks": "AI کام بنا رہا ہے...",
+    "addingChapter": "باب شامل کیا جا رہا ہے..."
+  },
+  "chapter": {
+    "places": "مقامات",
+    "completed": "مکمل",
+    "pending": "زیر التوا",
+    "xp": "XP",
+    "tier": "درجہ",
+    "totalXp": "کل XP",
+    "noPlaces": "ابھی تک کوئی مقامات شامل نہیں کیے گئے"
+  },
+  "common": {
+    "loading": "لوڈ ہو رہا ہے...",
+    "error": "خرابی",
+    "success": "کامیابی",
+    "cancel": "منسوخ کریں",
+    "save": "محفوظ کریں",
+    "delete": "حذف کریں",
+    "edit": "ترمیم کریں",
+    "close": "بند کریں",
+    "back": "واپس",
+    "next": "اگلا",
+    "finish": "مکمل کریں",
+    "search": "تلاش کریں",
+    "filter": "فلٹر",
+    "sort": "ترتیب دیں"
+  },
+  "nav": {
+    "home": "ہوم",
+    "profile": "پروفائل",
+    "settings": "ترتیبات",
+    "logout": "لاگ آؤٹ"
+  },
+  "translate": {
+    "title": "ترجمہ",
+    "placeholder": "متن داخل کریں",
+    "button": "ترجمہ کریں",
+    "description": "API کے ذریعے ریئل ٹائم ترجمہ (محفوظ نہیں کیا گیا)۔"
+  },
+  "speech": {
+    "title": "تقریر",
+    "description": "API کے ذریعے ریئل ٹائم تقریر سے تقریر ترجمہ۔"
+  },
+  "ocr": {
+    "title": "OCR",
+    "description": "API کے ذریعے کیمرا OCR اور فوری ترجمہ۔"
+  },
+  "guide": {
+    "title": "گائیڈ",
+    "description": "AI سیاحتی گائیڈ GPS + ابواب استعمال کرتا ہے۔ صرف API، محفوظ نہیں کیا گیا۔"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "معذرت! صفحہ نہیں ملا",
+    "returnHome": "ہوم پر واپس جائیں"
+  }
 }

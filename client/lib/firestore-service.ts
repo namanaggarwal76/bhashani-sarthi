@@ -100,6 +100,23 @@ export async function updateUserPreferences(
 }
 
 /**
+ * Update user profile (basic info and preferences together)
+ */
+export async function updateUserProfile(
+  userId: string,
+  data: {
+    basic_info: BasicInfo;
+    preferences: Preferences;
+  }
+): Promise<void> {
+  const userDocRef = doc(getUsersCollection(), userId);
+  await updateDoc(userDocRef, {
+    basic_info: data.basic_info,
+    preferences: data.preferences,
+  });
+}
+
+/**
  * Update user stats
  */
 export async function updateUserStats(

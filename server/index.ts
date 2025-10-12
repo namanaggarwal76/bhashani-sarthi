@@ -5,6 +5,8 @@ import express from "express";
 import cors from "cors";
 import { handleDemo } from "./routes/demo";
 import { handleGenerateTasks } from "./routes/generate-tasks";
+import multer from "multer";
+import { handleSpeechPipeline } from "./routes/speech_pipeline";
 
 // Get the directory name in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -39,6 +41,8 @@ export function createServer() {
   
   // AI-powered task generation
   app.post("/api/generate-tasks", handleGenerateTasks);
+  const upload = multer();
+  app.post('/api/speech/pipeline', upload.single('audio'), handleSpeechPipeline);
 
   return app;
 }

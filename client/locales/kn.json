@@ -1,15 +1,130 @@
 {
-  "landing": {"title": "ಸಾರಥಿ", "subtitle": "ನಿಮ್ಮ ಪ್ರಯಾಣ ಸಹಚರ", "scrollDown": "ಮುಂದುವರಿಸಲು ಕೆಳಗೆ ಸ್ಕ್ರಾಲ್ ಮಾಡಿ"},
-  "languageSelection": {"title": "ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ", "subtitle": "ನಿಮ್ಮ ಆದ್ಯತೆಯ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ", "continue": "ಮುಂದುವರಿಸಿ"},
-  "auth": {"login": "ಲಾಗಿನ್", "signup": "ಸೈನ್ ಅಪ್", "email": "ಇಮೇಲ್", "password": "ಪಾಸ್‌ವರ್ಡ್", "confirmPassword": "ಪಾಸ್‌ವರ್ಡ್ ಖಚಿತಪಡಿಸಿ", "name": "ಹೆಸರು", "alreadyHaveAccount": "ಈಗಾಗಲೇ ಖಾತೆ ಹೊಂದಿದ್ದೀರಾ?", "dontHaveAccount": "ಖಾತೆ ಇಲ್ಲವೇ?", "loginWithGoogle": "Google ನೊಂದಿಗೆ ಮುಂದುವರಿಸಿ", "or": "ಅಥವಾ"},
-  "onboarding": {"title": "ನಿಮ್ಮ ಬಗ್ಗೆ ಹೇಳಿ", "name": "ನಿಮ್ಮ ಹೆಸರು", "age": "ವಯಸ್ಸು", "country": "ದೇಶ", "city": "ನಗರ", "interests": "ಆಸಕ್ತಿಗಳು", "interestsPlaceholder": "ನಿಮ್ಮ ಆಸಕ್ತಿಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ", "travelStyle": "ಪ್ರಯಾಣ ಶೈಲಿ", "budget": "ಬಜೆಟ್", "next": "ಮುಂದೆ", "skip": "ಬಿಟ್ಟುಬಿಡಿ", "finish": "ಮುಗಿಸಿ", "travelStyles": {"adventurous": "ಸಾಹಸಮಯ", "relaxed": "ವಿಶ್ರಾಂತಿ", "cultural": "ಸಾಂಸ್ಕೃತಿಕ", "luxury": "ಐಷಾರಾಮಿ", "budget": "ಬಜೆಟ್"}, "budgetLevels": {"low": "ಕಡಿಮೆ ಖರ್ಚು", "moderate": "ಮಧ್ಯಮ", "high": "ಐಷಾರಾಮಿ"}, "interestsList": {"culture": "ಸಂಸ್ಕೃತಿ", "food": "ಆಹಾರ", "nature": "ಪ್ರಕೃತಿ", "adventure": "ಸಾಹಸ", "history": "ಇತಿಹಾಸ", "art": "ಕಲೆ", "shopping": "ಶಾಪಿಂಗ್", "nightlife": "ರಾತ್ರಿ ಜೀವನ", "photography": "ಛಾಯಾಗ್ರಹಣ", "wildlife": "ವನ್ಯಜೀವಿ", "beach": "ಸಮುದ್ರತೀರ", "mountains": "ಪರ್ವತಗಳು"}},
-  "home": {"welcome": "ಸ್ವಾಗತ", "yourChapters": "ನಿಮ್ಮ ಅಧ್ಯಾಯಗಳು", "addChapter": "ಅಧ್ಯಾಯ ಸೇರಿಸಿ", "noChapters": "ಇನ್ನೂ ಅಧ್ಯಾಯಗಳಿಲ್ಲ", "noChaptersDesc": "ಹೊಸ ಅಧ್ಯಾಯವನ್ನು ಸೇರಿಸುವ ಮೂಲಕ ನಿಮ್ಮ ಪ್ರಯಾಣವನ್ನು ಪ್ರಾರಂಭಿಸಿ", "city": "ನಗರ", "country": "ದೇಶ (ಐಚ್ಛಿಕ)", "description": "ವಿವರಣೆ (ಐಚ್ಛಿಕ)", "generatingTasks": "AI ಕಾರ್ಯಗಳನ್ನು ಸೃಷ್ಟಿಸಲಾಗುತ್ತಿದೆ...", "addingChapter": "ಅಧ್ಯಾಯ ಸೇರಿಸಲಾಗುತ್ತಿದೆ..."},
-  "chapter": {"places": "ಸ್ಥಳಗಳು", "completed": "ಪೂರ್ಣಗೊಂಡಿದೆ", "pending": "ಬಾಕಿ ಇದೆ", "xp": "XP", "totalXp": "ಒಟ್ಟು XP", "noPlaces": "ಇನ್ನೂ ಸ್ಥಳಗಳನ್ನು ಸೇರಿಸಲಾಗಿಲ್ಲ"},
-  "common": {"loading": "ಲೋಡ್ ಆಗುತ್ತಿದೆ...", "error": "ದೋಷ", "success": "ಯಶಸ್ವಿ", "cancel": "ರದ್ದುಮಾಡಿ", "save": "ಉಳಿಸಿ", "delete": "ಅಳಿಸಿ", "edit": "ಸಂಪಾದಿಸಿ", "close": "ಮುಚ್ಚಿ", "back": "ಹಿಂದೆ", "next": "ಮುಂದೆ", "finish": "ಮುಗಿಸಿ", "search": "ಹುಡುಕಿ", "filter": "ಫಿಲ್ಟರ್", "sort": "ವಿಂಗಡಿಸಿ"},
-  "nav": {"home": "ಮುಖಪುಟ", "profile": "ಪ್ರೊಫೈಲ್", "settings": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು", "logout": "ಲಾಗ್‌ಔಟ್"},
-  "translate": {"title": "ಅನುವಾದ", "placeholder": "ಪಠ್ಯ ನಮೂದಿಸಿ", "button": "ಅನುವಾದ", "description": "API ಮೂಲಕ ನೈಜ-ಸಮಯ ಅನುವಾದ (ಸಂಗ್ರಹಿಸಲಾಗಿಲ್ಲ)।"},
-  "speech": {"title": "ಭಾಷಣ", "description": "API ಮೂಲಕ ನೈಜ-ಸಮಯ ಭಾಷಣ-ಟು-ಭಾಷಣ ಅನುವಾದ।"},
-  "ocr": {"title": "OCR", "description": "API ಮೂಲಕ ಕ್ಯಾಮೆರಾ OCR ಮತ್ತು ತತ್ಕ್ಷಣ ಅನುವಾದ।"},
-  "guide": {"title": "ಮಾರ್ಗದರ್ಶಿ", "description": "AI ಪ್ರವಾಸಿ ಮಾರ್ಗದರ್ಶಿ GPS + ಅಧ್ಯಾಯಗಳನ್ನು ಬಳಸುತ್ತದೆ। API ಮಾತ್ರ, ಸಂಗ್ರಹಿಸಲಾಗಿಲ್ಲ।"},
-  "notFound": {"title": "404", "message": "ಕ್ಷಮಿಸಿ! ಪುಟ ಕಂಡುಬಂದಿಲ್ಲ", "returnHome": "ಹೋಮ್‌ಗೆ ಹಿಂತಿರುಗಿ"}
+  "landing": {
+    "title": "ಸಾರಥಿ",
+    "subtitle": "ನಿಮ್ಮ ಪ್ರಯಾಣ ಸಹಚರ",
+    "scrollDown": "ಮುಂದುವರಿಸಲು ಕೆಳಗೆ ಸ್ಕ್ರಾಲ್ ಮಾಡಿ"
+  },
+  "languageSelection": {
+    "title": "ನಿಮ್ಮ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+    "subtitle": "ನಿಮ್ಮ ಆದ್ಯತೆಯ ಭಾಷೆಯನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+    "continue": "ಮುಂದುವರಿಸಿ"
+  },
+  "auth": {
+    "login": "ಲಾಗಿನ್",
+    "signup": "ಸೈನ್ ಅಪ್",
+    "email": "ಇಮೇಲ್",
+    "password": "ಪಾಸ್‌ವರ್ಡ್",
+    "confirmPassword": "ಪಾಸ್‌ವರ್ಡ್ ಖಚಿತಪಡಿಸಿ",
+    "name": "ಹೆಸರು",
+    "alreadyHaveAccount": "ಈಗಾಗಲೇ ಖಾತೆ ಹೊಂದಿದ್ದೀರಾ?",
+    "dontHaveAccount": "ಖಾತೆ ಇಲ್ಲವೇ?",
+    "loginWithGoogle": "Google ನೊಂದಿಗೆ ಮುಂದುವರಿಸಿ",
+    "or": "ಅಥವಾ"
+  },
+  "onboarding": {
+    "title": "ನಿಮ್ಮ ಬಗ್ಗೆ ಹೇಳಿ",
+    "name": "ನಿಮ್ಮ ಹೆಸರು",
+    "age": "ವಯಸ್ಸು",
+    "country": "ದೇಶ",
+    "city": "ನಗರ",
+    "interests": "ಆಸಕ್ತಿಗಳು",
+    "interestsPlaceholder": "ನಿಮ್ಮ ಆಸಕ್ತಿಗಳನ್ನು ಆಯ್ಕೆಮಾಡಿ",
+    "travelStyle": "ಪ್ರಯಾಣ ಶೈಲಿ",
+    "budget": "ಬಜೆಟ್",
+    "next": "ಮುಂದೆ",
+    "skip": "ಬಿಟ್ಟುಬಿಡಿ",
+    "finish": "ಮುಗಿಸಿ",
+    "travelStyles": {
+      "adventurous": "ಸಾಹಸಮಯ",
+      "relaxed": "ವಿಶ್ರಾಂತಿ",
+      "cultural": "ಸಾಂಸ್ಕೃತಿಕ",
+      "luxury": "ಐಷಾರಾಮಿ",
+      "budget": "ಬಜೆಟ್"
+    },
+    "budgetLevels": {
+      "low": "ಕಡಿಮೆ ಖರ್ಚು",
+      "moderate": "ಮಧ್ಯಮ",
+      "high": "ಐಷಾರಾಮಿ"
+    },
+    "interestsList": {
+      "culture": "ಸಂಸ್ಕೃತಿ",
+      "food": "ಆಹಾರ",
+      "nature": "ಪ್ರಕೃತಿ",
+      "adventure": "ಸಾಹಸ",
+      "history": "ಇತಿಹಾಸ",
+      "art": "ಕಲೆ",
+      "shopping": "ಶಾಪಿಂಗ್",
+      "nightlife": "ರಾತ್ರಿ ಜೀವನ",
+      "photography": "ಛಾಯಾಗ್ರಹಣ",
+      "wildlife": "ವನ್ಯಜೀವಿ",
+      "beach": "ಸಮುದ್ರತೀರ",
+      "mountains": "ಪರ್ವತಗಳು"
+    }
+  },
+  "home": {
+    "welcome": "ನಮಸ್ಕಾರ",
+    "yourChapters": "ನಿಮ್ಮ ಅಧ್ಯಾಯಗಳು",
+    "addChapter": "ಅಧ್ಯಾಯ ಸೇರಿಸಿ",
+    "noChapters": "ಇನ್ನೂ ಅಧ್ಯಾಯಗಳಿಲ್ಲ",
+    "noChaptersDesc": "ಹೊಸ ಅಧ್ಯಾಯವನ್ನು ಸೇರಿಸುವ ಮೂಲಕ ನಿಮ್ಮ ಪ್ರಯಾಣವನ್ನು ಪ್ರಾರಂಭಿಸಿ",
+    "city": "ನಗರ",
+    "country": "ದೇಶ (ಐಚ್ಛಿಕ)",
+    "description": "ವಿವರಣೆ (ಐಚ್ಛಿಕ)",
+    "generatingTasks": "AI ಕಾರ್ಯಗಳನ್ನು ಸೃಷ್ಟಿಸಲಾಗುತ್ತಿದೆ...",
+    "addingChapter": "ಅಧ್ಯಾಯ ಸೇರಿಸಲಾಗುತ್ತಿದೆ..."
+  },
+  "chapter": {
+    "places": "ಸ್ಥಳಗಳು",
+    "completed": "ಪೂರ್ಣಗೊಂಡಿದೆ",
+    "pending": "ಬಾಕಿ ಇದೆ",
+    "xp": "XP",
+    "tier": "ಶ್ರೇಣಿ",
+    "totalXp": "ಒಟ್ಟು XP",
+    "noPlaces": "ಇನ್ನೂ ಸ್ಥಳಗಳನ್ನು ಸೇರಿಸಲಾಗಿಲ್ಲ"
+  },
+  "common": {
+    "loading": "ಲೋಡ್ ಆಗುತ್ತಿದೆ...",
+    "error": "ದೋಷ",
+    "success": "ಯಶಸ್ವಿ",
+    "cancel": "ರದ್ದುಮಾಡಿ",
+    "save": "ಉಳಿಸಿ",
+    "delete": "ಅಳಿಸಿ",
+    "edit": "ಸಂಪಾದಿಸಿ",
+    "close": "ಮುಚ್ಚಿ",
+    "back": "ಹಿಂದೆ",
+    "next": "ಮುಂದೆ",
+    "finish": "ಮುಗಿಸಿ",
+    "search": "ಹುಡುಕಿ",
+    "filter": "ಫಿಲ್ಟರ್",
+    "sort": "ವಿಂಗಡಿಸಿ"
+  },
+  "nav": {
+    "home": "ಮುಖಪುಟ",
+    "profile": "ಪ್ರೊಫೈಲ್",
+    "settings": "ಸೆಟ್ಟಿಂಗ್‌ಗಳು",
+    "logout": "ಲಾಗ್‌ಔಟ್"
+  },
+  "translate": {
+    "title": "ಅನುವಾದ",
+    "placeholder": "ಪಠ್ಯ ನಮೂದಿಸಿ",
+    "button": "ಅನುವಾದ",
+    "description": "API ಮೂಲಕ ನೈಜ-ಸಮಯ ಅನುವಾದ (ಸಂಗ್ರಹಿಸಲಾಗಿಲ್ಲ)।"
+  },
+  "speech": {
+    "title": "ಭಾಷಣ",
+    "description": "API ಮೂಲಕ ನೈಜ-ಸಮಯ ಭಾಷಣ-ಟು-ಭಾಷಣ ಅನುವಾದ।"
+  },
+  "ocr": {
+    "title": "OCR",
+    "description": "API ಮೂಲಕ ಕ್ಯಾಮೆರಾ OCR ಮತ್ತು ತತ್ಕ್ಷಣ ಅನುವಾದ।"
+  },
+  "guide": {
+    "title": "ಮಾರ್ಗದರ್ಶಿ",
+    "description": "AI ಪ್ರವಾಸಿ ಮಾರ್ಗದರ್ಶಿ GPS + ಅಧ್ಯಾಯಗಳನ್ನು ಬಳಸುತ್ತದೆ। API ಮಾತ್ರ, ಸಂಗ್ರಹಿಸಲಾಗಿಲ್ಲ।"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "ಕ್ಷಮಿಸಿ! ಪುಟ ಕಂಡುಬಂದಿಲ್ಲ",
+    "returnHome": "ಹೋಮ್‌ಗೆ ಹಿಂತಿರುಗಿ"
+  }
 }

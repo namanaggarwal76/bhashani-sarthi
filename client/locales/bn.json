@@ -62,7 +62,7 @@
     }
   },
   "home": {
-    "welcome": "স্বাগতম",
+    "welcome": "নমস্কার",
     "yourChapters": "আপনার অধ্যায়",
     "addChapter": "অধ্যায় যোগ করুন",
     "noChapters": "এখনও কোনো অধ্যায় নেই",
@@ -78,6 +78,7 @@
     "completed": "সম্পন্ন",
     "pending": "অপেক্ষমাণ",
     "xp": "XP",
+    "tier": "স্তর",
     "totalXp": "মোট XP",
     "noPlaces": "এখনও কোনো স্থান যোগ করা হয়নি"
   },

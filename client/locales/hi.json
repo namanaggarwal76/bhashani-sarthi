@@ -62,7 +62,7 @@
     }
   },
   "home": {
-    "welcome": "स्वागत है",
+    "welcome": "नमस्ते",
     "yourChapters": "आपके अध्याय",
     "addChapter": "अध्याय जोड़ें",
     "noChapters": "अभी तक कोई अध्याय नहीं",
@@ -78,6 +78,7 @@
     "completed": "पूर्ण",
     "pending": "लंबित",
     "xp": "XP",
+    "tier": "स्तर",
     "totalXp": "कुल XP",
     "noPlaces": "अभी तक कोई स्थान नहीं जोड़ा गया"
   },

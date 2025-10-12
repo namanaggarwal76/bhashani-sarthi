@@ -1,16 +1,130 @@
 {
-  "landing": {"title": "સારથી", "subtitle": "તમારો મુસાફરી સાથી", "scrollDown": "ચાલુ રાખવા માટે નીચે સ્ક્રોલ કરો"},
-  "languageSelection": {"title": "તમારી ભાષા પસંદ કરો", "subtitle": "તમારી પસંદગીની ભાષા પસંદ કરો", "continue": "ચાલુ રાખો"},
-  "auth": {"login": "લૉગિન", "signup": "સાઇન અપ", "email": "ઇમેઇલ", "password": "પાસવર્ડ", "confirmPassword": "પાસવર્ડની પુષ્ટિ કરો", "name": "નામ", "alreadyHaveAccount": "પહેલેથી ખાતું છે?", "dontHaveAccount": "ખાતું નથી?", "loginWithGoogle": "Google સાથે ચાલુ રાખો", "or": "અથવા"},
-  "onboarding": {"title": "તમારા વિશે જણાવો", "name": "તમારું નામ", "age": "ઉંમર", "country": "દેશ", "city": "શહેર", "interests": "રુચિઓ", "interestsPlaceholder": "તમારી રુચિઓ પસંદ કરો", "travelStyle": "પ્રવાસ શૈલી", "budget": "બજેટ", "next": "આગળ", "skip": "છોડી દો", "finish": "સમાપ્ત", "travelStyles": {"adventurous": "સાહસિક", "relaxed": "આરામદાયક", "cultural": "સાંસ્કૃતિક", "luxury": "લક્ઝરી", "budget": "બજેટ"}, "budgetLevels": {"low": "ઓછો ખર્ચ", "moderate": "મધ્યમ", "high": "લક્ઝરી"}, "interestsList": {"culture": "સંસ્કૃતિ", "food": "ખોરાક", "nature": "પ્રકૃતિ", "adventure": "સાહસ", "history": "ઇતિહાસ", "art": "કલા", "shopping": "ખરીદી", "nightlife": "રાત્રિ જીવન", "photography": "ફોટોગ્રાફી", "wildlife": "વન્યજીવન", "beach": "બીચ", "mountains": "પર્વતો"}},
-  "home": {"welcome": "સ્વાગત છે", "yourChapters": "તમારા પ્રકરણો", "addChapter": "પ્રકરણ ઉમેરો", "noChapters": "હજી પ્રકરણો નથી", "noChaptersDesc": "નવું પ્રકરણ ઉમેરીને તમારી મુસાફરી શરૂ કરો", "city": "શહેર", "country": "દેશ (વૈકલ્પિક)", "description": "વર્ણન (વૈકલ્પિક)", "generatingTasks": "AI કાર્યો બનાવી રહ્યું છે...", "addingChapter": "પ્રકરણ ઉમેરી રહ્યા છીએ..."},
-  "chapter": {"places": "સ્થળો", "completed": "પૂર્ણ થયું", "pending": "બાકી", "xp": "XP", "totalXp": "કુલ XP", "noPlaces": "હજી સ્થળો ઉમેરાયાં નથી"},
-  "common": {"loading": "લોડ થઈ રહ્યું છે...", "error": "ભૂલ", "success": "સફળતા", "cancel": "રદ કરો", "save": "સાચવો", "delete": "કાઢી નાખો", "edit": "સંપાદિત કરો", "close": "બંધ કરો", "back": "પાછળ", "next": "આગળ", "finish": "સમાપ્ત", "search": "શોધો", "filter": "ફિલ્ટર", "sort": "ક્રમમાં ગોઠવો"},
-  "nav": {"home": "હોમ", "profile": "પ્રોફાઇલ", "settings": "સેટિંગ્સ", "logout": "લૉગઆઉટ"}
-,
-  "translate": {"title": "અનુવાદ", "placeholder": "ટેક્સ્ટ દાખલ કરો", "button": "અનુવાદ", "description": "API દ્વારા રિયલ-ટાઇમ અનુવાદ (સંગ્રહિત નથી)।"},
-  "speech": {"title": "સ્પીચ", "description": "API દ્વારા રિયલ-ટાઇમ સ્પીચ-ટુ-સ્પીચ અનુવાદ।"},
-  "ocr": {"title": "OCR", "description": "API દ્વારા કેમેરા OCR અને તાત્કાલિક અનુવાદ।"},
-  "guide": {"title": "માર્ગદર્શક", "description": "AI પર્યટક માર્ગદર્શક GPS + પ્રકરણ વાપરે છે। માત્ર API, સંગ્રહિત નથી।"},
-  "notFound": {"title": "404", "message": "માફ કરશો! પૃષ્ઠ મળ્યું નથી", "returnHome": "હોમ પર પાછા જાઓ"}
+  "landing": {
+    "title": "સારથી",
+    "subtitle": "તમારો મુસાફરી સાથી",
+    "scrollDown": "ચાલુ રાખવા માટે નીચે સ્ક્રોલ કરો"
+  },
+  "languageSelection": {
+    "title": "તમારી ભાષા પસંદ કરો",
+    "subtitle": "તમારી પસંદગીની ભાષા પસંદ કરો",
+    "continue": "ચાલુ રાખો"
+  },
+  "auth": {
+    "login": "લૉગિન",
+    "signup": "સાઇન અપ",
+    "email": "ઇમેઇલ",
+    "password": "પાસવર્ડ",
+    "confirmPassword": "પાસવર્ડની પુષ્ટિ કરો",
+    "name": "નામ",
+    "alreadyHaveAccount": "પહેલેથી ખાતું છે?",
+    "dontHaveAccount": "ખાતું નથી?",
+    "loginWithGoogle": "Google સાથે ચાલુ રાખો",
+    "or": "અથવા"
+  },
+  "onboarding": {
+    "title": "તમારા વિશે જણાવો",
+    "name": "તમારું નામ",
+    "age": "ઉંમર",
+    "country": "દેશ",
+    "city": "શહેર",
+    "interests": "રુચિઓ",
+    "interestsPlaceholder": "તમારી રુચિઓ પસંદ કરો",
+    "travelStyle": "પ્રવાસ શૈલી",
+    "budget": "બજેટ",
+    "next": "આગળ",
+    "skip": "છોડી દો",
+    "finish": "સમાપ્ત",
+    "travelStyles": {
+      "adventurous": "સાહસિક",
+      "relaxed": "આરામદાયક",
+      "cultural": "સાંસ્કૃતિક",
+      "luxury": "લક્ઝરી",
+      "budget": "બજેટ"
+    },
+    "budgetLevels": {
+      "low": "ઓછો ખર્ચ",
+      "moderate": "મધ્યમ",
+      "high": "લક્ઝરી"
+    },
+    "interestsList": {
+      "culture": "સંસ્કૃતિ",
+      "food": "ખોરાક",
+      "nature": "પ્રકૃતિ",
+      "adventure": "સાહસ",
+      "history": "ઇતિહાસ",
+      "art": "કલા",
+      "shopping": "ખરીદી",
+      "nightlife": "રાત્રિ જીવન",
+      "photography": "ફોટોગ્રાફી",
+      "wildlife": "વન્યજીવન",
+      "beach": "બીચ",
+      "mountains": "પર્વતો"
+    }
+  },
+  "home": {
+    "welcome": "નમસ્તે",
+    "yourChapters": "તમારા પ્રકરણો",
+    "addChapter": "પ્રકરણ ઉમેરો",
+    "noChapters": "હજી પ્રકરણો નથી",
+    "noChaptersDesc": "નવું પ્રકરણ ઉમેરીને તમારી મુસાફરી શરૂ કરો",
+    "city": "શહેર",
+    "country": "દેશ (વૈકલ્પિક)",
+    "description": "વર્ણન (વૈકલ્પિક)",
+    "generatingTasks": "AI કાર્યો બનાવી રહ્યું છે...",
+    "addingChapter": "પ્રકરણ ઉમેરી રહ્યા છીએ..."
+  },
+  "chapter": {
+    "places": "સ્થળો",
+    "completed": "પૂર્ણ થયું",
+    "pending": "બાકી",
+    "xp": "XP",
+    "tier": "સ્તર",
+    "totalXp": "કુલ XP",
+    "noPlaces": "હજી સ્થળો ઉમેરાયાં નથી"
+  },
+  "common": {
+    "loading": "લોડ થઈ રહ્યું છે...",
+    "error": "ભૂલ",
+    "success": "સફળતા",
+    "cancel": "રદ કરો",
+    "save": "સાચવો",
+    "delete": "કાઢી નાખો",
+    "edit": "સંપાદિત કરો",
+    "close": "બંધ કરો",
+    "back": "પાછળ",
+    "next": "આગળ",
+    "finish": "સમાપ્ત",
+    "search": "શોધો",
+    "filter": "ફિલ્ટર",
+    "sort": "ક્રમમાં ગોઠવો"
+  },
+  "nav": {
+    "home": "હોમ",
+    "profile": "પ્રોફાઇલ",
+    "settings": "સેટિંગ્સ",
+    "logout": "લૉગઆઉટ"
+  },
+  "translate": {
+    "title": "અનુવાદ",
+    "placeholder": "ટેક્સ્ટ દાખલ કરો",
+    "button": "અનુવાદ",
+    "description": "API દ્વારા રિયલ-ટાઇમ અનુવાદ (સંગ્રહિત નથી)।"
+  },
+  "speech": {
+    "title": "સ્પીચ",
+    "description": "API દ્વારા રિયલ-ટાઇમ સ્પીચ-ટુ-સ્પીચ અનુવાદ।"
+  },
+  "ocr": {
+    "title": "OCR",
+    "description": "API દ્વારા કેમેરા OCR અને તાત્કાલિક અનુવાદ।"
+  },
+  "guide": {
+    "title": "માર્ગદર્શક",
+    "description": "AI પર્યટક માર્ગદર્શક GPS + પ્રકરણ વાપરે છે। માત્ર API, સંગ્રહિત નથી।"
+  },
+  "notFound": {
+    "title": "404",
+    "message": "માફ કરશો! પૃષ્ઠ મળ્યું નથી",
+    "returnHome": "હોમ પર પાછા જાઓ"
+  }
 }

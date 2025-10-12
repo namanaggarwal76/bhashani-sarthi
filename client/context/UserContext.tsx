@@ -5,6 +5,7 @@ import React, {
   useMemo,
   useState,
 } from "react";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "./AuthContext";
 import {
   getUserWithChapters,
@@ -60,49 +61,11 @@ export type UserContextType = {
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 // Minimal i18n dictionary
-const dictionary: Record<string, Record<string, string>> = {
-  "en-US": {
-    home: "Home",
-    translate: "Translate",
-    speech: "Speech",
-    ocr: "OCR",
-    guide: "Guide",
-    welcome: "Welcome",
-    tier: "Tier",
-    xp: "XP",
-    yourChapters: "Your Chapters",
-    createChapter: "Create New Chapter",
-    startJourney: "Start your journey by creating your first travel chapter.",
-    city: "City",
-    country: "Country",
-    description: "Description",
-    add: "Add",
-    cancel: "Cancel",
-  },
-  "hi-IN": {
-    home: "होम",
-    translate: "अनुवाद",
-    speech: "वॉइस",
-    ocr: "ओसीआर",
-    guide: "गाइड",
-    welcome: "स्वागत है",
-    tier: "स्तर",
-    xp: "एक्सपी",
-    yourChapters: "आपके अध्याय",
-    createChapter: "नया अध्याय बनाएँ",
-    startJourney: "अपनी पहली यात्रा का अध्याय बनाकर शुरुआत करें।",
-    city: "शहर",
-    country: "देश",
-    description: "विवरण",
-    add: "जोड़ें",
-    cancel: "रद्द करें",
-  },
-};
-
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const { currentUser } = useAuth();
+  const { t } = useTranslation();
   const [user, setUser] = useState<UserContextUser | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -296,12 +259,6 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({
       console.error("Error toggling place status:", error);
       throw error;
     }
-  };
-
-  const t = (key: string) => {
-    const lang = user?.basic_info.language.code ?? "en-US";
-    const table = dictionary[lang] || dictionary["en-US"];
-    return table[key] ?? key;
   };
 
   const value = useMemo(
