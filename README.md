@@ -137,12 +137,12 @@ bhashani-sarthi/
 │   ├── asr.py              # Automatic speech recognition
 │   ├── mt.py               # Machine translation
 │   ├── tts.py              # Text-to-speech
+|   |── requirements.txt    # requirement file
 │   └── pipeline.py         # Complete S2S pipeline
+|   
 │
 ├── chat_ai.py               # FastAPI chat backend
-├── requirements.txt         # Python deps (chat - Python 3.10)
-├── requirements-ocr.txt     # Python deps (OCR - Python 3.12)
-├── Makefile                 # Build automation
+├── requirements2.txt     
 ├── package.json             # Node.js dependencies
 ├── vite.config.ts           # Vite configuration
 ├── tailwind.config.ts       # Tailwind CSS config
@@ -229,7 +229,7 @@ cd bhashani-sarthi
 
 ```bash
 cd final_s2s
-python -m venv venv
+python3.10 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
