@@ -15,6 +15,16 @@ export default function Speech() {
   const [result, setResult] = useState<any>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const audioUrlRef = useRef<string | null>(null);
+  const [targetLang, setTargetLang] = useState<string>('en');
+  const [model, setModel] = useState<string>('remote-default');
+
+  const LANG_NAME: Record<string, string> = {
+    en: 'English',
+    hi: 'Hindi',
+    ta: 'Tamil',
+    te: 'Telugu',
+    ur: 'Urdu'
+  };
 
   useEffect(() => {
     // Cleanup audio nodes on unmount
@@ -114,6 +124,8 @@ export default function Speech() {
 
     const form = new FormData();
     form.append('audio', wavBlob, 'recording.wav');
+  form.append('target', targetLang);
+  form.append('model', model);
 
     setLoading(true);
     try {
@@ -136,8 +148,21 @@ export default function Speech() {
         audioUrlRef.current = url;
         if (audioRef.current) {
           audioRef.current.src = url;
-          // auto-play a bit after setting src to ensure controls update
-          try { audioRef.current.play().catch(() => {}); } catch {}
+          // Try to autoplay (may be blocked). If playback errors (Safari), fallback to decoding+playing via AudioContext
+          try {
+            audioRef.current.play().catch(() => {
+              // autoplay blocked or failed silently
+            });
+          } catch {}
+          // attach an error handler to trigger fallback on platforms like Safari
+          audioRef.current.onerror = () => {
+            console.warn('Audio element failed to play, attempting WebAudio fallback');
+            try {
+              playBase64ViaAudioContext(data.audio_base64);
+            } catch (e) {
+              console.error('Fallback playback failed', e);
+            }
+          };
         }
       }
     } catch (err) {
@@ -165,6 +190,39 @@ export default function Speech() {
     }
 
     return new Blob(byteArrays, { type: contentType });
+  }
+
+  // Helper: decode base64 to ArrayBuffer
+  function base64ToArrayBuffer(base64: string) {
+    const binaryString = atob(base64);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+    for (let i = 0; i < len; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+    return bytes.buffer;
+  }
+
+  // Fallback: decode audio bytes and play via AudioContext (works in Safari)
+  async function playBase64ViaAudioContext(base64: string) {
+    try {
+      const ac = new (window as any).AudioContext();
+      const ab = base64ToArrayBuffer(base64);
+      // decodeAudioData expects ArrayBuffer
+      const audioBuffer = await ac.decodeAudioData(ab.slice(0));
+      const src = ac.createBufferSource();
+      src.buffer = audioBuffer;
+      src.connect(ac.destination);
+      src.start(0);
+      // stop and close after playback to avoid resource leak
+      src.onended = () => {
+        try { src.disconnect(); } catch {}
+        try { ac.close(); } catch {}
+      };
+    } catch (e) {
+      console.error('AudioContext playback failed', e);
+      throw e;
+    }
   }
 
   function encodeWAV(samples: Float32Array, sampleRate: number) {
@@ -214,35 +272,66 @@ export default function Speech() {
 
         <div className="space-y-2">
           <div className="flex items-center gap-3">
+            <label className="text-sm">Target:</label>
+            <select value={targetLang} onChange={(e) => setTargetLang(e.target.value)} className="rounded-md border px-2 py-1 text-sm">
+              <option value="en">English (en)</option>
+              <option value="hi">Hindi (hi)</option>
+              <option value="ta">Tamil (ta)</option>
+              <option value="te">Telugu (te)</option>
+              <option value="ur">Urdu (ur)</option>
+            </select>
+
+            <label className="text-sm">Model:</label>
+            <select value={model} onChange={(e) => setModel(e.target.value)} className="rounded-md border px-2 py-1 text-sm">
+              <option value="remote-default">Remote TTS/ASR (Bhashini)</option>
+              <option value="local-whisper">Local ASR (faster-whisper)</option>
+            </select>
+          </div>
+          <div className="flex items-center gap-3">
             <button
-              className={`rounded-full px-4 py-2 ${recording ? 'bg-red-500 text-white' : 'bg-gradient-to-r from-purple-500 to-blue-600 text-white'}`}
+              className={`rounded-full px-5 py-2 shadow-md transition-colors duration-150 ${recording ? 'bg-red-600 text-white hover:bg-red-700' : 'bg-gradient-to-r from-purple-500 to-blue-600 text-white hover:opacity-90'}`}
               onClick={() => (recording ? stopRecordingAndUpload() : startRecording())}
             >
               {recording ? 'Stop & Translate' : 'Record'}
             </button>
-            <span className="text-sm text-gray-700">{recording ? 'Recording...' : 'Press Record and speak'}</span>
-            {loading && <span className="text-sm text-gray-700">Processing...</span>}
+            <div className="flex flex-col">
+              <span className="text-sm font-medium text-gray-700">{recording ? 'Recording...' : 'Press Record and speak'}</span>
+              {loading && <span className="text-xs text-gray-500">Processing audio…</span>}
+            </div>
           </div>
 
           {result && (
-                <div className="rounded-lg border bg-card/80 p-4">
+                <div className="rounded-lg border bg-card/80 p-4 shadow-sm">
                   {result.error && <div className="text-red-600">Error: {String(result.error)}</div>}
+
+                  <div className="flex items-center justify-between mb-3">
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-800">Translation result</h3>
+                      <p className="text-xs text-gray-500">Processed speech and generated translation</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-medium">{LANG_NAME[result.source_language] ?? result.source_language?.toUpperCase() ?? '—'}</span>
+                      <span className="px-2 py-1 rounded-full bg-green-100 text-green-700 text-xs font-medium">{targetLang.toUpperCase()}</span>
+                    </div>
+                  </div>
 
                   <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div>
-                      <h4 className="font-semibold text-sm">Detected</h4>
-                      <div className="mt-1 rounded-md bg-white/90 p-3 text-sm text-gray-900">
+                      <h4 className="font-semibold text-sm text-gray-700">Detected</h4>
+                      <div className="mt-1 rounded-md bg-white p-3 text-sm text-gray-800">
                         <div className="flex items-center justify-between">
-                          <div className="font-medium">{result.source_language?.toUpperCase() ?? '—'}</div>
-                          {/* small helper */}
-                          <div className="text-xs text-gray-600">Language code</div>
+                          <div>
+                            <div className="font-medium">{LANG_NAME[result.source_language] ?? result.source_language?.toUpperCase() ?? '—'}</div>
+                            <div className="text-xs text-gray-500">{result.source_language?.toUpperCase() ?? ''}</div>
+                          </div>
+                          <div className="text-xs text-gray-500">Detected</div>
                         </div>
                       </div>
                     </div>
 
                     <div>
                       <h4 className="font-semibold text-sm">Recognized</h4>
-                      <div className="mt-1 rounded-md bg-white/90 p-3 text-sm text-gray-900">
+                      <div className="mt-1 rounded-md bg-white p-3 text-sm text-gray-800">
                         <div className="flex items-start justify-between gap-3">
                           <div className="whitespace-pre-wrap break-words">{result.recognized_text ?? '—'}</div>
                           <div className="flex flex-col items-end gap-2">
@@ -257,8 +346,8 @@ export default function Speech() {
                   </div>
 
                   <div className="mt-4">
-                    <h4 className="font-semibold text-sm">Translated</h4>
-                    <div className="mt-1 rounded-md bg-white/90 p-3 text-sm text-gray-900">
+                      <h4 className="font-semibold text-sm text-gray-700">Translated</h4>
+                      <div className="mt-1 rounded-md bg-white p-3 text-sm text-gray-800">
                       <div className="flex items-start justify-between gap-3">
                         <div className="whitespace-pre-wrap break-words">{result.translated_text ?? '—'}</div>
                         <div className="flex flex-col items-end gap-2">
@@ -274,11 +363,13 @@ export default function Speech() {
                   {result.audio_base64 && (
                     <div className="mt-4">
                       <h4 className="font-semibold text-sm">Translated audio</h4>
-                      <div className="mt-2 flex items-center gap-3">
-                        <audio controls ref={audioRef} className="w-full rounded-md bg-black/5" />
-                        <div className="flex flex-col gap-2">
+                      <div className="mt-2 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+                        <div className="flex-1">
+                          <audio controls ref={audioRef} className="w-full rounded-md bg-white/50 ring-1 ring-gray-100" />
+                        </div>
+                        <div className="flex items-center gap-2">
                           <button
-                            className="rounded-md bg-indigo-600 px-3 py-1 text-xs text-white"
+                            className="rounded-md bg-indigo-600 px-3 py-1 text-xs text-white shadow-sm"
                             onClick={() => {
                               try {
                                 const blob = b64toBlob(result.audio_base64, 'audio/wav');
@@ -291,6 +382,12 @@ export default function Speech() {
                               } catch (e) { console.error(e); }
                             }}
                           >Download</button>
+                          <button
+                            className="rounded-md bg-white px-3 py-1 text-xs text-gray-700 border"
+                            onClick={() => {
+                              try { navigator.clipboard?.writeText(result.translated_text ?? ''); } catch {}
+                            }}
+                          >Copy Text</button>
                         </div>
                       </div>
                     </div>

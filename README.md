@@ -5,7 +5,62 @@
 ## 🎯 Overview
 
 Bhashani Sarthi provides travelers with tools to:
-- Create and manage travel chapters for different cities
+- Create and manage travel cha## 🔧 Troubleshooting
+
+### ⚠️ Dependency Conflicts (numpy/torch versions)
+
+**The Problem:** IndicPhotoOCR requires `numpy==1.26.4` and `torch==2.6.0`, but these conflict with other packages that need newer versions, causing `RecursionError` or import failures.
+
+**The Solution:** Use **separate virtual environments** for chat and OCR backends.
+
+**Quick Fix:**
+```bash
+make fix-conflicts
+```
+
+This command will:
+1. Remove old virtual environments
+2. Create `venv/` for chat backend
+3. Create `venv_ocr/` for OCR backend (isolated from chat)
+4. Install dependencies in separate environments
+
+**Manual Fix:**
+```bash
+# Remove old venvs
+rm -rf venv/ venv_ocr/
+
+# Create separate environments
+python3 -m venv venv
+python3 -m venv venv_ocr
+
+# Install chat backend dependencies
+./venv/bin/pip install -r requirements.txt
+
+# Install OCR backend dependencies (in separate venv)
+./venv_ocr/bin/pip install -r requirements-ocr.txt
+cd IndicPhotoOCR && ../venv_ocr/bin/pip install -e .
+```
+
+The `package.json` is already configured to use separate venvs:
+- Chat backend uses `./venv/`
+- OCR backend uses `./venv_ocr/`
+
+### Port Already in Use
+```bash
+# Find and kill process on port 8001 or 8002
+lsof -ti:8001 | xargs kill -9
+lsof -ti:8002 | xargs kill -9
+```
+
+### Python Dependencies Issues
+```bash
+# Reinstall Python dependencies with separate venvs
+make clean-all
+make setup-venv
+make install-python
+make setup-venv-ocr
+make install-ocr
+```nt cities
 - Track visited places and earn XP for exploration
 - Translate text between languages in real-time
 - Convert speech to text for easier communication
@@ -165,90 +220,139 @@ users/ (collection)
 ## 📦 Installation & Setup
 
 ### Prerequisites
-- Node.js 18+
-- pnpm 10+
-- Firebase project with:
+- **Node.js 18+** and **pnpm 10+**
+- **Python 3.9+** (for backend services)
+- **Make** (usually pre-installed on Linux/macOS, on Windows use WSL or install GNU Make)
+- **Firebase project** with:
   - Authentication enabled (Email/Password + Google)
   - Firestore database created
   - Web app registered
 
-### Step 1: Clone the Repository
+### Quick Start (Using Make)
+
+**Option 1: One-Command Setup** 🚀
 ```bash
+# Clone and setup everything
 git clone <repository-url>
 cd bhashani-sarthi
+make install
 ```
 
-### Step 2: Install Dependencies
+This will:
+- Install Node.js dependencies (pnpm)
+- Create **two separate Python virtual environments**:
+  - `venv/` for chat backend
+  - `venv_ocr/` for OCR backend (avoids dependency conflicts)
+- Install all Python dependencies in isolated environments
+- Install OCR dependencies with IndicPhotoOCR package
+
+> **Why two venvs?** IndicPhotoOCR requires specific package versions (numpy==1.26.4, torch==2.6.0) that conflict with other dependencies. Using separate virtual environments solves this issue.
+
+**Option 2: Manual Setup** 📝
 ```bash
-pnpm install
+# Clone the repository
+git clone <repository-url>
+cd bhashani-sarthi
+
+# Install Node.js dependencies
+make install-deps
+
+# Setup Python environment
+make setup-venv
+make install-python
+make install-ocr
+
+# Or install Python dependencies manually:
+# ./venv/bin/pip install -r requirements.txt
+# ./venv/bin/pip install -r requirements-ocr.txt
+# cd IndicPhotoOCR && ../venv/bin/pip install -e .
 ```
 
-### Step 3: Firebase Configuration
+### Configure Environment Variables
 
-1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
-
-2. Enable Authentication:
-   - Go to Authentication → Sign-in method
-   - Enable "Email/Password"
-   - Enable "Google" (optional)
-
-3. Create Firestore Database:
-   - Go to Firestore Database → Create database
-   - Start in production mode
-   - Choose your region
-
-4. Deploy Security Rules:
-   - Copy content from `firestore.rules`
-   - Paste in Firebase Console → Firestore → Rules
-   - Publish the rules
-
-5. Get Firebase Config:
-   - Go to Project Settings → General
-   - Scroll to "Your apps" → Add web app
-   - Copy the config object
-
-### Step 4: Get Gemini API Key
-
-1. Visit [Google AI Studio](https://aistudio.google.com/app/apikey)
-2. Sign in with your Google account
-3. Click "Get API key" or "Create API key"
-4. Add it to `.env.local`
-
-### Step 5: Environment Variables
-
-Create a `.env.local` file in the root directory:
-
-```env
-# Firebase Configuration
-VITE_FIREBASE_API_KEY=your-api-key
-VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=your-project-id
-VITE_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
-VITE_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
-VITE_FIREBASE_APP_ID=your-app-id
-
-# Google Gemini API for AI-powered task generation
-GEMINI_API_KEY=your-gemini-api-key-here
-```
-
-**Note:** The AI task generation will fall back to mock data if GEMINI_API_KEY is not configured.
-
-### Step 6: Run Development Server
+1. **Copy the example environment file:**
 ```bash
-pnpm dev
+cp .env.local.example .env.local
 ```
 
-The app will be available at `http://localhost:2000`
+2. **Get Firebase Configuration:**
+   - Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
+   - Enable Authentication (Email/Password + Google OAuth)
+   - Create Firestore Database (production mode)
+   - Deploy security rules from `firestore.rules`
+   - Go to Project Settings → General → Your apps
+   - Copy the Firebase config values to `.env.local`
+
+3. **Get API Keys:**
+   - **Gemini API**: Visit [Google AI Studio](https://aistudio.google.com/app/apikey)
+   - **Bhashini API**: Visit [Bhashini Portal](https://bhashini.gov.in/)
+   - Add all keys to `.env.local`
+
+### Run Development Servers
+
+**Option 1: Run All Servers** 🚀
+```bash
+make dev
+```
+
+This starts:
+- **Frontend** (Vite): http://localhost:2000
+- **Chat Backend** (FastAPI): http://localhost:8001
+- **OCR Backend** (FastAPI): http://localhost:8002
+
+**Option 2: Run Servers Individually**
+```bash
+make dev-frontend  # Frontend only
+make dev-backend   # Chat backend only
+make dev-ocr       # OCR backend only
+```
+
+**Without Make:**
+```bash
+pnpm dev  # Runs all three servers using concurrently
+```
 
 ## 📝 Development Commands
 
+### Using Make (Recommended)
+
 ```bash
-pnpm dev          # Start dev server (client + API server)
-pnpm build        # Build for production (client only)
-pnpm start        # Start production server
-pnpm typecheck    # Run TypeScript type checking
-pnpm test         # Run Vitest unit tests
-pnpm format.fix   # Format code with Prettier
+make help           # Show all available commands
+
+# Setup Commands
+make install        # Complete setup (all dependencies)
+make install-deps   # Install Node.js dependencies only
+make install-python # Install Python dependencies only
+make install-ocr    # Install OCR dependencies only
+
+# Development
+make dev            # Run all servers (Frontend + Chat + OCR)
+make dev-frontend   # Run frontend only
+make dev-backend    # Run chat backend only
+make dev-ocr        # Run OCR backend only
+
+# Build & Test
+make build          # Build for production
+make test           # Run tests
+make typecheck      # Run TypeScript type checking
+make format         # Format code with Prettier
+
+# Cleanup
+make clean          # Remove build artifacts
+make clean-all      # Remove all generated files (including venv)
+```
+
+### Using pnpm Directly
+
+```bash
+pnpm dev           # Start all servers (Frontend + Backends)
+pnpm dev:frontend  # Start frontend only
+pnpm dev:backend   # Start chat backend only
+pnpm build         # Build for production
+pnpm start         # Start production server
+pnpm typecheck     # Run TypeScript type checking
+pnpm test          # Run Vitest unit tests
+pnpm format.fix    # Format code with Prettier
 ```
 
 ## 🛣️ Routing
@@ -386,12 +490,73 @@ The app is fully responsive with:
 
 This project is part of an academic project for Semester 3.
 
-## 🙏 Acknowledgments
+## � Troubleshooting
+
+### Port Already in Use
+```bash
+# Find and kill process on port 8001 or 8002
+lsof -ti:8001 | xargs kill -9
+lsof -ti:8002 | xargs kill -9
+```
+
+### Python Dependencies Issues
+```bash
+# Reinstall Python dependencies
+make clean-all
+make setup-venv
+make install-python
+make install-ocr
+```
+
+### Node Dependencies Issues
+```bash
+# Clear pnpm cache and reinstall
+rm -rf node_modules pnpm-lock.yaml
+pnpm install
+```
+
+### Virtual Environment Issues
+```bash
+# Recreate virtual environment
+rm -rf venv
+make setup-venv
+make install-python
+```
+
+### OCR Backend Not Starting
+The OCR backend requires specific package versions. If you encounter errors:
+1. Check Python version (requires 3.9+)
+2. Ensure all dependencies in `requirements-ocr.txt` are installed
+3. Check IndicPhotoOCR installation: `cd IndicPhotoOCR && ../venv/bin/pip install -e .`
+
+### Firebase Connection Issues
+1. Verify all Firebase config values in `.env.local`
+2. Check Firebase Console → Project Settings for correct values
+3. Ensure Authentication and Firestore are enabled
+4. Deploy the security rules from `firestore.rules`
+
+## 🧪 Testing Environment Setup
+
+To verify your setup is correct:
+
+```bash
+# Check environment configuration
+make check-env
+
+# Test each server individually
+make dev-frontend   # Should start on localhost:2000
+make dev-backend    # Should start on localhost:8001
+make dev-ocr        # Should start on localhost:8002
+```
+
+## �🙏 Acknowledgments
 
 - **Firebase** - Authentication and database
 - **Radix UI** - Accessible component primitives
 - **Vercel** - For the amazing open-source tools
 - **TailwindCSS** - Utility-first CSS framework
+- **IndicPhotoOCR** - OCR for Indic languages
+- **Bhashini** - Indian language translation API
 
 ---
 

@@ -107,7 +107,36 @@ export default function LiveLensOCR() {
             method: "POST",
             body: formData,
           });
-          const json = await resp.json();
+          
+          // Check if response is ok
+          if (!resp.ok) {
+            const errorText = await resp.text();
+            console.error("OCR server error:", resp.status, errorText);
+            setOcrText(`[Server Error: ${resp.status}]\nThe OCR backend may not be running.\nTry: make dev-ocr`);
+            setIsLoading(false);
+            return;
+          }
+          
+          // Check if response has content
+          const text = await resp.text();
+          if (!text) {
+            console.error("OCR server returned empty response");
+            setOcrText("[Empty Response]\nThe OCR server is running but returned no data.");
+            setIsLoading(false);
+            return;
+          }
+          
+          // Try to parse JSON
+          let json;
+          try {
+            json = JSON.parse(text);
+          } catch (parseError) {
+            console.error("JSON parse error:", parseError, "Response:", text);
+            setOcrText(`[JSON Parse Error]\nServer response: ${text.substring(0, 200)}`);
+            setIsLoading(false);
+            return;
+          }
+          
           setOcrText(json.ocr_text || "[OCR failed]");
           setSessionId(json.session_id);
           setExpandedInfo({
@@ -118,7 +147,7 @@ export default function LiveLensOCR() {
           });
         } catch (err) {
           console.error("OCR request error:", err);
-          setOcrText("[OCR error]");
+          setOcrText(`[OCR Error]\n${err.message}\n\nMake sure OCR backend is running:\nmake dev-ocr`);
         } finally {
           setIsLoading(false);
         }

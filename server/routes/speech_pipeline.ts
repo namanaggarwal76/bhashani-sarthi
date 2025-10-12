@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import path from "path";
 import fs from "fs";
-import { spawn } from "child_process";
+import { spawn, spawnSync } from "child_process";
 
 // multer will be used by the server when registering this route
 export const handleSpeechPipeline: RequestHandler = (req, res) => {
@@ -32,8 +32,60 @@ export const handleSpeechPipeline: RequestHandler = (req, res) => {
 
   console.log(`Running pipeline with python: ${pythonExe}`);
 
+  // Quick sanity check: ensure the chosen python has pydub installed.
+  const requiredCheckCmd = ['-c', "import pydub; import requests"];
+  const triedPythons: string[] = [];
+  let pythonThatWorks = pythonExe;
+  try {
+    let check = spawnSync(pythonThatWorks, requiredCheckCmd, { cwd: finalDir, env: { ...process.env } });
+    triedPythons.push(pythonThatWorks);
+    if (check.status !== 0) {
+      // try system python fallbacks
+      const candidates = ['python3', 'python'];
+      let found = false;
+      for (const c of candidates) {
+        if (triedPythons.includes(c)) continue;
+        try {
+          const chk = spawnSync(c, requiredCheckCmd, { cwd: finalDir, env: { ...process.env } });
+          triedPythons.push(c);
+          if (chk.status === 0) {
+            pythonThatWorks = c;
+            found = true;
+            console.warn(`Preferred python ${pythonExe} missing deps, falling back to ${c}`);
+            break;
+          }
+        } catch (e) {
+          // ignore and continue
+        }
+      }
+
+      if (!found) {
+        const errText = (check.stderr || Buffer.from('')).toString();
+        console.error(`Required Python modules missing when running candidates: ${triedPythons.join(', ')}`, errText);
+        return res.status(500).json({
+          error: 'Python environment missing required packages',
+          detail: `None of the tested python interpreters could import required modules. Tried: ${triedPythons.join(', ')}.\n\nTo fix, activate the desired python and run:\n\n<python> -m pip install -r ${path.join(finalDir, 'requirements.txt')}\n\nReplace <python> with the interpreter you want to use (e.g. ${pythonExe}).\n\nError: ${errText}`
+        });
+      }
+    }
+    // update pythonExe to the working interpreter
+    pythonExe = pythonThatWorks;
+  } catch (e) {
+    console.error('Failed to run python check', e);
+  }
+
+  // Read optional form fields (multer does not parse text fields into file.buffer)
+  const targetLang = (req as any).body?.target || 'en';
+  const model = (req as any).body?.model || '';
+
+  // If a local model is requested, set an env flag that the Python wrapper can use
+  const env = { ...process.env } as any;
+  if (model && model.toLowerCase().startsWith('local')) {
+    env.FORCE_LOCAL_ASR = '1';
+  }
+
   // Run the python wrapper and pass current env vars through so BHASHINI_* and FORCE_LOCAL_ASR work
-  const py = spawn(pythonExe, [path.join(finalDir, "run_wrapper.py"), "--input", inputPath, "--target", "en", "--output", path.join(finalDir, "translated_output.wav")], { cwd: finalDir, env: { ...process.env } });
+  const py = spawn(pythonExe, [path.join(finalDir, "run_wrapper.py"), "--input", inputPath, "--target", targetLang, "--output", path.join(finalDir, "translated_output.wav")], { cwd: finalDir, env });
 
   let stdout = "";
   let stderr = "";

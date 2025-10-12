@@ -11,7 +11,7 @@ from pipeline import run_pipeline
 
 def main():
     parser = argparse.ArgumentParser(description='Run speech->speech pipeline')
-    parser.add_argument('--input', required=True, help='Input audio path (wav)')
+    parser.add_argument('--input', required=False, help='Input audio path (wav). If omitted, defaults to ./input.wav')
     parser.add_argument('--target', required=True, help='Target language code')
     parser.add_argument('--source', required=False, help='Source language code (optional)')
     parser.add_argument('--output', required=False, default='translated_output.wav', help='Output audio filename')
@@ -19,6 +19,15 @@ def main():
     parser.add_argument('--speed', required=False, type=float, default=1.0, help='TTS speed')
 
     args = parser.parse_args()
+
+    # Default input/output to the final_s2s directory if omitted so the
+    # server can simply drop `input.wav` in the folder and call the wrapper
+    script_dir = os.path.dirname(__file__)
+    if not args.input:
+        args.input = os.path.join(script_dir, 'input.wav')
+    # If output is a relative filename, write it into the script directory
+    if not os.path.isabs(args.output):
+        args.output = os.path.join(script_dir, args.output)
 
     # The pipeline prints a lot of diagnostic output. Redirect those prints
     # to stderr so stdout remains reserved for the JSON result.

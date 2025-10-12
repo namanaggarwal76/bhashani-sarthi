@@ -34,6 +34,7 @@ dist-ssr
 
 # Python
 venv/
+venv_ocr/
 __pycache__/
 *.pyc
 *.pyo
