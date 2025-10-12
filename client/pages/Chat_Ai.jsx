@@ -257,7 +257,7 @@ export default function App() {
           <button
             onClick={sendMessage}
             disabled={isLoading || !userMessage.trim()}
-            className="p-3 bg-indigo-600 text-white rounded-full shadow-md hover:bg-indigo-700 hover:shadow-lg disabled:bg-gray-300 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center flex-shrink-0"
+            className="p-3 bg-indigo-600 text-black rounded-full shadow-md hover:bg-indigo-700 hover:shadow-lg disabled:bg-gray-300 disabled:cursor-not-allowed transition-all duration-200 flex items-center justify-center flex-shrink-0"
             title="Send message"
           >
             <Send className="w-5 h-5"/>
