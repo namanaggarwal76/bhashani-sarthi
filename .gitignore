@@ -40,3 +40,20 @@ __pycache__/
 *.pyo
 *.pyd
 .Python
+final_s2s/__pycache__/
+final_s2s/venv/
+final_s2s/*.pyc
+final_s2s/*.wav
+final_s2s/run_wrapper_result.json
+IndicPhotoOCR/__pycache__/
+IndicPhotoOCR/build/
+IndicPhotoOCR/dist/
+IndicPhotoOCR/*.egg-info/
+IndicPhotoOCR/session_*.png
+
+# Build artifacts
+*.tmp
+*.temp
+build/
+dist/
+tmp/

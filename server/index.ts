@@ -3,10 +3,10 @@ import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import express from "express";
 import cors from "cors";
-import { handleDemo } from "./routes/demo";
-import { handleGenerateTasks } from "./routes/generate-tasks";
 import multer from "multer";
 import { handleSpeechPipeline } from "./routes/speech_pipeline.ts";
+import { handleChat } from "./routes/chat.ts";
+import { handleOCRSession } from "./routes/ocr.ts";
 
 // Get the directory name in ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -16,13 +16,6 @@ const __dirname = dirname(__filename);
 dotenv.config({ path: join(__dirname, "../.env.local") });
 dotenv.config(); // Also load .env as fallback
 
-// Verify API key is loaded
-if (process.env.GEMINI_API_KEY) {
-  console.log("✅ Gemini API key loaded successfully");
-} else {
-  console.warn("⚠️  Gemini API key not found - AI features will use mock data");
-}
-
 export function createServer() {
   const app = express();
 
@@ -31,18 +24,25 @@ export function createServer() {
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
 
-  // Example API routes
+  // API routes
   app.get("/api/ping", (_req, res) => {
     const ping = process.env.PING_MESSAGE ?? "ping";
     res.json({ message: ping });
   });
 
-  app.get("/api/demo", handleDemo);
-  
-  // AI-powered task generation
-  app.post("/api/generate-tasks", handleGenerateTasks);
+  // Multer instance for file uploads
   const upload = multer();
+
+  // Speech pipeline endpoint (accepts single file field `audio`)
   app.post('/api/speech/pipeline', upload.single('audio'), handleSpeechPipeline);
+
+  // Chat endpoint (AI chatbot)
+  app.post('/api/chat', handleChat);
+
+  // OCR endpoints
+  app.post('/api/start_image_session', upload.single('file'), handleOCRSession);
+  app.post('/api/image_chat_session', upload.single('file'), handleOCRSession);
+  app.post('/api/ocr', upload.single('file'), handleOCRSession);
 
   return app;
 }

@@ -1,563 +1,319 @@
-# Bhashani Sarthi 🌍
+# Bhashani Sarthi 
 
-**Bhashani Sarthi** is a multilingual travel companion application designed to help travelers explore new destinations, track their journeys, and overcome language barriers. The name combines "Bhashani" (linguistic) with "Sarthi" (guide/companion), representing its mission to be a linguistic guide for travelers.
+A multilingual language learning and translation platform with real-time speech-to-speech translation capabilities.
 
-## 🎯 Overview
+## Quick Setup
 
-Bhashani Sarthi provides travelers with tools to:
-- Create and manage travel cha## 🔧 Troubleshooting
-
-### ⚠️ Dependency Conflicts (numpy/torch versions)
-
-**The Problem:** IndicPhotoOCR requires `numpy==1.26.4` and `torch==2.6.0`, but these conflict with other packages that need newer versions, causing `RecursionError` or import failures.
-
-**The Solution:** Use **separate virtual environments** for chat and OCR backends.
-
-**Quick Fix:**
+### 1. Install Dependencies
 ```bash
-make fix-conflicts
+pnpm install
 ```
 
-This command will:
-1. Remove old virtual environments
-2. Create `venv/` for chat backend
-3. Create `venv_ocr/` for OCR backend (isolated from chat)
-4. Install dependencies in separate environments
+### 2. Configure Environment
+Create `.env.local`:
+```env
+PORT=2000
+GEMINI_API_KEY=your-gemini-api-key
+VITE_FIREBASE_API_KEY=your-firebase-api-key
+VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your-project-id
+VITE_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
+VITE_FIREBASE_APP_ID=your-app-id
+```
 
-**Manual Fix:**
+### 3. Setup Python Services
+
+**Chat Service** (uses `python_services/venv/`):
 ```bash
-# Remove old venvs
-rm -rf venv/ venv_ocr/
+python3 -m venv python_services/venv
+python_services/venv/bin/pip install google-genai requests
+```
 
-# Create separate environments
+**Speech Service** (uses `final_s2s/venv/`):
+```bash
+cd final_s2s
 python3 -m venv venv
-python3 -m venv venv_ocr
-
-# Install chat backend dependencies
-./venv/bin/pip install -r requirements.txt
-
-# Install OCR backend dependencies (in separate venv)
-./venv_ocr/bin/pip install -r requirements-ocr.txt
-cd IndicPhotoOCR && ../venv_ocr/bin/pip install -e .
+venv/bin/pip install -r requirements.txt
 ```
 
-The `package.json` is already configured to use separate venvs:
-- Chat backend uses `./venv/`
-- OCR backend uses `./venv_ocr/`
-
-### Port Already in Use
+**OCR Service** (uses system Python):
 ```bash
-# Find and kill process on port 8001 or 8002
-lsof -ti:8001 | xargs kill -9
-lsof -ti:8002 | xargs kill -9
+pip3 install requests google-genai
 ```
 
-### Python Dependencies Issues
+### 4. Deploy Firestore Rules
+Go to [Firebase Console](https://console.firebase.google.com) → Firestore → Rules tab, paste [firestore.rules](firestore.rules) content, then publish.
+
+### 5. Start Server
 ```bash
-# Reinstall Python dependencies with separate venvs
-make clean-all
-make setup-venv
-make install-python
-make setup-venv-ocr
-make install-ocr
-```nt cities
-- Track visited places and earn XP for exploration
-- Translate text between languages in real-time
-- Convert speech to text for easier communication
-- Extract text from images using OCR technology
-- Access AI-powered travel guides and recommendations
-
-## 🏗️ Architecture
-
-### Frontend Architecture
+pnpm dev
 ```
-client/
-├── pages/           # Route components (React Router 6 SPA)
-│   ├── Home.tsx            # Main dashboard with chapters
-│   ├── Login.tsx           # Authentication (Email + Google)
-│   ├── SignUp.tsx          # User registration
-│   ├── Onboarding.tsx      # First-time user setup
-│   ├── Translate.tsx       # Real-time translation
-│   ├── Speech.tsx          # Speech-to-text conversion
-│   ├── OCR.tsx             # Image text extraction
-│   └── Guide.tsx           # AI travel guide
-│
-├── components/      # Reusable UI components
-│   ├── Header.tsx          # App header with branding
-│   ├── BottomNav.tsx       # Mobile navigation bar
-│   ├── ChapterCard.tsx     # Travel chapter display
-│   ├── XpBar.tsx           # Progress visualization
-│   └── ui/                 # Radix UI component library
-│
-├── context/         # React Context providers
-│   ├── AuthContext.tsx     # Firebase authentication state
-│   └── UserContext.tsx     # User data & Firestore sync
-│
-├── lib/             # Core utilities & services
-│   ├── firebase.ts         # Firebase initialization
-│   ├── firebase-types.ts   # TypeScript type definitions
-│   ├── firestore-service.ts # Database operations
-│   └── utils.ts            # Helper functions
-│
-└── App.tsx          # Root component with routing
+Server runs at **http://localhost:2000**
+
+## Features
+
+- **Speech Translation**: Real-time speech-to-speech translation using Bhashini API with local fallback
+- **Text Translation**: Translate text between multiple Indian languages
+- **OCR (LiveLens)**: Extract and translate text from images in real-time
+- **AI Guide**: Chat-based AI assistant for language learning
+- **Progress Tracking**: Track your learning journey with XP and levels
+
+## Tech Stack
+
+### Frontend
+- React 18 + TypeScript
+- Vite (dev server & build tool)
+- Tailwind CSS + shadcn/ui components
+- React Router for navigation
+- Firebase (Authentication & Firestore database)
+- i18next for multilingual support
+
+### Backend
+- Express.js (Node.js API server)
+- Python speech pipeline (ASR → MT → TTS)
+- Bhashini API integration
+- faster-whisper for local ASR fallback
+
+## Project Structure
+
+Top-level repo layout (trimmed to relevant files/folders):
+
+- **.env.example, .env.local** — environment samples
+- **package.json**, **pnpm-lock.yaml** — Node deps & scripts
+- **firestore.rules** — Firebase security rules
+- **IndicPhotoOCR/** — bundled OCR library and resources
+- **client/** — React frontend (App.tsx, components/, pages/, lib/, context/, hooks/, locales/)
+- **server/** — Express API (index.ts, routes/ { `chat.ts`, `ocr.ts`, `speech_pipeline.ts` })
+- **final_s2s/** — Python speech pipeline (pipeline.py, asr.py, mt.py, tts.py, run_wrapper.py, requirements.txt, venv/)
+- **python_services/** — small Python wrappers used by server (chat_service.py, ocr_service.py, requirements.txt, venv/)
+- **public/** — static assets (favicon, logo, images, robots.txt)
+- **static/**, **test_images/**, **tmp/** — misc assets and temporary files
+
+Note: I trimmed large folders (e.g. `client/components/ui/` and `IndicPhotoOCR/` internals) for readability — tell me if you want a full recursive tree included.
+
+## Architecture / Pipeline
+
+Below is a plain-text ASCII diagram that works in any viewer, followed by a concise flow summary.
+
 ```
-
-### Backend Architecture
-```
-server/
-├── index.ts         # Express server setup
-└── routes/          # API endpoint handlers
-    └── demo.ts      # Example API route
-
-shared/
-└── api.ts           # Shared TypeScript types
-```
-
-### Tech Stack
-
-**Frontend:**
-- **React 18** - UI framework
-- **TypeScript** - Type safety
-- **React Router 6** - Client-side routing (SPA mode)
-- **TailwindCSS 3** - Utility-first styling
-- **Radix UI** - Accessible component primitives
-- **Vite** - Build tool and dev server
-- **Lucide React** - Icon library
-- **Framer Motion** - Animation library
-
-**Backend:**
-- **Express.js** - Lightweight API server
-- **Firebase Authentication** - User auth (Email/Password + Google OAuth)
-- **Firestore** - NoSQL database
-- **Google Gemini API** - AI-powered task generation with Gemini 2.5 Flash
-- **Vite Dev Server Integration** - Single-port development
-
-**Development:**
-- **Vitest** - Unit testing framework
-- **pnpm** - Fast, efficient package manager
-- **SWC** - Fast TypeScript/JSX compilation
-
-## 🗄️ Database Schema
-
-### Firestore Structure
-```
-users/ (collection)
-  └─ {userId}/ (document)
-      ├─ basic_info: {
-      │   name: string
-      │   email: string
-      │   country: string
-      │   age: number
-      │   language: { code: string, name: string }
-      │ }
-      ├─ preferences: {
-      │   interests: string[]
-      │   travel_style: string
-      │   budget: string
-      │ }
-      ├─ stats: {
-      │   xp: number
-      │   tier: string
-      │   chapters_created: number
-      │   places_visited: number
-      │ }
-      └─ chapters/ (subcollection)
-          └─ {chapterId}/ (document)
-              ├─ city: string
-              ├─ country: string
-              ├─ description: string
-              └─ ai_suggested_places: [{
-                  place_id: string
-                  name: string
-                  type: string
-                  rating: number
-                  status: "done" | "pending"
-                  visited_on: Timestamp | null
-                  xp: number (AI-calculated based on popularity)
-                  description: string (AI-generated)
-                  estimated_duration: string
-                }]
+ +----------------------+      +-------------------------+      +-------------------------+
+ |  React Frontend      | ---> |  Express API Server     | ---> |  Firebase Auth & DB     |
+ |  (client)            |      |  (server)               |      |  (Firestore)            |
+ +----------------------+      +-------------------------+      +-------------------------+
+                                      |      |      \
+                                      |      |       \
+                  +-------------------+      |        +----------------+
+                  |                          |        |                |
+         (POST /api/ocr)               (POST /api/chat)   (POST /api/speech/pipeline)
+                  |                          |        |                |
+      +---------------------+      +----------------------+      +-------------------------+
+      | python_services/    |      | python_services/     |      | final_s2s/ (run_wrapper)|
+      | ocr_service.py      |      | chat_service.py      |      | pipeline.py             |
+      +---------------------+      +----------------------+      +-------------------------+
+             |   |                           |   |                      |    |    |
+             |   |                           |   |                      |    |    +--> output: `translated_output.wav` (audio)
+             |   |                           |   |                      |    |
+   IndicPhotoOCR |                   Gemini AI (LLM)          ASR -> MT -> TTS (Bhashini)
+   (image OCR)   |                   (Gemini client)           (remote APIs with local fallbacks)
+                 |                                                   |
+          optional translation                                     sidecar JSON
+            via Bhashini MT                                              |
+                 |                                                      V
+                 +-------------------------------------------------> server encodes
+                                                            audio to base64 and returns JSON
 ```
 
-### Security Rules
-- Users can only read/write their own data
-- Authentication required for all operations
-- Firestore rules enforce userId matching
 
-## 🚀 Features
+### 1. Install Dependencies
 
-### 1. **User Authentication**
-- Email/Password sign-up and login
-- Google OAuth integration
-- Password reset functionality
-- Persistent sessions
-
-### 2. **AI-Powered Travel Planning**
-- Create chapters for different cities
-- **AI generates personalized tasks** based on your preferences
-- Dynamic XP points (20-200) based on place popularity and fame
-- Tasks tailored to your interests, travel style, and budget
-- AI-powered descriptions and time estimates
-- Mark places as completed to earn XP
-
-### 3. **Gamification**
-- Variable XP points for completing activities (based on place popularity)
-- Tier system: Wanderer → Trailblazer → Pathfinder → World Explorer → Sarthi Elite
-- Progress visualization
-- Achievement tracking
-- Higher XP for famous landmarks and attractions
-
-### 4. **Language Tools**
-- **Translator**: Real-time text translation
-- **Speech-to-Text**: Convert spoken words to text
-- **OCR**: Extract text from images
-
-### 5. **AI Guide**
-- Personalized travel recommendations
-- Context-aware suggestions
-- Cultural tips and insights
-
-## 📦 Installation & Setup
-
-### Prerequisites
-- **Node.js 18+** and **pnpm 10+**
-- **Python 3.9+** (for backend services)
-- **Make** (usually pre-installed on Linux/macOS, on Windows use WSL or install GNU Make)
-- **Firebase project** with:
-  - Authentication enabled (Email/Password + Google)
-  - Firestore database created
-  - Web app registered
-
-### Quick Start (Using Make)
-
-**Option 1: One-Command Setup** 🚀
-```bash
-# Clone and setup everything
-git clone <repository-url>
-cd bhashani-sarthi
-make install
-```
-
-This will:
-- Install Node.js dependencies (pnpm)
-- Create **two separate Python virtual environments**:
-  - `venv/` for chat backend
-  - `venv_ocr/` for OCR backend (avoids dependency conflicts)
-- Install all Python dependencies in isolated environments
-- Install OCR dependencies with IndicPhotoOCR package
-
-> **Why two venvs?** IndicPhotoOCR requires specific package versions (numpy==1.26.4, torch==2.6.0) that conflict with other dependencies. Using separate virtual environments solves this issue.
-
-**Option 2: Manual Setup** 📝
 ```bash
 # Clone the repository
-git clone <repository-url>
+git clone <repo-url>
 cd bhashani-sarthi
 
 # Install Node.js dependencies
-make install-deps
-
-# Setup Python environment
-make setup-venv
-make install-python
-make install-ocr
-
-# Or install Python dependencies manually:
-# ./venv/bin/pip install -r requirements.txt
-# ./venv/bin/pip install -r requirements-ocr.txt
-# cd IndicPhotoOCR && ../venv/bin/pip install -e .
+pnpm install
 ```
 
-### Configure Environment Variables
+### 2. Firebase Setup
 
-1. **Copy the example environment file:**
-```bash
-cp .env.local.example .env.local
-```
-
-2. **Get Firebase Configuration:**
-   - Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
-   - Enable Authentication (Email/Password + Google OAuth)
-   - Create Firestore Database (production mode)
-   - Deploy security rules from `firestore.rules`
-   - Go to Project Settings → General → Your apps
-   - Copy the Firebase config values to `.env.local`
-
-3. **Get API Keys:**
-   - **Gemini API**: Visit [Google AI Studio](https://aistudio.google.com/app/apikey)
-   - **Bhashini API**: Visit [Bhashini Portal](https://bhashini.gov.in/)
-   - Add all keys to `.env.local`
-
-### Run Development Servers
-
-**Option 1: Run All Servers** 🚀
-```bash
-make dev
-```
-
-This starts:
-- **Frontend** (Vite): http://localhost:2000
-- **Chat Backend** (FastAPI): http://localhost:8001
-- **OCR Backend** (FastAPI): http://localhost:8002
-
-**Option 2: Run Servers Individually**
-```bash
-make dev-frontend  # Frontend only
-make dev-backend   # Chat backend only
-make dev-ocr       # OCR backend only
-```
-
-**Without Make:**
-```bash
-pnpm dev  # Runs all three servers using concurrently
-```
-
-## 📝 Development Commands
-
-### Using Make (Recommended)
+1. Create a Firebase project at https://console.firebase.google.com
+2. Enable **Authentication** (Email/Password provider)
+3. Enable **Firestore Database**
+4. Copy your Firebase config and create `.env.local`:
 
 ```bash
-make help           # Show all available commands
-
-# Setup Commands
-make install        # Complete setup (all dependencies)
-make install-deps   # Install Node.js dependencies only
-make install-python # Install Python dependencies only
-make install-ocr    # Install OCR dependencies only
-
-# Development
-make dev            # Run all servers (Frontend + Chat + OCR)
-make dev-frontend   # Run frontend only
-make dev-backend    # Run chat backend only
-make dev-ocr        # Run OCR backend only
-
-# Build & Test
-make build          # Build for production
-make test           # Run tests
-make typecheck      # Run TypeScript type checking
-make format         # Format code with Prettier
-
-# Cleanup
-make clean          # Remove build artifacts
-make clean-all      # Remove all generated files (including venv)
+VITE_FIREBASE_API_KEY=your_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+VITE_FIREBASE_APP_ID=your_app_id
 ```
 
-### Using pnpm Directly
+### 3. Python Speech Pipeline Setup
 
 ```bash
-pnpm dev           # Start all servers (Frontend + Backends)
-pnpm dev:frontend  # Start frontend only
-pnpm dev:backend   # Start chat backend only
-pnpm build         # Build for production
-pnpm start         # Start production server
-pnpm typecheck     # Run TypeScript type checking
-pnpm test          # Run Vitest unit tests
-pnpm format.fix    # Format code with Prettier
+cd final_s2s
+
+# Create virtual environment
+python3 -m venv venv
+
+# Activate virtual environment
+source venv/bin/activate  # macOS/Linux
+# OR
+venv\Scripts\activate     # Windows
+
+# Install Python dependencies
+pip install -r requirements.txt
+
+cd ..
 ```
 
-## 🛣️ Routing
+### 4. (Optional) Bhashini API Token
 
-The application uses React Router 6 in SPA mode:
+For remote ASR/TTS via Bhashini API:
 
-| Route | Component | Description |
-|-------|-----------|-------------|
-| `/` | Redirect | Auto-redirect to `/home` or `/login` |
-| `/login` | Login | User authentication |
-| `/signup` | SignUp | New user registration |
-| `/onboarding` | Onboarding | First-time user setup |
-| `/home` | Home | Main dashboard with chapters |
-| `/translate` | Translate | Text translation tool |
-| `/speech` | Speech | Speech-to-text conversion |
-| `/ocr` | OCR | Image text extraction |
-| `/guide` | Guide | AI travel guide |
-
-## 🎨 Styling System
-
-### TailwindCSS Configuration
-- Primary color system defined in `client/global.css`
-- Custom design tokens for theming
-- Dark mode support (via `next-themes`)
-- Responsive breakpoints for mobile-first design
-
-### Component Library
-- Pre-built UI components from Radix UI
-- Accessible by default
-- Customizable via TailwindCSS
-- Located in `client/components/ui/`
-
-### Utility Function
-```typescript
-import { cn } from "@/lib/utils";
-
-// Combine classes with conditional logic
-<div className={cn(
-  "base-classes",
-  { "conditional-class": condition },
-  props.className  // Allow overrides
-)} />
-```
-
-## 🔐 Authentication Flow
-
-1. **New User:**
-   - Sign up via `/signup` (Email or Google)
-   - Complete onboarding at `/onboarding`
-   - Redirected to `/home`
-
-2. **Returning User:**
-   - Login via `/login`
-   - Auto-redirect to `/home` if already logged in
-
-3. **Protected Routes:**
-   - `AuthContext` manages authentication state
-   - `UserContext` syncs user data from Firestore
-   - Loading states prevent flashing content
-
-## 🧪 Testing
-
-### Unit Tests
 ```bash
-pnpm test
+export BHASHINI_AUTH_TOKEN=your_bhashini_token
 ```
 
-Tests are written using Vitest and located alongside source files (`*.spec.ts`)
-
-### Type Checking
+Or add to `.env.local`:
 ```bash
-pnpm typecheck
+BHASHINI_AUTH_TOKEN=your_bhashini_token
 ```
 
-Validates TypeScript types across the entire codebase
+## Development
 
-## 🚀 Deployment
+Start both frontend and backend servers:
 
-### Build for Production
+```bash
+pnpm dev
+```
+
+This runs:
+- **Frontend**: http://localhost:5173
+- **Backend API**: http://localhost:5000
+
+The Python speech pipeline is called automatically by the backend when needed.
+
+## Production Build
+
 ```bash
 pnpm build
 ```
 
-This generates optimized static files in `dist/spa/`
+Builds optimized frontend to `dist/` directory.
 
-### Hosting Options
-- **Firebase Hosting** (recommended for Firebase integration)
-- **Vercel** (zero-config deployment)
-- **Netlify** (with SPA redirect rules)
-- **Any static hosting** (Cloudflare Pages, GitHub Pages, etc.)
+## API Endpoints
 
-### Firebase Hosting Deployment
-```bash
-# Install Firebase CLI
-npm install -g firebase-tools
+### Speech Pipeline
+```
+POST /api/speech/pipeline
+Content-Type: multipart/form-data
 
-# Login to Firebase
-firebase login
+Parameters:
+- audio: WAV file (recorded speech)
+- target: Target language code (e.g., 'en', 'hi')
+- model: 'remote-default' or 'local-whisper'
 
-# Initialize hosting
-firebase init hosting
-
-# Deploy
-firebase deploy --only hosting
+Returns:
+{
+  "source_language": "ur",
+  "recognized_text": "...",
+  "translated_text": "...",
+  "audio_base64": "...",  // Translated speech audio
+  "timings": {...}
+}
 ```
 
-## 📱 Mobile Support
+### Health Check
+```
+GET /api/ping
+```
 
-The app is fully responsive with:
-- Mobile-first design approach
-- Bottom navigation for easy thumb access
-- Touch-optimized UI components
-- Progressive Web App (PWA) capabilities
+## Supported Languages
 
-## 🔧 Configuration Files
+| Code | Language |
+|------|----------|
+| en   | English  |
+| hi   | Hindi    |
+| ta   | Tamil    |
+| te   | Telugu   |
+| ur   | Urdu     |
+| bn   | Bengali  |
+| mr   | Marathi  |
+| gu   | Gujarati |
+| kn   | Kannada  |
+| ml   | Malayalam|
+| pa   | Punjabi  |
+| or   | Odia     |
+| as   | Assamese |
 
-| File | Purpose |
-|------|---------|
-| `vite.config.ts` | Vite configuration with Express integration |
-| `tailwind.config.ts` | TailwindCSS customization |
-| `tsconfig.json` | TypeScript compiler options |
-| `components.json` | Radix UI component configuration |
-| `firestore.rules` | Firestore security rules |
-| `.env.local` | Environment variables (not in git) |
+## Environment Variables
 
-## 🤝 Contributing
+### Required
+```bash
+# Firebase Configuration
+VITE_FIREBASE_API_KEY=
+VITE_FIREBASE_AUTH_DOMAIN=
+VITE_FIREBASE_PROJECT_ID=
+VITE_FIREBASE_STORAGE_BUCKET=
+VITE_FIREBASE_MESSAGING_SENDER_ID=
+VITE_FIREBASE_APP_ID=
+```
 
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+### Optional
+```bash
+# Bhashini API (for remote ASR/TTS)
+BHASHINI_AUTH_TOKEN=your_token
 
-## 📄 License
+# Python Speech Pipeline
+FORCE_LOCAL_ASR=1          # Force local ASR (faster-whisper)
+WHISPER_MODEL=base         # Whisper model: tiny, base, small, medium, large
+WHISPER_DEVICE=cpu         # Device: cpu or cuda
+```
 
-This project is part of an academic project for Semester 3.
+## Troubleshooting
 
-## � Troubleshooting
+### Python Dependencies Not Found
+If you get `ModuleNotFoundError: No module named 'pydub'`:
+
+```bash
+cd final_s2s
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+The server automatically detects and uses the venv Python if available.
+
+### Audio Not Playing in Safari
+The app includes a Safari-specific fallback using WebAudio API. If the `<audio>` element fails, it automatically decodes and plays via AudioContext.
 
 ### Port Already in Use
-```bash
-# Find and kill process on port 8001 or 8002
-lsof -ti:8001 | xargs kill -9
-lsof -ti:8002 | xargs kill -9
-```
-
-### Python Dependencies Issues
-```bash
-# Reinstall Python dependencies
-make clean-all
-make setup-venv
-make install-python
-make install-ocr
-```
-
-### Node Dependencies Issues
-```bash
-# Clear pnpm cache and reinstall
-rm -rf node_modules pnpm-lock.yaml
-pnpm install
-```
-
-### Virtual Environment Issues
-```bash
-# Recreate virtual environment
-rm -rf venv
-make setup-venv
-make install-python
-```
-
-### OCR Backend Not Starting
-The OCR backend requires specific package versions. If you encounter errors:
-1. Check Python version (requires 3.9+)
-2. Ensure all dependencies in `requirements-ocr.txt` are installed
-3. Check IndicPhotoOCR installation: `cd IndicPhotoOCR && ../venv/bin/pip install -e .`
-
-### Firebase Connection Issues
-1. Verify all Firebase config values in `.env.local`
-2. Check Firebase Console → Project Settings for correct values
-3. Ensure Authentication and Firestore are enabled
-4. Deploy the security rules from `firestore.rules`
-
-## 🧪 Testing Environment Setup
-
-To verify your setup is correct:
+If port 5000 or 5173 is busy:
 
 ```bash
-# Check environment configuration
-make check-env
-
-# Test each server individually
-make dev-frontend   # Should start on localhost:2000
-make dev-backend    # Should start on localhost:8001
-make dev-ocr        # Should start on localhost:8002
+# Find and kill the process
+lsof -ti:5000 | xargs kill -9
+lsof -ti:5173 | xargs kill -9
 ```
 
-## �🙏 Acknowledgments
+## Scripts
 
-- **Firebase** - Authentication and database
-- **Radix UI** - Accessible component primitives
-- **Vercel** - For the amazing open-source tools
-- **TailwindCSS** - Utility-first CSS framework
-- **IndicPhotoOCR** - OCR for Indic languages
-- **Bhashini** - Indian language translation API
+```bash
+pnpm dev          # Start dev servers (frontend + backend)
+pnpm build        # Production build
+pnpm preview      # Preview production build
+pnpm clean        # Clean build artifacts
+```
 
----
+## License
 
-**Built with ❤️ for travelers who want to explore the world without language barriers**
+MIT
+
+## Contributing
+
+Contributions welcome! Please open an issue or PR.
+ 

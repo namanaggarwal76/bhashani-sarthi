@@ -11,10 +11,7 @@
     ]
   },
   "scripts": {
-    "dev": "concurrently \"vite\" \"./venv/bin/uvicorn chat_ai:app --reload --host 0.0.0.0 --port 8001\" \"cd IndicPhotoOCR && ../venv_ocr/bin/uvicorn server:app --reload --host 0.0.0.0 --port 8002\"",
-    "dev:frontend": "vite",
-    "dev:backend": "./venv/bin/uvicorn chat_ai:app --reload --host 0.0.0.0 --port 8001",
-    "dev:ocr": "cd IndicPhotoOCR && ../venv_ocr/bin/uvicorn server:app --reload --host 0.0.0.0 --port 8002",
+    "dev": "vite",
     "build": "vite build",
     "start": "node dist/server/node-build.mjs",
     "test": "vitest --run",

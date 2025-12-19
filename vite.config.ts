@@ -7,7 +7,7 @@ import { createServer } from "./server";
 export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
-    port: 2000,
+    port: parseInt(process.env.PORT || "2000"),
     fs: {
       allow: ["./client", "./shared"],
       deny: [".env", ".env.*", "*.{crt,pem}", "**/.git/**", "server/**"],
@@ -16,24 +16,7 @@ export default defineConfig(({ mode }) => ({
       "Cross-Origin-Opener-Policy": "same-origin-allow-popups",
       "Cross-Origin-Embedder-Policy": "unsafe-none",
     },
-    proxy: {
-      "/chat": {
-        target: "http://localhost:8001",
-        changeOrigin: true,
-      },
-      "/start_image_session": {
-        target: "http://localhost:8002",
-        changeOrigin: true,
-      },
-      "/image_chat_session": {
-        target: "http://localhost:8002",
-        changeOrigin: true,
-      },
-      "/ocr": {
-        target: "http://localhost:8002",
-        changeOrigin: true,
-      },
-    },
+    proxy: {},
   },
   build: {
     outDir: "dist/spa",

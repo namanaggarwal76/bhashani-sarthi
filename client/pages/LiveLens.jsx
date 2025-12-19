@@ -103,7 +103,7 @@ export default function LiveLensOCR() {
           formData.append("target_language", userLanguage);
           formData.append("location_info", "");
           
-          const resp = await fetch("/start_image_session", {
+          const resp = await fetch("/api/start_image_session", {
             method: "POST",
             body: formData,
           });
@@ -112,7 +112,7 @@ export default function LiveLensOCR() {
           if (!resp.ok) {
             const errorText = await resp.text();
             console.error("OCR server error:", resp.status, errorText);
-            setOcrText(`[Server Error: ${resp.status}]\nThe OCR backend may not be running.\nTry: make dev-ocr`);
+            setOcrText(`[Server Error: ${resp.status}]\nThe OCR backend encountered an error.`);
             setIsLoading(false);
             return;
           }
@@ -147,7 +147,7 @@ export default function LiveLensOCR() {
           });
         } catch (err) {
           console.error("OCR request error:", err);
-          setOcrText(`[OCR Error]\n${err.message}\n\nMake sure OCR backend is running:\nmake dev-ocr`);
+          setOcrText(`[OCR Error]\n${err.message}`);
         } finally {
           setIsLoading(false);
         }

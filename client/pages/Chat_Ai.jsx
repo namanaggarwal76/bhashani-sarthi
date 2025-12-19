@@ -57,7 +57,7 @@ export default function App() {
 
 
   /**
-   * Sends the user message to the FastAPI backend for translation and AI response.
+   * Sends the user message to the backend with user context for personalized responses.
    */
   const sendMessage = async () => {
     if (!userMessage.trim() || isLoading) return;
@@ -68,13 +68,19 @@ export default function App() {
     setIsLoading(true);
 
     try {
-      // NOTE: Uses Vite proxy to forward to FastAPI server on port 8001
-      // This fetch call requires an external Python server to be running.
-      const resp = await fetch("http://localhost:8001/chat", {
+      // Prepare user context (chapters for travel recommendations)
+      const userContext = user?.chapters ? { chapters: user.chapters } : null;
+
+      // NOTE: Uses relative API path - handled by unified Express server
+      const resp = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        // Pass the selected user language and the message
-        body: JSON.stringify({ user_language: userLanguage, message }),
+        // Pass the selected user language, message, and user context
+        body: JSON.stringify({ 
+          user_language: userLanguage, 
+          message,
+          user_context: userContext
+        }),
       });
 
       if (!resp.ok) {
@@ -97,7 +103,7 @@ export default function App() {
     } catch (err) {
       setChatHistory((prev) => [
         ...prev,
-        { sender: "ai", text: `[Network Error]: Could not reach server. Ensure FastAPI is running at http://localhost:8001. (${err.message})`, lang: "en" },
+        { sender: "ai", text: `[Network Error]: Could not reach server. (${err.message})`, lang: "en" },
       ]);
     } finally {
       setIsLoading(false);
